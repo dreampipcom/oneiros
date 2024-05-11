@@ -1,0 +1,61 @@
+name: oneiros::publish
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  run-build:
+    name: oneiros::publish::build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: oneiros::publish::build::Check out Git repository and Config User
+        uses: actions/checkout@v4
+        with:
+          ref: ${{github.event.release.target_commitish}}
+      
+      - run: |
+            git config user.name github-actions
+            git config user.email github-actions@github.com
+
+      - name: oneiros::publish::build::Set up Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: 20
+
+      - name: oneiros::publish::build::Install Node.js dependencies
+        run: npm ci
+
+      - name: oneiros::publish::build::Build
+        run: npm run build
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  run-publish:
+    name: oneiros::publish::npm-publish
+    runs-on: ubuntu-latest
+    needs: run-build
+    permissions:
+      contents: write
+      packages: write
+
+    steps:
+      - name: oneiros::publish::npm-publish::Check out Git repository and Config User
+        uses: actions/checkout@v3
+        with:
+          ref: ${{github.event.release.target_commitish}}
+        
+      - run: |
+            git config user.name github-actions
+            git config user.email github-actions@github.com
+
+      - name: oneiros::publish::npm-publish::Set up Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: 20
+
+      - name: oneiros::publish::npm-publish::Publish Package
+        run: git checkout -b release/${GITHUB_REF#refs/tags/} && npm version ${GITHUB_REF#refs/tags/} &&  git push --set-upstream origin release/${GITHUB_REF#refs/tags/} && npm publish
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
