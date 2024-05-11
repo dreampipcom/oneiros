@@ -9,16 +9,16 @@ export default {
   theme: {
     colors: {
       primary: {
-        light: '#123456',
-        dark: '#654321',
+        light: '#2962FF',
+        dark: '#82B1FF',
       },
       secondary: {
-        light: '#567890',
-        dark: '#098765',
+        light: '#558B2F',
+        dark: '#AED581',
       },
       outro: {
-        light: '#345678',
-        dark: '#876543',
+        light: '#FF7043',
+        dark: '#FFAB91',
       },
       body: {
         light: '#2A2A2A',
