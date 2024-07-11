@@ -3,9 +3,6 @@
 import clsx from 'clsx';
 import MLink from '@mui/material/Link';
 import { Logo } from './assets';
-import { DreamPipColors } from '../../../tailwind.config';
-
-type Theme = 'light' | 'dark';
 
 export enum ELogoSize {
   SMALL = 'small',
@@ -14,13 +11,11 @@ export enum ELogoSize {
 }
 
 export interface ILogo {
-  theme?: Theme;
   size?: ELogoSize;
   id?: string;
 }
 
 export const HLogo = function ({
-  theme = 'light',
   size = ELogoSize.MEDIUM,
   id = 'atom__link',
 }: ILogo) {
@@ -48,18 +43,9 @@ export const HLogo = function ({
     },
   };
 
-  const colorMap = {
-    light: DreamPipColors.logo.light,
-    dark: DreamPipColors.logo.dark,
-  };
-
   return (
     <MLink id={id} className={styles} href="https://dreampip.com">
-      <Logo
-        width={sizeMap[size].width}
-        height={sizeMap[size].height}
-        color={colorMap[theme]}
-      />
+      <Logo width={sizeMap[size].width} height={sizeMap[size].height} />
     </MLink>
   );
 };
