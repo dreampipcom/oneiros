@@ -57,7 +57,7 @@ export const HCard = function ({
   price = '1900€',
   background = ECardBackground.NONE,
   badgeLink = '',
-  image = '',
+  image = 'https://placehold.co/600x400',
   theme = 'light',
 }: ICard) {
   const gridSx = [
