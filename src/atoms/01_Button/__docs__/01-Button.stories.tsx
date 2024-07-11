@@ -68,7 +68,7 @@ export const Outline: Story = {
 export const IconButton: Story = {
   args: {
     text: '',
-    icon: ESystemIcon['activity-heart'],
+    icon: ESystemIcon.account,
     variant: ButtonVariant.FILLED,
     buttonTheme: EButtonTheme.PRIMARY,
   },
