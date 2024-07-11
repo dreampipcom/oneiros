@@ -28,13 +28,10 @@ const inc06b = base * 6.5; // 52
 // colors
 const n100 = '#191919';
 const n200 = '#1b1b1b';
-const n300 = '#330000';
+const n300 = '#999999';
 const n400 = '#440000';
 const n500 = '#550000';
 const n600 = '#660000';
-
-const transparent = '#00000000';
-const bg2 = n100;
 
 const st0 = '#F69240';
 const st1 = '#F8D49A';
@@ -44,6 +41,7 @@ const st4 = '#6F32D8';
 const st5 = '#83FAAF';
 const st6 = '#EB5E1D';
 const st7 = '#F8F8F8';
+const st8 = '#F8D49A21';
 
 const dp200 = st0; // average pastel orange
 const dp300 = st1; // light pastel orange
@@ -52,6 +50,10 @@ const dp500 = st3; // light cyan
 const dp600 = st4; // dark purple
 const dp700 = st5; // light pastel green
 const dp800 = st6; // dark orange
+const dp900 = st8; // soft pastel orange
+
+const transparent = '#00000000';
+const bg2 = dp900;
 
 const secondary = dp200;
 const primary = dp800;

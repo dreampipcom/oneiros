@@ -59,6 +59,7 @@ const chevronSx = [
         border-0
         border-l
         pl-a0
+        pr-a1
         w-a6
         `]: true,
   },
