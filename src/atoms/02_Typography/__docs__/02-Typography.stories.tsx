@@ -57,40 +57,40 @@ export const H4: Story = {
     align: TypographyAlign.LEFT,
   },
 };
-export const Subtitulo: Story = {
+export const Subtitle: Story = {
   args: {
     variant: TypographyVariant.SUBTITLE,
     align: TypographyAlign.LEFT,
   },
 };
-export const SubtituloSmall: Story = {
+export const SubtitleSmall: Story = {
   args: {
     variant: TypographyVariant.SUBTITLE_SMALL,
     align: TypographyAlign.LEFT,
   },
 };
-export const Cuerpo: Story = {
+export const Body: Story = {
   args: {
     variant: TypographyVariant.BODY,
     align: TypographyAlign.LEFT,
     truncate: false,
   },
 };
-export const CuerpoSmall: Story = {
+export const BodySmall: Story = {
   args: {
     variant: TypographyVariant.SMALL,
     align: TypographyAlign.LEFT,
     truncate: false,
   },
 };
-export const Boton: Story = {
+export const Button: Story = {
   args: {
     variant: TypographyVariant.BUTTON,
     align: TypographyAlign.LEFT,
     truncate: false,
   },
 };
-export const BotonSmall: Story = {
+export const ButtonSmall: Story = {
   args: {
     variant: TypographyVariant.BUTTON_SMALL,
     align: TypographyAlign.LEFT,

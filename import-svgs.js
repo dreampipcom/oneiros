@@ -24,12 +24,12 @@ const map = {
 		input: 'src/atoms/04_Logo/assets/svgs',
 		output: 'src/atoms/04_Logo/assets/components'
 	},
-	systemIcons: {
-		name: 'SystemIcon',
-		input: 'src/atoms/05_SystemIcon/assets/svgs',
-		output: 'src/atoms/05_SystemIcon/assets/components'
-	},
-	brandedIcons: undefined,
+	// systemIcons: {
+	// 	name: 'SystemIcon',
+	// 	input: 'src/atoms/05_SystemIcon/assets/svgs',
+	// 	output: 'src/atoms/05_SystemIcon/assets/components'
+	// },
+	// brandedIcons: undefined,
 };
 
 Object.values(map).filter(e => e).forEach(({ input, output, name }, index, arr) => {
@@ -58,7 +58,7 @@ Object.values(map).filter(e => e).forEach(({ input, output, name }, index, arr) 
 	            const componentName = hyphenToTitleCase(path.basename(file, '.svg'));
 	            const iconName = path.basename(file, '.svg')
 	            const componentContent = `
-	            /* eslint no-unused-vars:0, no-shadow:0, @typescript-eslint/no-explicit-any:0, no-shadow-restricted-names:0, max-len:0 */
+	            /* eslint no-tabs:0, no-unused-vars:0, no-shadow:0, @typescript-eslint/no-explicit-any:0, no-shadow-restricted-names:0, max-len:0 */
 	            // PLEASE DON'T EDIT THIS FILE MANUALLY, AS IT IS AUTOMATICALLY CREATED BY A SCRIPT.
 							import React from 'react';
 
@@ -91,7 +91,7 @@ Object.values(map).filter(e => e).forEach(({ input, output, name }, index, arr) 
 
 	    // update index.ts
 	    const updatedIndexContent = `
-	    	/* eslint no-unused-vars:0, no-shadow:0, @typescript-eslint/no-explicit-any:0 */
+	    	/* eslint no-tabs:0, no-unused-vars:0, no-shadow:0, @typescript-eslint/no-explicit-any:0 */
 	    	// PLEASE DON'T EDIT THIS FILE MANUALLY, AS IT IS AUTOMATICALLY CREATED BY A SCRIPT.
 	    	${nextIndex.join('\n')}
 	    	export enum E${name} {

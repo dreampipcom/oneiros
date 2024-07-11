@@ -26,32 +26,42 @@ const inc05b = base * 5.5; // 44
 const inc06b = base * 6.5; // 52
 
 // colors
-const transparent = '#00000000';
-const bg2 = 'black';
-const dp200 = '#001100';
-const dp300 = '#002200';
-const dp400 = '#003300';
-const dp500 = '#004400';
-const dp600 = '#005500';
-const dp700 = '#006600';
-const dp800 = '#007700';
-
-const n100 = '#110000';
-const n200 = '#220000';
+const n100 = '#191919';
+const n200 = '#1b1b1b';
 const n300 = '#330000';
 const n400 = '#440000';
 const n500 = '#550000';
 const n600 = '#660000';
 
-const secondary = h400;
-const primary = h500;
-const tertiary = h600;
+const transparent = '#00000000';
+const bg2 = n100;
 
-const light1 = h300;
-const light2 = h200;
+const st0 = '#F69240';
+const st1 = '#F8D49A';
+const st2 = '#50A2FA';
+const st3 = '#65E9DD';
+const st4 = '#6F32D8';
+const st5 = '#83FAAF';
+const st6 = '#EB5E1D';
+const st7 = '#F8F8F8';
 
-const dark1 = h700;
-const dark2 = h800;
+const dp200 = st0; // average pastel orange
+const dp300 = st1; // light pastel orange
+const dp400 = st2; // average pastel blue
+const dp500 = st3; // light cyan
+const dp600 = st4; // dark purple
+const dp700 = st5; // light pastel green
+const dp800 = st6; // dark orange
+
+const secondary = dp200;
+const primary = dp800;
+const tertiary = dp800;
+
+const light1 = dp300;
+const light2 = dp200;
+
+const dark1 = n100;
+const dark2 = n200;
 
 const passion = 'red';
 const passionLight = '#660000';
@@ -62,8 +72,28 @@ const white = '#ffffff';
 export const DreamPipColors = {
   transparent,
   logo: {
-    light: primary,
-    dark: white,
+    light: {
+      st0,
+      st1,
+      st2,
+      st3,
+      st4,
+      st5,
+      st6,
+      st6,
+      st7: dark1,
+    },
+    dark: {
+      st0,
+      st1,
+      st2,
+      st3,
+      st4,
+      st5,
+      st6,
+      st6,
+      st7,
+    },
   },
   card: {
     white,
