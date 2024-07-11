@@ -1,0 +1,43 @@
+import { Canvas, Meta } from "@storybook/blocks";
+import Example from "./Example.tsx";
+import * as Grid from "./10-Grid.stories";
+
+<Meta of={Grid} title="Grid" />
+
+# Grid
+
+Grid component with different props.
+
+#### Example
+
+<Canvas of={Grid.Default} />
+
+## Usage
+
+```ts
+import { Grid } from "@dreampipcom/oneiros";
+
+const App = () => {
+  return (
+      <Grid 
+        mobileBackground="https://upload.wikimedia.org/wikipedia/commons/7/75/Pink_blob.svg" variant={EGridVariant.DEFAULT} 
+      >
+        <ContentBlock className="col-span-2 col-start-4 md:col-span-3 md:col-start-5" />
+        <ContentBlock className="col-span-2 col-start-4 md:col-span-3 md:col-start-5" />
+        <ContentBlock className="col-span-2 col-start-4 md:col-span-3 md:col-start-5" />
+      </Grid>
+  );
+};
+
+export default Example;
+```
+
+#### Arguments
+
+- **children** A Theme Provider.
+- **background** - A background image URL.
+- **mobileBackground** - A mobile background image URL.
+- **gradient** - Toggle slate color gradient background on.
+- **fromColor** - String specifying `from` grandient color.
+- **toColor** - String specifying `to` grandient color.
+- **variant** - Grid variant specifying desktop grid columns (6, 8, 12).

@@ -1,0 +1,47 @@
+import { Canvas, Meta } from "@storybook/blocks";
+import Example from "./Example.tsx";
+import * as Card from "./00-Card.stories";
+
+<Meta of={Card} title="Card" />
+
+# Card
+
+Card component with different props.
+
+#### Example
+
+<Canvas of={Card.Default} />
+
+## Usage
+
+```ts
+import { Card } from "@dreampipcom/oneiros";
+
+const App = () => {
+  return (
+      <Card 
+        variant={ECardVariant.DEFAULT} 
+        when={"De Octubre a Febrero"}
+        where={"Toledo (Toledo)"}
+        price={"1900€"}
+        title={"This is a very long title"}
+        onLike={() => {}}
+        link={"https://dreampip.com"}
+        badgeLink={"/staff-picks"}
+      />
+  );
+};
+
+export default Example;
+```
+
+#### Arguments
+
+- **variant** - An ECardVariant specifying the Card variant.
+- **when** - String specifying `when` text.
+- **where** - String specifying `where` text.
+- **title** - String specifying `title` text.
+- **price** - String specifying `price` text.
+- **onLink** - A callback fuction for clicking the like button.
+- **link** - Link to send to while clicking on the Card.
+- **badgeLink** - Link to send to while clicking on the BadgeChip link.

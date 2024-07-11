@@ -1,0 +1,36 @@
+import { Canvas, Meta } from "@storybook/blocks";
+import Example from "./Example.tsx";
+import * as BadgeChip from "./13-BadgeChip.stories";
+
+<Meta of={BadgeChip} title="BadgeChip" />
+
+# BadgeChip
+
+BadgeChip component with different props.
+
+#### Example
+
+<Canvas of={BadgeChip.Primary} />
+
+## Usage
+
+```ts
+import {BadgeChip} from "@dreampipcom/oneiros";
+
+const Example = () => {
+  return (
+      <BadgeChip
+        variant={EBadgeChipVariant.PRIMARY}
+      >
+        Staff Picks
+      </BadgeChip>
+  );
+};
+
+export default Example;
+```
+
+#### Arguments
+
+- **children** - A string that represents the text contents of the BadgeChip.
+- **variant** - A BadgeChip variant option (primary/secondary).

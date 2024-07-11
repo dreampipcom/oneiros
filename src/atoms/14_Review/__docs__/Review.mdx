@@ -1,0 +1,36 @@
+import { Canvas, Meta } from "@storybook/blocks";
+import Example from "./Example.tsx";
+import * as Review from "./14-Review.stories";
+
+<Meta of={Review} title="Review" />
+
+# Review
+
+Review component with different props.
+
+#### Example
+
+<Canvas of={Review.Default} />
+
+## Usage
+
+```ts
+import {Review} from "@dreampipcom/oneiros";
+
+const Example = () => {
+  return (
+      <Review
+        variant={EReviewVariant.DEFAULT}
+      >
+        4.5/5
+      </Review>
+  );
+};
+
+export default Example;
+```
+
+#### Arguments
+
+- **children** - A string that represents the text contents of the Review.
+- **variant** - A Review variant option (w/o Badge).

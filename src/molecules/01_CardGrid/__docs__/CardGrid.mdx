@@ -1,0 +1,153 @@
+import { Canvas, Meta } from "@storybook/blocks";
+import Example from "./Example.tsx";
+import * as CardGrid from "./01-CardGrid.stories.tsx";
+
+<Meta of={CardGrid} title="CardGrid" />
+
+# CardGrid
+
+CardGrid component with different props.
+
+#### Example
+
+<Canvas of={CardGrid.Default} />
+
+## Usage
+
+```ts
+import { CardGrid } from "@dreampipcom/oneiros";
+
+export const DEFAULT_CARDS = [
+  {
+    id: 'molecule__cardgrid__card--01',
+    className: '',
+    onLike: () => {},
+    title: 'This is a card example #01',
+    where: 'Barcelona (Catalonia)',
+    when: 'February',
+    price: '299€',
+    link: 'https://dreampip.com',
+    badgeLink: 'https://dreampip.com',
+    rating: '3/5',
+    selected: false,
+  },
+  {
+    id: 'molecule__cardgrid__card--02',
+    className: '',
+    onLike: () => {},
+    title: 'This is a card example #02',
+    where: 'Barcelona (Catalonia)',
+    when: 'February',
+    price: '299€',
+    link: 'https://dreampip.com',
+    badgeLink: 'https://dreampip.com',
+    rating: '4.5/5',
+    selected: true,
+  },
+  {
+    id: 'molecule__cardgrid__card--03',
+    className: '',
+    onLike: () => {},
+    title: 'This is a card example #03',
+    where: 'Barcelona (Catalonia)',
+    when: 'February',
+    price: '299€',
+    link: 'https://dreampip.com',
+    badgeLink: 'https://dreampip.com',
+    rating: '3/5',
+    selected: false,
+  },
+  {
+    id: 'molecule__cardgrid__card--04',
+    className: '',
+    onLike: () => {},
+    title: 'This is a card example #04',
+    where: 'Barcelona (Catalonia)',
+    when: 'February',
+    price: '299€',
+    link: 'https://dreampip.com',
+    badgeLink: 'https://dreampip.com',
+    rating: '2/5',
+    selected: false,
+  },
+  {
+    id: 'molecule__cardgrid__card--05',
+    className: '',
+    onLike: () => {},
+    title: 'This is a card example #05',
+    where: 'Barcelona (Catalonia)',
+    when: 'February',
+    price: '299€',
+    link: 'https://dreampip.com',
+    badgeLink: 'https://dreampip.com',
+    rating: '3.5/5',
+    selected: false,
+  },
+  {
+    id: 'molecule__cardgrid__card--06',
+    className: '',
+    onLike: () => {},
+    title: 'This is a card example #06',
+    where: 'Barcelona (Catalonia)',
+    when: 'February',
+    price: '299€',
+    link: 'https://dreampip.com',
+    badgeLink: 'https://dreampip.com',
+    rating: '3.6/5',
+    selected: false,
+  },
+  {
+    id: 'molecule__cardgrid__card--07',
+    className: '',
+    onLike: () => {},
+    title: 'This is a card example #07',
+    where: 'Barcelona (Catalonia)',
+    when: 'February',
+    price: '299€',
+    link: 'https://dreampip.com',
+    badgeLink: 'https://dreampip.com',
+    rating: '5/5',
+    selected: false,
+  },
+  {
+    id: 'molecule__cardgrid__card--08',
+    className: '',
+    onLike: () => {},
+    title: 'This is a card example #08',
+    where: 'Barcelona (Catalonia)',
+    when: 'February',
+    price: '299€',
+    link: 'https://dreampip.com',
+    badgeLink: 'https://dreampip.com',
+    rating: '4.8/5',
+    selected: false,
+  },
+  {
+    id: 'molecule__cardgrid__card--09',
+    className: '',
+    onLike: () => {},
+    title: 'This is a card example #08',
+    where: 'Barcelona (Catalonia)',
+    when: 'February',
+    price: '299€',
+    link: 'https://dreampip.com',
+    badgeLink: 'https://dreampip.com',
+    rating: '3/5',
+    selected: false,
+  },
+];
+
+const App = () => {
+  return (
+      <CardGrid 
+        cards={DEFAULT_CARDS}
+      />
+  );
+};
+
+export default Example;
+```
+
+#### Arguments
+
+- **cards** — An array of Cards props, where each index represents a Card in the grid.

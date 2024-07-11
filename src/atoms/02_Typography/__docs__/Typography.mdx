@@ -1,0 +1,41 @@
+import { Canvas, Meta } from "@storybook/blocks";
+import Example from "./Example.tsx";
+import * as Typography from "./02-Typography.stories";
+
+<Meta of={Typography} title="Typography" />
+
+# Typography
+
+Typography component with different props.
+
+#### Example
+
+<Canvas of={Typography.H1} />
+
+## Usage
+
+```ts
+import {Typography} from "@dreampipcom/oneiros";
+
+const Example = () => {
+  return (
+      <Typography
+        variant={TypographyVariant.H1}
+      >
+        Default value
+      </Typography>
+  );
+};
+
+export default Example;
+```
+
+#### Arguments
+
+- **children** - A string that represents the text contents of the text.
+- **variant** - A `TypographyVariant` option to determine the styles for the text.
+- **truncate** - Boolean to instruct the text to render as a paragraph / noWrap.
+- **align** - A `TypographyAlign` option to determine the alignment for the text.
+- **inherit** - A boolean to determine whether to inherit certain styles from the parent component.
+- **as** - An HTML5 custom tag for the typography, which will look like the variant but render as the specified tag (e.g. looks like H3, but render as H1).
+- **id** - A CSS id identifier for the element.

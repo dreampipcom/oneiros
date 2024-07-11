@@ -1,0 +1,11 @@
+{
+  "compilerOptions": {
+    "outDir": "dist",
+    "rootDir": "dist",
+    "skipLibCheck": true,
+    "declaration": true,
+  },
+  "include": ["dist"],
+  "exclude": ["node_modules"],
+  "files": ["dist/tailwind.config.ts"],
+}
