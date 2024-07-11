@@ -36,6 +36,6 @@ type Story = StoryObj<typeof Example>;
 export const Outlined: Story = {
   args: {
     variant: EDropdownVariant.OUTLINED,
-    icon: ESystemIcon['activity-heart'],
+    icon: ESystemIcon.account,
   },
 };

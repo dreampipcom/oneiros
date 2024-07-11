@@ -40,6 +40,6 @@ type Story = StoryObj<typeof Example>;
 export const Outlined: Story = {
   args: {
     variant: ETextInputVariant.OUTLINED,
-    icon: ESystemIcon['activity-heart'],
+    icon: ESystemIcon.account,
   },
 };
