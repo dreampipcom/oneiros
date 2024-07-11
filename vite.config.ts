@@ -1,10 +1,11 @@
 /// <reference types='vitest' />
+import eslint from 'vite-plugin-eslint';
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import dts from 'vite-plugin-dts';
 import { peerDependencies } from './package.json';
 
-export default defineConfig({
+export default defineConfig((env) => ({
   build: {
     lib: {
       entry: './src/index.ts',
@@ -18,10 +19,19 @@ export default defineConfig({
     sourcemap: true,
     emptyOutDir: true,
   },
-  plugins: [dts(), react({ fastRefresh: false })],
+  plugins: [
+    dts({
+      insertTypesEntry: true,
+    }),
+    react({ fastRefresh: false }),
+    env.mode !== 'test' &&
+      eslint({
+        exclude: ['/virtual:/**', 'node_modules/**', '/sb-preview/**'],
+      }),
+  ],
   test: {
     globals: true,
     environment: 'jsdom',
     setupFiles: './setupTests.ts',
   },
-});
+}));

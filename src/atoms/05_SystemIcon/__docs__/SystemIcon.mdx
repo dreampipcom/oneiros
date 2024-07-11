@@ -1,0 +1,37 @@
+import { Canvas, Meta } from "@storybook/blocks";
+import Example from "./Example.tsx";
+import * as SystemIcon from "./05-SystemIcon.stories";
+
+<Meta of={SystemIcon} title="SystemIcon" />
+
+# SystemIcon
+
+SystemIcon component with different props.
+
+#### Example
+
+<Canvas of={SystemIcon.Default} />
+
+## Usage
+
+```ts
+import {SystemIcon} from "@dreampipcom/oneiros";
+
+const Example = () => {
+  return (
+      <SystemIcon
+        icon={ESystemIcon.account}
+        theme={"light"}
+        variant={"medium"}
+      />
+  );
+};
+
+export default Example;
+```
+
+#### Arguments
+
+- **icon** - A string that represents the name of the Icon.
+- **theme** - A string that represents the color scheme of the Icon.
+- **size** - A string that represents the size contents of the Icon.

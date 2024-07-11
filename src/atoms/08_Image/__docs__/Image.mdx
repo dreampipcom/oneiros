@@ -1,0 +1,56 @@
+import { Canvas, Meta } from "@storybook/blocks";
+import Example from "./Example.tsx";
+import * as Image from "./08-Image.stories";
+
+<Meta of={Image} title="Image" />
+
+# Image
+
+Image component with different props.
+
+#### Example
+
+<Canvas of={Image.NoRatio} />
+
+## Usage
+
+```ts
+import {Image} from "@dreampipcom/oneiros";
+
+const DEFAULT_OPTIONS = [
+  {
+    label: 'Option 1',
+    value: 'option-1',
+  },
+  {
+    label: 'Option 2',
+    value: 2,
+  },
+];
+
+const Example = () => {
+  return (
+      <Image
+        variant={EImageVariant.NO_RATIO}
+        caption="This is a caption"
+        alt="This is an alt string"
+        src="https://placehold.co/600x400"
+      />
+  );
+};
+
+export default Example;
+```
+
+#### Arguments
+
+- **variant** - A Image variant option for optional fixed aspect ratios.
+- **alt** - A Image alt label string.
+- **src** - A Image src URL.
+- **srcset** - A Image srcset string.
+- **placeholder** - A Image placeholder (LQIC) URL.
+- **objectFit** - A Image fit type (cover, fill, etc).
+- **caption** - A Image figcaption string.
+
+
+

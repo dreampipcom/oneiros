@@ -1,0 +1,36 @@
+import { Canvas, Meta } from "@storybook/blocks";
+import Example from "./Example.tsx";
+import * as PriceTag from "./06-PriceTag.stories";
+
+<Meta of={PriceTag} title="PriceTag" />
+
+# PriceTag
+
+PriceTag component with different props.
+
+#### Example
+
+<Canvas of={PriceTag.Default} />
+
+## Usage
+
+```ts
+import {PriceTag} from "@dreampipcom/oneiros";
+
+const Example = () => {
+  return (
+      <PriceTag
+        variant={EPriceTagVariant.NORMAL}
+      >
+        1100€
+      </PriceTag>
+  );
+};
+
+export default Example;
+```
+
+#### Arguments
+
+- **children** - A string that represents the text contents of the PriceTag.
+- **variant** - A PriceTag variant option to enforce mobile (small/big) styles over responsive.

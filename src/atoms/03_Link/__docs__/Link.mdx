@@ -1,0 +1,49 @@
+import { Canvas, Meta } from "@storybook/blocks";
+import Example from "./Example.tsx";
+import * as Link from "./03-Link.stories";
+
+<Meta of={Link} title="Link" />
+
+# Link
+
+Link component with different props.
+
+#### Example
+
+<Canvas of={Link.Default} />
+
+## Usage
+
+```ts
+import {Link} from "@dreampipcom/oneiros";
+
+const Example = () => {
+  return (
+      <Link
+        href={"small"}
+        alt={""}
+        variant={LinkVariant.LINK}
+        target={"_blank"}
+        rel={"noreferrer"}
+        prefetch={false}
+        onClick={()=> console.log("Clicked")}
+      >
+        Link text
+      </Link>
+  );
+};
+
+export default Example;
+```
+
+#### Arguments
+
+- **children** - A string that represents the text contents of the link.
+- **variant** - A link variant option to enforce mobile (small/big) styles over responsive.
+- **href** - A string that represents the URL address of the link when clicked.
+- **title** - A string that represents the alternative text / aria-label of the link for screen readers.
+- **download** - HTML5 boolean to instruct the browser to attempt to download a file from the URL.
+- **truncate** - Boolean to instruct the link to render as a paragraph / noWrap.
+- **target** - The instructions of how the link should behave when clicked (open in a new tab, window, etc).
+- **rel** - Some of the SEO specs for the link (noreferrer, noopener, etc).
+- **onClick** - A function that is called when the link is clicked. It receives a MouseEventHandler for handling the click event on the link element. It overrides the href behavior.

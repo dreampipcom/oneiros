@@ -1,0 +1,35 @@
+import { Canvas, Meta } from "@storybook/blocks";
+import Example from "./Example.tsx";
+import * as Logo from "./04-Logo.stories";
+
+<Meta of={Logo} title="Logo" />
+
+# Logo
+
+Logo component with different props.
+
+#### Example
+
+<Canvas of={Logo.Default} />
+
+## Usage
+
+```ts
+import {Logo} from "@dreampipcom/oneiros";
+
+const Example = () => {
+  return (
+      <Logo
+        theme={"light"}
+        variant={"medium"}
+      />
+  );
+};
+
+export default Example;
+```
+
+#### Arguments
+
+- **theme** - A string that represents the color scheme of the Icon.
+- **size** - A string that represents the size contents of the Icon.

@@ -1,0 +1,35 @@
+import { Canvas, Meta } from "@storybook/blocks";
+import Example from "./Example.tsx";
+import * as Globals from "./00-Globals.stories";
+
+<Meta of={Globals} title="Globals" />
+
+# Globals
+
+Globals component with different props.
+
+#### Example
+
+<Canvas of={Globals.Light} />
+
+## Usage
+
+```ts
+import { Globals } from "@dreampipcom/oneiros";
+
+const App = () => {
+  const [selectedTheme] = useContext({ selectedTheme: "lightTheme" })
+  return (
+      <Globals theme={selectedTheme} >
+        <TheApp />
+      </Globals>
+  );
+};
+
+export default Example;
+```
+
+#### Arguments
+
+- **children** A Theme Provider.
+- **theme** - Color palette.

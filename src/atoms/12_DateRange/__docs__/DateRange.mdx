@@ -1,0 +1,47 @@
+import { Canvas, Meta } from "@storybook/blocks";
+import Example from "./Example.tsx";
+import * as DateRange from "./12-DateRange.stories";
+
+<Meta of={DateRange} title="DateRange" />
+
+# DateRange
+
+DateRange component with different props.
+
+#### Example
+
+<Canvas of={DateRange.Outlined} />
+
+## Usage
+
+```ts
+import {DateRange} from "@dreampipcom/oneiros";
+
+const DEFAULT_OPTIONS = [
+  {
+    label: 'Option 1',
+    value: 'option-1',
+  },
+  {
+    label: 'Option 2',
+    value: 2,
+  },
+];
+
+const Example = () => {
+  return (
+      <DateRange
+        label="Label"
+      />
+  );
+};
+
+export default Example;
+```
+
+#### Arguments
+
+- **label** - A DateRange label string.
+- **onSelect** - A DateRange onSelect callback.
+
+

@@ -12,13 +12,13 @@
     "noEmit": true,
     "jsx": "react-jsx",
     "strict": true,
-    "noUnusedLocals": true,
+    "noUnusedLocals": false,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
     "declaration": true,
   },
   "include": ["src"],
   "exclude": [
-    "src/**/__docs__","src/**/__test__"
+    "src/**/__docs__","src/**/__test__",
   ]
 }

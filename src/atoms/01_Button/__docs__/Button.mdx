@@ -1,0 +1,44 @@
+import { Canvas, Meta } from "@storybook/blocks";
+import Example from "./Example.tsx";
+import * as Button from "./01-Button.stories";
+
+<Meta of={Button} title="Button" />
+
+# Button
+
+Button component with different props.
+
+#### Example
+
+<Canvas of={Button.Primary} />
+
+## Usage
+
+```ts
+import {Button} from "oneiros";
+
+const Example = () => {
+  return (
+      <Button
+        variant={ButtonVariant.FILLED}
+        theme={EButtonTheme.PRIMARY}
+        onClick={()=> console.log("Clicked")}
+      />
+  );
+};
+
+export default Example;
+```
+
+#### Arguments
+
+- **children** - A string that represents the text contents of the button.
+- **variant** - A `ButtonVariant` option to determine the styles for the button.
+- **theme** - A `EButtonTheme` option to further determine the styles for the button.
+- **onClick** - A function that is called when the button is clicked. It receives a MouseEventHandler for handling the click event on the link element.
+- **href** - A string that represents the URL address of the button when clicked. It overrides the onClick behavior and renders a Faux button.
+- **target** - The instructions of how the Faux button should behave when clicked (open in a new tab, window, etc).
+- **rel** - Some of the SEO specs for the Faux button (noreferrer, noopener, etc).
+- **id** - A CSS id identifier for the element.
+- **icon** - An ESystemIcon identifier.
+- **iconPosition** - The position of the icon along the button text ("start" | "end").

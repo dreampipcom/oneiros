@@ -1,0 +1,54 @@
+import { Canvas, Meta } from "@storybook/blocks";
+import Example from "./Example.tsx";
+import * as Dropdown from "./07-Dropdown.stories";
+
+<Meta of={Dropdown} title="Dropdown" />
+
+# Dropdown
+
+Dropdown component with different props.
+
+#### Example
+
+<Canvas of={Dropdown.Outlined} />
+
+## Usage
+
+```ts
+import {Dropdown} from "@dreampipcom/oneiros";
+
+const DEFAULT_OPTIONS = [
+  {
+    label: 'Option 1',
+    value: 'option-1',
+  },
+  {
+    label: 'Option 2',
+    value: 2,
+  },
+];
+
+const Example = () => {
+  return (
+      <Dropdown
+        variant={EDropdownVariant.OUTLINED}
+        label="Label";
+        options={DEFAULT_OPTIONS};
+        icon={ESystemIcon['chevron-down']};
+        onSelect={(e) => {}};
+      />
+  );
+};
+
+export default Example;
+```
+
+#### Arguments
+
+- **variant** - A Dropdown variant option (currently should default to OUTLINED only.
+- **label** - A Dropdown label string.
+- **options** - A Dropdown options array.
+- **icon** - A Dropdown ESytemIcon name.
+- **onSelect** - A Dropdown onSelect callback.
+
+

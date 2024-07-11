@@ -1,0 +1,43 @@
+import { Canvas, Meta } from "@storybook/blocks";
+import Example from "./Example.tsx";
+import * as TextInput from "./09-TextInput.stories";
+
+<Meta of={TextInput} title="TextInput" />
+
+# TextInput
+
+TextInput component with different props.
+
+#### Example
+
+<Canvas of={TextInput.Outlined} />
+
+## Usage
+
+```ts
+import {TextInput} from "@dreampipcom/oneiros";
+
+const Example = () => {
+  return (
+      <TextInput
+        variant={ETextInputVariant.OUTLINED}
+        label="Label"
+        placeholder="This is a long placeholder."
+        icon={ESystemIcon.account}
+        onSelect={(e) => {}}
+      />
+  );
+};
+
+export default Example;
+```
+
+#### Arguments
+
+- **variant** - A TextInput variant option (currently should default to OUTLINED only.
+- **label** - A TextInput label string.
+- **placeholder** - A TextInput placeholder/hint string.
+- **icon** - A TextInput ESytemIcon name.
+- **onChange** - A TextInput onChange callback.
+
+
