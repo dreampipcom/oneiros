@@ -36,6 +36,6 @@ type Story = StoryObj<typeof Example>;
 export const Outlined: Story = {
   args: {
     variant: EDateRangeVariant.OUTLINED,
-    icon: ESystemIcon['calendar-date'],
+    icon: ESystemIcon.calendar,
   },
 };

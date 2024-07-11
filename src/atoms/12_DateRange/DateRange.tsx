@@ -41,7 +41,7 @@ export interface IDateRange {
 export const HDateRange = function ({
   className,
   theme = 'light',
-  icon = ESystemIcon['calendar-date'],
+  icon = ESystemIcon.calendar,
   disablePast = true,
   label = 'Pick your dates',
   onSelect = () => {},
