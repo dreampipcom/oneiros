@@ -87,7 +87,7 @@ export const HReview = function ({
     <Box className={boxStyles}>
       <Icon
         className="mr-a1"
-        icon={ESystemIcon['star-01']}
+        icon={ESystemIcon.poll}
         size={EIconSize.SMALL}
         color={iconColorVariantMap[theme]}
         theme={theme}
