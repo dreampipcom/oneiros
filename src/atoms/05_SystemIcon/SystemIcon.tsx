@@ -77,8 +77,8 @@ export const HSystemIcon = function ({
       'passion-selected': DreamPipColors.primary.light,
     },
     dark: {
-      primary: DreamPipColors.icon.dark.primary,
-      secondary: DreamPipColors.icon.dark.secondary,
+      primary: DreamPipColors.icon.dark.secondary,
+      secondary: DreamPipColors.icon.dark.primary,
       bw: DreamPipColors.icon.dark.bw,
       white: DreamPipColors.icon.dark.white,
       passion: DreamPipColors.primary.passion,
