@@ -65,7 +65,7 @@ const light2 = dp200;
 const dark1 = n100;
 const dark2 = n200;
 
-const passion = 'red';
+const passion = 'pink';
 const passionLight = '#660000';
 const passionSoft = '#880000';
 
@@ -124,6 +124,7 @@ export const DreamPipColors = {
     passionLight,
     passionSoft,
     soft: bg2,
+    green: dp700,
   },
   secondary: {
     light: secondary,

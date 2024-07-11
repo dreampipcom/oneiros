@@ -74,7 +74,7 @@ export const HSystemIcon = function ({
       passion: DreamPipColors.primary.passion,
       light: DreamPipColors.primary.dark,
       'passion-light': DreamPipColors.primary.passionLight,
-      'passion-selected': DreamPipColors.primary.dark,
+      'passion-selected': DreamPipColors.primary.light,
     },
     dark: {
       primary: DreamPipColors.icon.dark.primary,
@@ -84,7 +84,7 @@ export const HSystemIcon = function ({
       passion: DreamPipColors.primary.passion,
       light: DreamPipColors.primary.dark,
       'passion-light': DreamPipColors.primary.passionLight,
-      'passion-selected': DreamPipColors.primary.light,
+      'passion-selected': DreamPipColors.primary.green,
     },
   };
   const IconComponent = useMemo(() => Icons[icon], [icon, theme]);

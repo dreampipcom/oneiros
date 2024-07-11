@@ -101,7 +101,7 @@ export const HCard = function ({
           buttonTheme={
             selected ? EButtonTheme.PASSION_SELECTED : EButtonTheme.PASSION
           }
-          icon={selected ? ESystemIcon['check-heart'] : ESystemIcon.heart}
+          icon={selected ? ESystemIcon.heart : ESystemIcon['heart-broken']}
           className="absolute right-a1 sm:top-a1 top-a2"
         />
         <Link href={badgeLink || link} faux>
