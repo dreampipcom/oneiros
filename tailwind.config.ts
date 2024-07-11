@@ -28,7 +28,7 @@ const inc06b = base * 6.5; // 52
 // colors
 const n100 = '#191919';
 const n200 = '#1b1b1b';
-const n300 = '#999999';
+const n300 = '#aaaaaa';
 const n400 = '#440000';
 const n500 = '#550000';
 const n600 = '#660000';
@@ -41,7 +41,7 @@ const st4 = '#6F32D8';
 const st5 = '#83FAAF';
 const st6 = '#EB5E1D';
 const st7 = '#F8F8F8';
-const st8 = '#F8D49A21';
+const st8 = '#f4ede1';
 
 const dp200 = st0; // average pastel orange
 const dp300 = st1; // light pastel orange
