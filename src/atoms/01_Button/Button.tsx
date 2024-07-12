@@ -41,6 +41,7 @@ export interface IButton {
   rel?: string;
   icon?: ESystemIcon;
   iconPosition?: EButtonIconPosition;
+  type?: string;
   id?: string;
 }
 
@@ -56,6 +57,7 @@ export const HButton = function ({
   icon,
   iconPosition = EButtonIconPosition.START,
   id = 'atom__button',
+  type,
   onClick = () => {},
 }: IButton) {
   const external = {
@@ -79,13 +81,13 @@ export const HButton = function ({
         class1
 
         text-body-dark
-        dark:text-body-dark
+        dark:text-body-light
 
         bg-primary-light
         hover:bg-primary-contrast
 
-        dark:bg-primary-contrast
-        dark:hover:bg-primary-dark
+        dark:bg-primary-white
+        dark:hover:bg-primary-soft
         
       `]: variant === ButtonVariant.FILLED,
       [`
@@ -217,7 +219,7 @@ export const HButton = function ({
         [EButtonTheme.PASSION_SELECTED]: EIconColor.PASSION_SELECTED,
       },
       [ButtonVariant.FILLED]: {
-        [EButtonTheme.PRIMARY]: EIconColor.WHITE,
+        [EButtonTheme.PRIMARY]: EIconColor.PRIMARY,
         [EButtonTheme.SECONDARY]: EIconColor.WHITE,
         [EButtonTheme.PASSION]: EIconColor.PASSION,
         [EButtonTheme.PASSION_SELECTED]: EIconColor.PASSION_SELECTED,
@@ -236,6 +238,7 @@ export const HButton = function ({
       className={styles}
       variant={variant}
       onClick={onClick}
+      type={type}
     >
       {icon && iconPosition === EButtonIconPosition.START ? (
         <Icon

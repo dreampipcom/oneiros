@@ -47,6 +47,7 @@ export interface IDropdown {
   icon?: ESystemIcon;
   onSelect?: (e?: string | number) => void;
   variant?: EDropdownVariant;
+  name?: string;
   id?: string;
 }
 
@@ -94,6 +95,7 @@ export const HDropdown = function ({
   icon,
   variant = EDropdownVariant.OUTLINED,
   onSelect = () => {},
+  name = '',
   id = 'atom__dropdown',
 }: IDropdown) {
   const [value, setValue] = useState('');
@@ -214,6 +216,7 @@ export const HDropdown = function ({
         />
         <Select
           id={id}
+          name={name}
           className={selectStyles}
           value={value}
           onChange={(e) => {

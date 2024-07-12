@@ -118,20 +118,22 @@ export const HCard = function ({
             {title}
           </Typography>
           <Typography
+            inherit
             variant={TypographyVariant.SMALL}
-            className="w-full pt-a1 pb-0 text-neutral-light dark:text-neutral-dark col-span-full col-start-0 md:col-span-full md:col-start-0"
+            className="w-full pt-a1 pb-0 text-neutral-light dark:text-body-dark col-span-full col-start-0 md:col-span-full md:col-start-0"
           >
             {where}
           </Typography>
           <Typography
+            inherit
             variant={TypographyVariant.SMALL}
-            className="w-full pt-0 text-neutral-light dark:text-neutral-dark col-span-full col-start-0 md:col-span-full md:col-start-0"
+            className="w-full pt-0 text-neutral-light dark:text-body-dark col-span-full col-start-0 md:col-span-full md:col-start-0"
           >
             {when}
           </Typography>
           <PriceTag
             variant={EPriceTagVariant.NORMAL}
-            className="w-full pt-a2 pb-a0 text-neutral-light dark:text-neutral-dark col-span-4 col-start-0 md:col-span-4 md:col-start-0"
+            className="w-full pt-a2 pb-a0 col-span-4 col-start-0 md:col-span-4 md:col-start-0"
           >
             {price}
           </PriceTag>

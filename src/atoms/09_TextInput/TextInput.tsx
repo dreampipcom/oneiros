@@ -45,6 +45,8 @@ export interface ITextInput extends ITextInputExtraProps {
   onChange?: (e?: any) => void;
   theme?: string;
   variant?: ETextInputVariant;
+  name?: string;
+  type?: string;
   id?: string;
 }
 
@@ -107,6 +109,8 @@ export const HTextInput = function (props: ITextInput) {
     onChange = () => {},
     id = 'atom__textinput',
     theme = 'light',
+    name = '',
+    type = 'text',
     ...extraProps
   } = props;
 
@@ -232,6 +236,8 @@ export const HTextInput = function (props: ITextInput) {
         />
         <OutlinedInput
           id={id}
+          name={name}
+          type={type}
           className={selectStyles}
           value={value}
           startAdornment={placeholder ? StartAdornment : undefined}

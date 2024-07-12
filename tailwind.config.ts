@@ -29,9 +29,9 @@ const inc06b = base * 6.5; // 52
 const n100 = '#191919';
 const n200 = '#1b1b1b';
 const n300 = '#aaaaaa';
-const n400 = '#440000';
-const n500 = '#550000';
-const n600 = '#660000';
+const n400 = '#ffffff';
+// const n500 = '#550000';
+// const n600 = '#660000';
 
 const st0 = '#F69240';
 const st1 = '#F8D49A';
@@ -59,9 +59,6 @@ const secondary = dp200;
 const primary = dp800;
 const tertiary = dp800;
 
-const light1 = dp300;
-const light2 = dp200;
-
 const dark1 = n100;
 const dark2 = n200;
 
@@ -70,6 +67,9 @@ const passionLight = '#660000';
 const passionSoft = '#880000';
 
 const white = '#ffffff';
+
+const light1 = dp300;
+const light2 = dp200;
 
 export const DreamPipColors = {
   transparent,
@@ -118,17 +118,18 @@ export const DreamPipColors = {
   primary: {
     light: primary,
     contrast: secondary,
-    dark: light1,
+    dark: light2,
     passion,
     passionLight,
     passionSoft,
     soft: bg2,
     green: dp700,
+    white,
   },
   secondary: {
     light: secondary,
     constrast: light1,
-    dark: light1,
+    dark: light2,
     passion,
     passionLight,
     passionSoft,
@@ -147,7 +148,7 @@ export const DreamPipColors = {
     },
   },
   soft: {
-    light: light1,
+    light: white,
     constrast: light2,
     bg: bg2,
     dark: '#C9FFC4',
@@ -167,8 +168,8 @@ export const DreamPipColors = {
     dark: '#353535',
   },
   neutral: {
-    light: n400,
-    dark: n200,
+    light: n200,
+    dark: n400,
   },
 };
 

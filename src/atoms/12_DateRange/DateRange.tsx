@@ -35,6 +35,7 @@ export interface IDateRange {
   theme?: 'light' | 'dark';
   disablePast?: boolean;
   onSelect?: (e?: any) => void;
+  name?: string;
   id?: string;
 }
 
@@ -45,6 +46,7 @@ export const HDateRange = function ({
   disablePast = true,
   label = 'Pick your dates',
   onSelect = () => {},
+  name = '',
   id = 'atom__daterange',
 }: IDateRange) {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -207,6 +209,7 @@ export const HDateRange = function ({
                 callbackRef: textRef,
                 onClick: handleOpen,
                 theme,
+                name,
               } as any,
               actionBar: {
                 actions: ['clear', 'today', 'accept'],
