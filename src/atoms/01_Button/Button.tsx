@@ -74,7 +74,7 @@ export const HButton = function ({
     {
       'relative normal-case shadow-none hover:shadow-none': true,
       'rounded-md w-full px-a3 py-b1': !!children,
-      'rounded-full px-0 py-0 min-w-a5 max-w-a5 w-a5 max-h-a5 h-a5': !children,
+      'rounded-md px-0 py-0 min-w-a5 max-w-a5 w-a5 max-h-a5 h-a5': !children,
     },
     buttonTheme === EButtonTheme.PRIMARY && {
       [`
