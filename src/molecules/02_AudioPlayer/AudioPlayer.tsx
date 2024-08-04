@@ -109,7 +109,7 @@ export const HAudioPlayer = function ({
 
   useEffect(() => {
     const handlePlay = handleStatus('playing', {
-      title: audioElement.current?.getAttribute('data-title'),
+      title: audioElement.current?.getAttribute('data-title') || prompt,
     });
     const handleStop = handleStatus('stopped', {});
     audioElement.current?.addEventListener('play', handlePlay);
@@ -143,7 +143,7 @@ export const HAudioPlayer = function ({
           controls={nativeControls}
           ref={audioElement}
           autoPlay
-          preload
+          preload="none"
         >
           {tracks.map((file) => (
             <>
