@@ -24,6 +24,6 @@ type Story = StoryObj<typeof Example>;
 export const Default: Story = {
   args: {
     variant: EMapViewVariant.DEFAULT,
-    mapBoxToken: '',
+    mapBoxToken: import.meta.env.VITE_MAPBOX_TOKEN,
   },
 };

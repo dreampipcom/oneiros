@@ -1,24 +1,17 @@
-/* eslint import/no-unresolved:0, import/no-webpack-loader-syntax:0, jsx-a11y/media-has-caption:0, no-nested-ternary:0, no-unused-vars:0, max-len:0, no-shadow:0, @typescript-eslint/no-explicit-any:0, object-curly-newline:0 */
+/* eslint   no-unreachable:0, @typescript-eslint/no-unused-vars:0, no-import-assign:0, import/no-unresolved:0, import/no-webpack-loader-syntax:0, jsx-a11y/media-has-caption:0, no-nested-ternary:0, no-unused-vars:0, max-len:0, no-shadow:0, @typescript-eslint/no-explicit-any:0, object-curly-newline:0 */
 // @atoms/MapView.tsx
 import clsx from 'clsx';
-import { Map, Source, Layer, Popup as GLPop } from 'react-map-gl';
+import Map, { Source, Layer, Popup as GLPop } from 'react-map-gl';
 import bbox from '@turf/bbox';
 import React, { useRef, useState, useEffect } from 'react';
-import mapboxgl from 'mapbox-gl';
-
+import { workerClass } from 'mapbox-gl';
+import workerLoader from 'mapbox-gl/dist/mapbox-gl-csp-worker?worker';
 import { Button } from '../../atoms/01_Button';
 import { Typography } from '../../atoms/02_Typography';
 import { Link } from '../../atoms/03_Link';
 import { SystemIcon, ESystemIcon } from '../../atoms/05_SystemIcon';
 
 import 'mapbox-gl/dist/mapbox-gl.css';
-
-// The following is required to stop "npm build" from transpiling mapbox code.
-// notice the exclamation point in the import.
-// @ts-expect-error this needs to happen
-mapboxgl.workerClass = import(
-  'worker-loader!mapbox-gl/dist/mapbox-gl-csp-worker'
-).default;
 
 export const MapLocale = {
   default: {
@@ -284,7 +277,7 @@ export const MAP_CENTRES = {
 export const clusterLayer = {
   id: 'clusters',
   type: 'circle',
-  source: 'earthquakes',
+  source: 'molecule__MapView',
   filter: ['has', 'point_count'],
   paint: {
     'circle-color': [
@@ -301,9 +294,9 @@ export const clusterLayer = {
 };
 
 export const clusterCountLayer = {
-  id: 'cluster-count',
+  id: 'molecule__MapView',
   type: 'symbol',
-  source: 'earthquakes',
+  source: 'molecule__MapView',
   filter: ['has', 'point_count'],
   layout: {
     'text-field': '{point_count_abbreviated}',
@@ -315,7 +308,7 @@ export const clusterCountLayer = {
 export const unclusteredPointLayer = {
   id: 'point',
   type: 'circle',
-  source: 'earthquakes',
+  source: 'molecule__MapView',
   filter: ['!', ['has', 'point_count']],
   paint: {
     'circle-color': '#fff',
@@ -325,24 +318,53 @@ export const unclusteredPointLayer = {
   },
 };
 
-export const DEFAULT_EVENTS = [
-  {
-    id: 'dreampip__chan_0000',
-    className: '',
-    onPlay: () => {},
-    title: 'This is the track playing',
-    url: 'https://www.dreampip.com/api/nexus/audio',
-    isPlaying: false,
+export const DEFAULT_EVENTS = {
+  calData: [
+    {
+      id: '[musica, samba] Banda - Samba do São Lázaro',
+      title: '[musica, samba] Banda - Samba do São Lázaro',
+      url: 'https://instagram.com/samba_do_sl',
+      location:
+        'Largo de São Lázaro - Ondina, Salvador - BA, 40170-010, Brazil',
+      start: '2024-08-09T17:00:00-03:00',
+      end: '2024-08-09T20:00:00-03:00',
+      classNames: ['musica', 'samba'],
+      allDay: false,
+      terms: ['musica', 'samba'],
+      city: 'salvador',
+      artists: ['Banda'],
+      project: ['Samba do São Lázaro'],
+      timeframe: 'W',
+    },
+  ],
+  mapData: {
+    type: 'FeatureCollection',
+    features: [
+      {
+        type: 'Feature',
+        geometry: {
+          type: 'Point',
+          coordinates: [-38.5120851, -13.0076901],
+        },
+        properties: {
+          name: '[musica, samba] Banda - Samba do São Lázaro',
+          terms: ['musica', 'samba'],
+          city: 'salvador',
+          artists: ['Banda'],
+          project: ['Samba do São Lázaro'],
+          starttime: '2024-08-09T17:00:00-03:00',
+          endtime: '2024-08-09T20:00:00-03:00',
+          location:
+            'Largo de São Lázaro - Ondina, Salvador - BA, 40170-010, Brazil',
+          link: 'https://instagram.com/samba_do_sl',
+          timeframe: 'W',
+          clusterId: 'molecule__MapView',
+        },
+      },
+    ],
+    timeframe: 'W',
   },
-  {
-    id: 'dreampip__chan_0001',
-    className: '',
-    onPlay: () => {},
-    title: 'This is the track playing',
-    url: 'https://www.dreampip.com/api/nexus/audio/1',
-    isPlaying: false,
-  },
-];
+};
 
 export enum EMapViewVariant {
   DEFAULT = 'default',
@@ -351,7 +373,7 @@ export enum EMapViewVariant {
 export interface IMapView {
   id?: string;
   className?: string;
-  events?: any[];
+  events?: any;
   locale?: string;
   mobile?: boolean;
   city?: string;
@@ -373,7 +395,7 @@ export interface IMapPopup {
 }
 
 const Popup = function ({
-  id,
+  id = 'molecule__MapView',
   className,
   theme,
   feature,
@@ -444,9 +466,9 @@ const Popup = function ({
 };
 
 export const HMapView = function ({
-  id = 'atom__MapView',
+  id = 'molecule__MapView',
   className = '',
-  events,
+  events = DEFAULT_EVENTS,
   locale,
   mobile,
   city,
@@ -456,9 +478,11 @@ export const HMapView = function ({
   fetchNewData,
   theme = 'light',
 }: IMapView) {
+  console.log({ mapBoxToken });
+  console.log({ events });
   const mapRef = useRef(null);
   const popup = useRef({ open: false, feature: undefined });
-  const hoverPopup = useRef();
+  const hoverPopup = useRef(null);
   const [popupOpen, setPopupOpen] = useState(false);
   const [hoverPopupOpen, setHoverPopupOpen] = useState(false);
 
@@ -489,7 +513,7 @@ export const HMapView = function ({
       return;
     }
     const clusterId = target.properties.cluster_id;
-    const mapboxSource = mapRef.current.getSource('earthquakes');
+    const mapboxSource = mapRef.current.getSource('molecule__MapView');
     mapboxSource.getClusterExpansionZoom(clusterId, (err, zoom) => {
       if (err) {
         return;
@@ -553,9 +577,10 @@ export const HMapView = function ({
 
   const onMouseEnter = (event) => {
     const [target] = event.features;
-    const clusterId = target.properties.cluster_id;
-    const mapboxSource = mapRef.current.getSource(id);
+    const { clusterId } = target.properties;
+    const mapboxSource = mapRef.current.getSource(clusterId);
     mapboxSource.getClusterLeaves(clusterId, 5, 0, (err, features) => {
+      console.log({ err });
       if (err) return;
       hoverPopup.current = features;
       hoverPopup.current.coordinates = target.geometry.coordinates;
@@ -568,67 +593,69 @@ export const HMapView = function ({
   };
 
   const centre = [settings?.where?.lon, settings?.where?.lat] || [0, 0];
-  const zoom = settings?.zoom || 10;
+  const zoom = settings?.zoom || 3;
 
   return (
-    <Map
-      id={id}
-      initialViewState={{
-        latitude: centre[1],
-        longitude: centre[0],
-        zoom,
-      }}
-      mapStyle="mapbox://styles/mapbox/dark-v9"
-      mapboxAccessToken={mapBoxToken}
-      interactiveLayerIds={[clusterLayer.id, unclusteredPointLayer.id]}
-      onClick={onClick}
-      onMouseEnter={onMouseEnter}
-      onMouseLeave={onMouseLeave}
-      onZoomEnd={fetchNewData}
-      onDragEnd={fetchNewData}
-      cursor="auto"
-      ref={mapRef}
-      className={gridStyles}
-    >
-      <Source
-        id={id}
-        type="geojson"
-        data={events}
-        cluster
-        clusterMaxZoom={14}
-        clusterRadius={50}
+    <div className="relative w-lvw h-lvh overflow-hidden">
+      <Map
+        mapLib={import('mapbox-gl')}
+        initialViewState={{
+          latitude: centre[1],
+          longitude: centre[0],
+          zoom,
+        }}
+        mapboxAccessToken={mapBoxToken}
+        interactiveLayerIds={[clusterLayer.id, unclusteredPointLayer.id]}
+        onClick={onClick}
+        onMouseEnter={onMouseEnter}
+        onMouseLeave={onMouseLeave}
+        onZoomEnd={fetchNewData}
+        onDragEnd={fetchNewData}
+        cursor="auto"
+        ref={mapRef}
+        style={{ width: '100svw', height: '97svh' }}
+        mapStyle="mapbox://styles/mapbox/dark-v9"
       >
-        <Layer {...clusterLayer} />
-        <Layer {...clusterCountLayer} />
-        <Layer {...unclusteredPointLayer} />
-      </Source>
-      {popupOpen ? (
-        <Popup
-          theme={theme}
-          feature={popup.current.feature}
-          locale={locale}
-          mobile={mobile}
-          city={city}
-          onClose={onPopUpClose}
-        />
-      ) : undefined}
-      {hoverPopupOpen && hoverPopup.current ? (
-        <GLPop
-          onClose={onPopUpClose}
-          className="mapbox-purizu-custom"
-          latitude={hoverPopup.current.coordinates[1]}
-          longitude={hoverPopup.current.coordinates[0]}
+        <Source
+          id="molecule__MapView"
+          type="geojson"
+          data={events?.mapData}
+          cluster
+          clusterMaxZoom={14}
+          clusterRadius={50}
         >
-          {hoverPopup.current.length &&
-            hoverPopup.current.map((feature) => (
-              <span>
-                {feature.properties.name}
-                <br />
-              </span>
-            ))}
-        </GLPop>
-      ) : undefined}
-    </Map>
+          <Layer {...clusterLayer} />
+          <Layer {...clusterCountLayer} />
+          <Layer {...unclusteredPointLayer} />
+        </Source>
+        {popupOpen ? (
+          <Popup
+            theme={theme}
+            feature={popup.current.feature}
+            locale={locale}
+            mobile={mobile}
+            city={city}
+            onClose={onPopUpClose}
+          />
+        ) : undefined}
+        {hoverPopupOpen && hoverPopup.current ? (
+          <GLPop
+            onClose={onPopUpClose}
+            className="mapbox-purizu-custom"
+            latitude={hoverPopup?.current?.coordinates[1]}
+            longitude={hoverPopup?.current?.coordinates[0]}
+          >
+            {hoverPopup?.current?.length &&
+              hoverPopup?.current?.map((feature) => (
+                <span>
+                  {feature?.properties?.name}
+                  <br />
+                </span>
+              ))}
+          </GLPop>
+        ) : undefined}
+      </Map>
+    </div>
   );
 };
 
