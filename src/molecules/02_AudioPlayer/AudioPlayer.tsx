@@ -88,12 +88,13 @@ export const HAudioPlayer = function ({
   const gridStyles = `${clsx(gridSx)} ${className}`;
 
   const handlePlay = () => {
+    if (!audioElement.current) return;
     onPlayTrack();
     const isPlaying = status === 'playing';
 
     if (isPlaying) {
       audioElement.current?.pause();
-      if (audioElement.current) audioElement.current.currentTime = 0;
+      audioElement.current.currentTime = 0;
       setStatus('stopped');
     } else {
       audioElement.current?.play();
