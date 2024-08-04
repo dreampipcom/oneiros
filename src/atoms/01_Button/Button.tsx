@@ -63,20 +63,20 @@ export const HButton = function ({
   onClick = () => {},
 }: IButton) {
   const isInternal = (link: string) =>
-    link.startsWith('dreampip://') ||
+    link.startsWith('web+dreampip://') ||
     link?.startsWith('https://www.dreampip.com') ||
     link?.replace('http://', '').replace('https://', '').startsWith(host) ||
     link.startsWith('/');
 
   const toProtocol = (link: string): string => {
     if (link.startsWith('https://')) {
-      return link?.replace('https://', 'dreampip://');
+      return link?.replace('https://', 'web+dreampip://');
     }
     if (link.startsWith('http://')) {
-      return link?.replace('http://', 'dreampip://');
+      return link?.replace('http://', 'web+dreampip://');
     }
     if (link.startsWith('/')) {
-      return `dreampip://${host}${link}`;
+      return `web+dreampip://${host}${link}`;
     }
     return link;
   };
@@ -253,7 +253,8 @@ export const HButton = function ({
   return (
     <Button
       id={id}
-      href={isInternal(href) ? toProtocol(href) : href}
+      href={href}
+      data-app-href={isInternal(href) ? toProtocol(href) : undefined}
       rel={external.rel}
       target={external.target}
       className={styles}

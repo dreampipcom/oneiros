@@ -1,6 +1,7 @@
 /* eslint no-unused-vars:0, no-shadow:0, @typescript-eslint/no-explicit-any:0 */
 // @atoms/Button.tsx
 import type { ReactNode as ChildrenType } from 'react';
+import { useEffect, useRef } from 'react';
 import clsx from 'clsx';
 import MLink from '@mui/material/Link';
 
@@ -54,24 +55,63 @@ export const HLink = function ({
   onClick = () => {},
   faux = false,
 }: ILink) {
+  const startApp = useRef<() => void>(() => {});
+
   const isInternal = (link: string) =>
-    link.startsWith('dreampip://') ||
+    link.startsWith('web+dreampip://') ||
     link?.startsWith('https://www.dreampip.com') ||
     link?.replace('http://', '').replace('https://', '').startsWith(host) ||
     link.startsWith('/');
 
+  // deep-linking: protocol
   const toProtocol = (link: string): string => {
     if (link.startsWith('https://')) {
-      return link?.replace('https://', 'dreampip://');
+      return link?.replace('https://', 'web+dreampip://');
     }
     if (link.startsWith('http://')) {
-      return link?.replace('http://', 'dreampip://');
+      return link?.replace('http://', 'web+dreampip://');
     }
     if (link.startsWith('/')) {
-      return `dreampip://${host}${link}`;
+      return `web+dreampip://${host}${link}`;
     }
     return link;
   };
+
+  const handleOnClick = () => {
+    if (onClick) {
+      onClick();
+    }
+    if (isInternal(href)) {
+      startApp?.current();
+    }
+  };
+
+  // deep-linking: handler
+  useEffect(() => {
+    if (isInternal(href)) {
+      let timeout: any;
+      const preventPopup = () => {
+        clearTimeout(timeout);
+        timeout = null;
+        window.removeEventListener('pagehide', preventPopup);
+      };
+      startApp.current = () => {
+        window.open(toProtocol(href));
+        timeout = setTimeout(() => {
+          // prompt app download
+          // if (
+          //   alert(
+          //     'You do not seem to have the App installed, do you want to go download it now?',
+          //   )
+          // ) {
+          //   document.location = href;
+          // }
+          document.location = href;
+        }, 1000);
+        window.addEventListener('pagehide', preventPopup);
+      };
+    }
+  }, [isInternal]);
 
   const external = {
     rel,
@@ -104,10 +144,11 @@ export const HLink = function ({
       title={title}
       download={download}
       className={styles}
-      href={isInternal(href) ? toProtocol(href) : href}
+      href={href}
+      data-app-href={isInternal(href) ? toProtocol(href) : undefined}
       rel={external.rel}
       target={external.target}
-      onClick={onClick}
+      onClick={handleOnClick}
     >
       <Typography
         className={styles}
