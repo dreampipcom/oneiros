@@ -111,7 +111,7 @@ export const HLink = function ({
         window.addEventListener('pagehide', preventPopup);
       };
     }
-  }, [isInternal]);
+  }, [isInternal, href, toProtocol]);
 
   const external = {
     rel,
