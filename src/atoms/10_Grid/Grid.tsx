@@ -112,14 +112,14 @@ export const HGrid = function ({
     {
       [`
           grid-cols-6
-          md:grid-cols-8
+          md:grid-cols-12
           `]: coercedVariant === EGridVariant.DEFAULT,
       [`
           grid-cols-1
           md:grid-cols-1
           `]: coercedVariant === EGridVariant.ONE_COLUMN,
       [`
-          grid-cols-6
+          grid-cols-12
           md:grid-cols-12
           `]: coercedVariant === EGridVariant.TWELVE_COLUMNS,
       [`

@@ -2,10 +2,6 @@
 // @atoms/AudioPlayer.tsx
 import clsx from 'clsx';
 import { Fragment, useRef, useState, useEffect } from 'react';
-import Grid, {
-  EBleedVariant,
-  EGridVariant,
-} from '../../atoms/10_Grid/Grid.tsx';
 
 import { Button, ButtonVariant, EButtonTheme } from '../../atoms/01_Button';
 import { Typography } from '../../atoms/02_Typography';
@@ -73,10 +69,8 @@ export const HAudioPlayer = function ({
   const gridSx = [
     {
       [`class02
-        grid
-        sm:grid-cols-12
-        sm:!gap-a0
-        md:!gap-a1
+        flex
+        col-span-full col-start-0
         content-center
         items-center
         align-center
@@ -108,28 +102,23 @@ export const HAudioPlayer = function ({
   };
 
   useEffect(() => {
+    const element = audioElement.current;
     const handlePlay = handleStatus('playing', {
-      title: audioElement.current?.getAttribute('data-title') || prompt,
+      title: element.getAttribute('data-title') || prompt,
     });
     const handleStop = handleStatus('stopped', {});
-    audioElement.current?.addEventListener('play', handlePlay);
-    audioElement.current?.addEventListener('ended', handleStop);
+    element.addEventListener('play', handlePlay);
+    element.addEventListener('ended', handleStop);
 
     return () => {
-      audioElement.current?.removeEventListener('play', handlePlay);
-      audioElement.current?.removeEventListener('ended', handleStop);
+      element.removeEventListener('play', handlePlay);
+      element.removeEventListener('ended', handleStop);
     };
   }, [status]);
 
   return (
-    <Grid
-      theme={theme}
-      id={id}
-      className={gridStyles}
-      variant={EGridVariant.TWELVE_COLUMNS}
-      bleed={EBleedVariant.RESPONSIVE}
-    >
-      <div className="flex items-center justify-center col-span-full sm:col-span-1 lg:col-span-1 col-start-0">
+    <div id={id} className={gridStyles}>
+      <div className="flex items-center justify-center">
         <Button
           className="w-full"
           theme={theme}
@@ -164,13 +153,10 @@ export const HAudioPlayer = function ({
           ))}
         </audio>
       </div>
-      <Typography
-        className="col-span-full sm:col-span-6 lg:col-span-4 col-start-0"
-        truncate
-      >
+      <Typography className="col-span-4 col-start-1" truncate>
         {title}
       </Typography>
-    </Grid>
+    </div>
   );
 };
 
