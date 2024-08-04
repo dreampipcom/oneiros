@@ -20,6 +20,7 @@ export interface ILink {
   truncate?: boolean;
   onClick?: () => void;
   target?: string;
+  host?: string;
   href?: string;
   rel?: string;
   id?: string;
@@ -42,7 +43,8 @@ export const HLink = function ({
   className = '',
   variant = TypographyVariant.LINK,
   align = TypographyAlign.LEFT,
-  href = 'https://dreampip.com',
+  href = 'https://www.dreampip.com',
+  host = 'www.dreampip.com',
   target = '',
   rel = 'noopener',
   title = undefined,
@@ -52,12 +54,31 @@ export const HLink = function ({
   onClick = () => {},
   faux = false,
 }: ILink) {
+  const isInternal = (link: string) =>
+    link.startsWith('dreampip://') ||
+    link?.startsWith('https://www.dreampip.com') ||
+    link?.replace('http://', '').replace('https://', '').startsWith(host) ||
+    link.startsWith('/');
+
+  const toProtocol = (link: string): string => {
+    if (link.startsWith('https://')) {
+      return link?.replace('https://', 'dreampip://');
+    }
+    if (link.startsWith('http://')) {
+      return link?.replace('http://', 'dreampip://');
+    }
+    if (link.startsWith('/')) {
+      return `dreampip://${host}${link}`;
+    }
+    return link;
+  };
+
   const external = {
     rel,
     target,
   };
 
-  if (!href?.startsWith('https://dreampip.com')) {
+  if (!isInternal(href)) {
     external.rel += ' noreferrer noopener';
     external.target += ' _blank';
   }
@@ -83,7 +104,7 @@ export const HLink = function ({
       title={title}
       download={download}
       className={styles}
-      href={href}
+      href={isInternal(href) ? toProtocol(href) : href}
       rel={external.rel}
       target={external.target}
       onClick={onClick}

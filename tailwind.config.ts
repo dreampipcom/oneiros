@@ -173,6 +173,10 @@ export const DreamPipColors = {
   },
 };
 
+// export const DreamPipColors = {
+//   white: '#ffffff'
+// };
+
 export default {
   content: ['./index.html', './src/**/*.{js,ts,jsx,tsx,mdx}'],
   important: 'body',

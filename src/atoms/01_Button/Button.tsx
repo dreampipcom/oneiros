@@ -38,6 +38,7 @@ export interface IButton {
   onClick?: () => void;
   target?: string;
   href?: string;
+  host?: string;
   rel?: string;
   icon?: ESystemIcon;
   iconPosition?: EButtonIconPosition;
@@ -52,6 +53,7 @@ export const HButton = function ({
   buttonTheme = EButtonTheme.PRIMARY,
   theme = 'light',
   href = '',
+  host = 'www.dreampip.com',
   target = '',
   rel = 'noopener',
   icon,
@@ -60,12 +62,31 @@ export const HButton = function ({
   type,
   onClick = () => {},
 }: IButton) {
+  const isInternal = (link: string) =>
+    link.startsWith('dreampip://') ||
+    link?.startsWith('https://www.dreampip.com') ||
+    link?.replace('http://', '').replace('https://', '').startsWith(host) ||
+    link.startsWith('/');
+
+  const toProtocol = (link: string): string => {
+    if (link.startsWith('https://')) {
+      return link?.replace('https://', 'dreampip://');
+    }
+    if (link.startsWith('http://')) {
+      return link?.replace('http://', 'dreampip://');
+    }
+    if (link.startsWith('/')) {
+      return `dreampip://${host}${link}`;
+    }
+    return link;
+  };
+
   const external = {
     rel,
     target,
   };
 
-  if (!href?.startsWith('https://dreampip.com')) {
+  if (!isInternal(href)) {
     external.rel += ' noreferrer noopener';
     external.target += ' _blank';
   }
@@ -74,7 +95,7 @@ export const HButton = function ({
     {
       'relative normal-case shadow-none hover:shadow-none': true,
       'rounded-md w-full px-a3 py-b1': !!children,
-      'rounded-md px-0 py-0 min-w-a5 max-w-a5 w-a5 max-h-a5 h-a5': !children,
+      'rounded-md px-0 py-0 min-h-b5 max-w-b5 min-w-b5': !children,
     },
     buttonTheme === EButtonTheme.PRIMARY && {
       [`
@@ -232,7 +253,7 @@ export const HButton = function ({
   return (
     <Button
       id={id}
-      href={href}
+      href={isInternal(href) ? toProtocol(href) : href}
       rel={external.rel}
       target={external.target}
       className={styles}

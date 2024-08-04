@@ -2,8 +2,8 @@
 // @atoms/SystemIcon.tsx
 import { useMemo } from 'react';
 import clsx from 'clsx';
+import { DreamPipColors } from '../../../dist/tailwind.config.ts';
 import * as Icons from './assets';
-import { DreamPipColors } from '../../../tailwind.config';
 
 type Theme = 'light' | 'dark';
 
@@ -36,7 +36,7 @@ export interface ISystemIcon {
 export const HSystemIcon = function ({
   className,
   color = EIconColor.PRIMARY,
-  icon = Icons.ESystemIcon.account,
+  icon = Icons.ESystemIcon['bow-arrow'],
   theme = 'light',
   size = EIconSize.MEDIUM,
   id = 'atom__link',
@@ -87,6 +87,7 @@ export const HSystemIcon = function ({
       'passion-selected': DreamPipColors.primary.green,
     },
   };
+
   const IconComponent = useMemo(() => Icons[icon], [icon, theme]);
 
   return (
