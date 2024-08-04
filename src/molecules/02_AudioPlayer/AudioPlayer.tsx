@@ -67,7 +67,7 @@ export const HAudioPlayer = function ({
   prompt = 'Rotation portals',
   theme = 'light',
 }: IAudioPlayer) {
-  const audioElement = useRef<HTMLAudioElement | null>();
+  const audioElement = useRef<HTMLAudioElement>();
   const [status, setStatus] = useState('stopped');
   const [title, setTitle] = useState(prompt);
   const gridSx = [
