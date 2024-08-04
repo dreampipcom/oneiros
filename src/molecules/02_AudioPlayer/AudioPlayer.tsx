@@ -92,8 +92,8 @@ export const HAudioPlayer = function ({
     const isPlaying = status === 'playing';
 
     if (isPlaying) {
-      audioElement.current.pause();
-      audioElement.current.currentTime = 0;
+      audioElement?.current?.pause();
+      audioElement?.current?.currentTime = 0;
       setStatus('stopped');
     } else {
       audioElement?.current?.play();
@@ -110,7 +110,7 @@ export const HAudioPlayer = function ({
     const handlePlay = handleStatus('playing', {
       title: audioElement.current.getAttribute('data-title'),
     });
-    const handleStop = handleStatus('stopped');
+    const handleStop = handleStatus('stopped', {});
     audioElement?.current?.addEventListener('play', handlePlay);
     audioElement?.current?.addEventListener('ended', handleStop);
 
