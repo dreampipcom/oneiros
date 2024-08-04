@@ -96,7 +96,7 @@ export const HLink = function ({
         window.removeEventListener('pagehide', preventPopup);
       };
       startApp.current = () => {
-        window.open(toProtocol(href));
+        window.open(toProtocol(href), '_self');
         timeout = setTimeout(() => {
           // prompt app download
           // if (
