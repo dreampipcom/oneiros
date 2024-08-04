@@ -22,7 +22,7 @@
       "jsx": true
     }
   },
-  "ignorePatterns": ["*.config.ts"],
+  "ignorePatterns": ["*.config.ts", "*.config.d.ts"],
   "extends": [
     "eslint:recommended",
     "plugin:react/recommended",
