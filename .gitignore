@@ -135,5 +135,3 @@ storybook-static
 *storybook.log
 
 .DS_Store
-
-public/
