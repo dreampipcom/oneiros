@@ -2,8 +2,8 @@
 // @atoms/SystemIcon.tsx
 import { useMemo } from 'react';
 import clsx from 'clsx';
+import { DreamPipColors } from '../../../tailwind.config.ts';
 import * as Icons from './assets';
-import { DreamPipColors } from '../../../tailwind.config';
 
 type Theme = 'light' | 'dark';
 
@@ -87,6 +87,7 @@ export const HSystemIcon = function ({
       'passion-selected': DreamPipColors.primary.green,
     },
   };
+
   const IconComponent = useMemo(() => Icons[icon], [icon, theme]);
 
   return (
