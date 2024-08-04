@@ -147,10 +147,14 @@ export const HAudioPlayer = function ({
         >
           {tracks.map((file) => (
             <>
-              <source src={file.url} type="audio/mpeg" />
+              <source
+                key={`molecules__AudioPlayer__element-source-${file.title}`}
+                src={file.url}
+                type="audio/mpeg"
+              />
               <track
                 kind="subtitles"
-                key={`molecules__AudioPlayer__element--${file.title}`}
+                key={`molecules__AudioPlayer__element-track-${file.title}`}
                 data-title={file.title}
                 srcLang="en"
                 label="English"
