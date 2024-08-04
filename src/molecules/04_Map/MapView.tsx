@@ -1,9 +1,10 @@
-/* eslint jsx-a11y/media-has-caption:0, no-nested-ternary:0, no-unused-vars:0, max-len:0, no-shadow:0, @typescript-eslint/no-explicit-any:0, object-curly-newline:0 */
+/* eslint import/no-unresolved:0, import/no-webpack-loader-syntax:0, jsx-a11y/media-has-caption:0, no-nested-ternary:0, no-unused-vars:0, max-len:0, no-shadow:0, @typescript-eslint/no-explicit-any:0, object-curly-newline:0 */
 // @atoms/MapView.tsx
 import clsx from 'clsx';
 import { Map, Source, Layer, Popup as GLPop } from 'react-map-gl';
 import bbox from '@turf/bbox';
 import React, { useRef, useState, useEffect } from 'react';
+import mapboxgl from 'mapbox-gl';
 
 import { Button } from '../../atoms/01_Button';
 import { Typography } from '../../atoms/02_Typography';
@@ -11,6 +12,13 @@ import { Link } from '../../atoms/03_Link';
 import { SystemIcon, ESystemIcon } from '../../atoms/05_SystemIcon';
 
 import 'mapbox-gl/dist/mapbox-gl.css';
+
+// The following is required to stop "npm build" from transpiling mapbox code.
+// notice the exclamation point in the import.
+// @ts-expect-error this needs to happen
+mapboxgl.workerClass = import(
+  'worker-loader!mapbox-gl/dist/mapbox-gl-csp-worker'
+).default;
 
 export const MapLocale = {
   default: {
@@ -516,7 +524,7 @@ export const HMapView = function ({
   }, [timeframe]);
 
   useEffect(() => {
-    if (!events?.mapData) return;
+    // if (!events?.mapData) return;
     if (mapRef?.current && events?.mapData?.features?.length) {
       const bounds = bbox(events?.mapData);
 
@@ -559,8 +567,8 @@ export const HMapView = function ({
     setHoverPopupOpen(false);
   };
 
-  const centre = [settings.where.lon, settings.where.lat] || [0, 0];
-  const zoom = settings.zoom || 10;
+  const centre = [settings?.where?.lon, settings?.where?.lat] || [0, 0];
+  const zoom = settings?.zoom || 10;
 
   return (
     <Map
@@ -571,7 +579,7 @@ export const HMapView = function ({
         zoom,
       }}
       mapStyle="mapbox://styles/mapbox/dark-v9"
-      mapboxAccessToken={process.env.MAPBOX_TOKEN || mapBoxToken}
+      mapboxAccessToken={mapBoxToken}
       interactiveLayerIds={[clusterLayer.id, unclusteredPointLayer.id]}
       onClick={onClick}
       onMouseEnter={onMouseEnter}

@@ -24,5 +24,6 @@ type Story = StoryObj<typeof Example>;
 export const Default: Story = {
   args: {
     variant: EMapViewVariant.DEFAULT,
+    mapBoxToken: '',
   },
 };
