@@ -89,9 +89,9 @@ export const HAudioPlayer = function ({
 
   const handlePlay = () => {
     onPlayTrack();
-    audioElement?.current?.isPlaying = status === 'playing';
+    audioElement?.isPlaying = status === 'playing';
 
-    if (audioElement?.current?.isPlaying) {
+    if (audioElement?.isPlaying) {
       audioElement.current.pause();
       audioElement.current.currentTime = 0;
       setStatus('stopped');
