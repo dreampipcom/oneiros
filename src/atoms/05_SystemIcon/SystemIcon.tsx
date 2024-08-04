@@ -36,7 +36,7 @@ export interface ISystemIcon {
 export const HSystemIcon = function ({
   className,
   color = EIconColor.PRIMARY,
-  icon = Icons.ESystemIcon['bow-arrow'],
+  icon = Icons.ESystemIcon.account,
   theme = 'light',
   size = EIconSize.MEDIUM,
   id = 'atom__link',
