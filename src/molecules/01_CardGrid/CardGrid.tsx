@@ -141,6 +141,7 @@ export interface ICardGrid {
   id?: string;
   className?: string;
   cards?: ICard[];
+  onLikeCard?: () => void;
   theme?: 'light' | 'dark';
 }
 
@@ -148,6 +149,7 @@ export const HCardGrid = function ({
   id = 'atom__CardGrid',
   className = '',
   cards = DEFAULT_CARDS,
+  onLikeCard = () => {},
   theme = 'light',
 }: ICardGrid) {
   const gridSx = [
@@ -174,6 +176,7 @@ export const HCardGrid = function ({
       {cards.map((card) => (
         <Card
           key={`molecules__cardgrid__card__element--${card.title}`}
+          onLike={onLikeCard}
           {...card}
           theme={theme}
           className="col-span-full sm:col-span-6 lg:col-span-4 col-start-0"
