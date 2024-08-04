@@ -92,11 +92,11 @@ export const HAudioPlayer = function ({
     const isPlaying = status === 'playing';
 
     if (isPlaying) {
-      audioElement?.current?.pause();
+      audioElement.current?.pause();
       audioElement.current.currentTime = 0;
       setStatus('stopped');
     } else {
-      audioElement?.current?.play();
+      audioElement.current?.play();
       setStatus('playing');
     }
   };
@@ -108,15 +108,15 @@ export const HAudioPlayer = function ({
 
   useEffect(() => {
     const handlePlay = handleStatus('playing', {
-      title: audioElement?.current?.getAttribute('data-title'),
+      title: audioElement.current?.getAttribute('data-title'),
     });
     const handleStop = handleStatus('stopped', {});
-    audioElement?.current?.addEventListener('play', handlePlay);
-    audioElement?.current?.addEventListener('ended', handleStop);
+    audioElement.current?.addEventListener('play', handlePlay);
+    audioElement.current?.addEventListener('ended', handleStop);
 
     return () => {
-      audioElement?.current?.removeEventListener('play', handlePlay);
-      audioElement?.current?.removeEventListener('ended', handleStop);
+      audioElement.current?.removeEventListener('play', handlePlay);
+      audioElement.current?.removeEventListener('ended', handleStop);
     };
   }, [status]);
 
