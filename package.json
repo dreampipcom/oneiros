@@ -61,6 +61,7 @@
     "@storybook/test": "8.0.10",
     "@testing-library/jest-dom": "6.4.2",
     "@testing-library/react": "15.0.2",
+    "@turf/bbox": "^7.0.0",
     "@types/react": "18.2.79",
     "@types/react-dom": "18",
     "@typescript-eslint/eslint-plugin": "7.7.0",
