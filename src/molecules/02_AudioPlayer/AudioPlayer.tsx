@@ -67,7 +67,7 @@ export const HAudioPlayer = function ({
   prompt = 'Rotation portals',
   theme = 'light',
 }: IAudioPlayer) {
-  const audioElement = useRef();
+  const audioElement = useRef<HTMLAudioElement | null>();
   const [status, setStatus] = useState('stopped');
   const [title, setTitle] = useState(prompt);
   const gridSx = [
@@ -89,14 +89,14 @@ export const HAudioPlayer = function ({
 
   const handlePlay = () => {
     onPlayTrack();
-    audioElement.current.isPlaying = status === 'playing';
+    audioElement?.current?.isPlaying = status === 'playing';
 
     if (audioElement?.current?.isPlaying) {
       audioElement.current.pause();
       audioElement.current.currentTime = 0;
       setStatus('stopped');
     } else {
-      audioElement.current.play();
+      audioElement?.current?.play();
       setStatus('playing');
     }
   };
@@ -111,12 +111,12 @@ export const HAudioPlayer = function ({
       title: audioElement.current.getAttribute('data-title'),
     });
     const handleStop = handleStatus('stopped');
-    audioElement.current.addEventListener('play', handlePlay);
-    audioElement.current.addEventListener('ended', handleStop);
+    audioElement?.current?.addEventListener('play', handlePlay);
+    audioElement?.current?.addEventListener('ended', handleStop);
 
     return () => {
-      audioElement.current.removeEventListener('play', handlePlay);
-      audioElement.current.removeEventListener('ended', handleStop);
+      audioElement?.current?.removeEventListener('play', handlePlay);
+      audioElement?.current?.removeEventListener('ended', handleStop);
     };
   }, [status]);
 
