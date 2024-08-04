@@ -103,17 +103,20 @@ export const HAudioPlayer = function ({
 
   useEffect(() => {
     const element = audioElement.current;
-    const handlePlay = handleStatus('playing', {
-      title: element.getAttribute('data-title') || prompt,
-    });
-    const handleStop = handleStatus('stopped', {});
-    element.addEventListener('play', handlePlay);
-    element.addEventListener('ended', handleStop);
+    if (element) {
+      const handlePlay = handleStatus('playing', {
+        title: element.getAttribute('data-title') || prompt,
+      });
+      const handleStop = handleStatus('stopped', {});
+      element.addEventListener('play', handlePlay);
+      element.addEventListener('ended', handleStop);
 
-    return () => {
-      element.removeEventListener('play', handlePlay);
-      element.removeEventListener('ended', handleStop);
-    };
+      return () => {
+        element.removeEventListener('play', handlePlay);
+        element.removeEventListener('ended', handleStop);
+      };
+    }
+    return () => {};
   }, [status]);
 
   return (
