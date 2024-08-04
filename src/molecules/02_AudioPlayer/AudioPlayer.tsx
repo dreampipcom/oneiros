@@ -93,7 +93,7 @@ export const HAudioPlayer = function ({
 
     if (isPlaying) {
       audioElement.current?.pause();
-      audioElement.current.currentTime = 0;
+      if (audioElement.current) audioElement.current.currentTime = 0;
       setStatus('stopped');
     } else {
       audioElement.current?.play();
