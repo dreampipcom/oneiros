@@ -6,7 +6,7 @@ import bbox from '@turf/bbox';
 import React, { useRef, useState, useEffect } from 'react';
 import { workerClass } from 'mapbox-gl';
 import workerLoader from 'mapbox-gl/dist/mapbox-gl-csp-worker?worker';
-import { Button } from '../../atoms/01_Button';
+import { Button, ButtonVariant, EButtonTheme } from '../../atoms/01_Button';
 import { Typography } from '../../atoms/02_Typography';
 import { Link } from '../../atoms/03_Link';
 import { SystemIcon, ESystemIcon } from '../../atoms/05_SystemIcon';
@@ -421,17 +421,26 @@ const Popup = function ({
       onOpen={onOpen}
     >
       <div style={{ display: 'flex' }}>
-        <Typography style={{ flex: '1 0 60%' }}>{name}</Typography>
+        <Typography
+          inherit
+          className="text-body-primary dark:text-body-primary"
+          style={{ flex: '1 0 60%' }}
+        >
+          {name}
+        </Typography>
         <Button
           onClick={() => {
             onClose();
           }}
           icon={ESystemIcon.close}
           size="small"
+          theme={theme}
           sx={{ padding: '4px', width: '32px', height: '32px' }}
         />
       </div>
-      <Typography>{`${start}—${end}`}</Typography>
+      <Typography inherit className="text-body-light dark:text-body-light">
+        {`${start}—${end}`}
+      </Typography>
       <div>
         <Link href={link} target="_blank" rel="noreferrer noopener">
           {localization.view}
@@ -439,9 +448,10 @@ const Popup = function ({
       </div>
       <div>
         <Button
-          sx={{ marginY: '4px' }}
-          startIcon={<SystemIcon theme={theme} />}
           theme={theme}
+          icon={ESystemIcon.agenda}
+          variant={ButtonVariant.FILLED}
+          buttonTheme={EButtonTheme.PRIMARY}
           onClick={async () => {
             // to-do: event click action
             // const cal = await import('../lib/cal');
@@ -478,8 +488,6 @@ export const HMapView = function ({
   fetchNewData,
   theme = 'light',
 }: IMapView) {
-  console.log({ mapBoxToken });
-  console.log({ events });
   const mapRef = useRef(null);
   const popup = useRef({ open: false, feature: undefined });
   const hoverPopup = useRef(null);
@@ -580,7 +588,6 @@ export const HMapView = function ({
     const { clusterId } = target.properties;
     const mapboxSource = mapRef.current.getSource(clusterId);
     mapboxSource.getClusterLeaves(clusterId, 5, 0, (err, features) => {
-      console.log({ err });
       if (err) return;
       hoverPopup.current = features;
       hoverPopup.current.coordinates = target.geometry.coordinates;
@@ -614,7 +621,11 @@ export const HMapView = function ({
         cursor="auto"
         ref={mapRef}
         style={{ width: '100svw', height: '97svh' }}
-        mapStyle="mapbox://styles/mapbox/dark-v9"
+        mapStyle={
+          theme === 'dark'
+            ? 'mapbox://styles/mapbox/dark-v11'
+            : 'mapbox://styles/mapbox/light-v11'
+        }
       >
         <Source
           id="molecule__MapView"
