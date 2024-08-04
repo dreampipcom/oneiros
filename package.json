@@ -42,6 +42,9 @@
     "@chromatic-com/storybook": "1.3.3",
     "@emotion/react": "11.11.4",
     "@emotion/styled": "11.11.5",
+    "@fullcalendar/daygrid": "^6.1.15",
+    "@fullcalendar/react": "^6.1.15",
+    "@fullcalendar/timegrid": "^6.1.15",
     "@mui/material": "5.15.15",
     "@mui/x-date-pickers-pro": "^7.8.0",
     "@snyk/protect": "latest",
@@ -99,10 +102,5 @@
   "optionalDependencies": {
     "@rollup/rollup-linux-x64-gnu": "4.9.5"
   },
-  "snyk": true,
-  "dependencies": {
-    "@fullcalendar/daygrid": "^6.1.15",
-    "@fullcalendar/react": "^6.1.15",
-    "@fullcalendar/timegrid": "^6.1.15"
-  }
+  "snyk": true
 }
