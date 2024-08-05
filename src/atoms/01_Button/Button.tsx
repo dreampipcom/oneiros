@@ -65,7 +65,7 @@ export const HButton = function ({
   const isInternal = (link: string) =>
     link.startsWith('web+dreampip://') ||
     link?.startsWith('https://www.dreampip.com') ||
-    link?.replace('http://', '').replace('https://', '').startsWith(host) ||
+    link?.replace('https://', '').replace('http://', '').startsWith(host) ||
     link.startsWith('/');
 
   const toProtocol = (link: string): string => {
