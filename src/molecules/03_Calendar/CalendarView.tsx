@@ -708,23 +708,25 @@ export const HCalendarView = function ({
         align-center
         justify-center
         [&_*]:text-body-light
+        [&_.fc-event_*]:text-body-dark
         [&_*]:dark:text-body-dark
+        [&_.fc-event_*]:dark:text-body-light
         [&_.fc]:w-full
         `]: true,
     },
   ];
 
-  // const style = {
-  //   position: 'absolute',
-  //   top: '50%',
-  //   left: '50%',
-  //   transform: 'translate(-50%, -50%)',
-  //   width: 400,
-  //   bgcolor: 'background.paper',
-  //   border: '2px solid #000',
-  //   boxShadow: 24,
-  //   p: 4,
-  // };
+  const style = {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: 400,
+    backgroundColor: 'white',
+    border: '2px solid #000',
+    boxShadow: 24,
+    p: 4,
+  };
 
   const gridStyles = `${clsx(gridSx)} ${className}`;
 
@@ -802,7 +804,7 @@ export const HCalendarView = function ({
         firstDay={1}
         ref={calendarRef}
         allDayText={localization.allDay}
-        eventColor={theme === 'light' ? '#fff' : '#1b1b1b'}
+        eventColor={theme === 'dark' ? '#fff' : '#1b1b1b'}
         eventTextColor={theme === 'dark' ? '#1b1b1b' : '#fff'}
         eventClick={(info) => {
           info.jsEvent.preventDefault(); // don't let the browser navigate
@@ -823,19 +825,22 @@ export const HCalendarView = function ({
       />
       <div className="flex relative">
         <Button
+          className="m-a1"
           theme={theme}
           icon={ESystemIcon['arrow-left']}
           onClick={handlePreviousClick}
         />
         <Button
-          theme={theme}
-          icon={ESystemIcon['arrow-right']}
-          onClick={handleNextClick}
-        />
-        <Button
+          className="m-a1"
           theme={theme}
           icon={ESystemIcon.calendar}
           onClick={handleTodayClick}
+        />
+        <Button
+          className="m-a1"
+          theme={theme}
+          icon={ESystemIcon['arrow-right']}
+          onClick={handleNextClick}
         />
       </div>
       <Modal
@@ -843,19 +848,23 @@ export const HCalendarView = function ({
         aria-labelledby="parent-modal-title"
         aria-describedby="parent-modal-description"
       >
-        <Box sx={{ maxWidth: 400, width: '90%' }}>
+        <Box sx={{ ...style, maxWidth: 400, width: '90%' }}>
           {/* <h2 id="parent-modal-title">1/2</h2> */}
-          <Typography className="mr-a2" id="parent-modal-description">
+          <Typography
+            inherit
+            className="mr-a2 text-body-light"
+            id="parent-modal-description"
+          >
             {modalPrompt}
           </Typography>
           <Button
-            className="mr-a2"
+            className="my-a2"
             theme={theme}
             onClick={handleCancelModalClick}
           >
             Cancel
           </Button>
-          <Button className="mr-a2" theme={theme} onClick={handleOKModalClick}>
+          <Button theme={theme} onClick={handleOKModalClick}>
             OK
           </Button>
         </Box>
