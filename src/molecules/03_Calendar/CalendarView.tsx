@@ -849,7 +849,6 @@ export const HCalendarView = function ({
         aria-describedby="parent-modal-description"
       >
         <Box sx={{ ...style, maxWidth: 400, width: '90%' }}>
-          {/* <h2 id="parent-modal-title">1/2</h2> */}
           <Typography
             inherit
             className="mr-a2 text-body-light"
