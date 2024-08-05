@@ -50,6 +50,7 @@ export interface IAudioPlayer {
   tracks?: IAudioTrack[];
   onPlayTrack?: () => void;
   nativeControls?: boolean;
+  autoPlay?: boolean;
   prompt?: string;
   theme?: 'light' | 'dark';
 }
@@ -60,6 +61,7 @@ export const HAudioPlayer = function ({
   tracks = DEFAULT_TRACKS,
   onPlayTrack = () => {},
   nativeControls = false,
+  autoPlay = false,
   prompt = 'Rotation portals',
   theme = 'light',
 }: IAudioPlayer) {
@@ -134,7 +136,7 @@ export const HAudioPlayer = function ({
           src={tracks[0].url}
           controls={nativeControls}
           ref={audioElement}
-          autoPlay
+          autoPlay={autoPlay}
           preload="none"
         >
           {tracks.map((file) => (
