@@ -95,20 +95,21 @@ export const HButton = function ({
     {
       'relative normal-case shadow-none hover:shadow-none': true,
       'rounded-md w-full px-a3 py-b1': !!children,
-      'rounded-md px-0 py-0 min-h-b5 max-w-b5 min-w-b5': !children,
+      'rounded-md px-0 py-0 min-h-b5 max-w-b5 min-w-b5 max-h-b5': !children,
     },
     buttonTheme === EButtonTheme.PRIMARY && {
       [`
         class1
 
         text-body-dark
-        dark:text-body-light
+        dark:text-body-dark
+
 
         bg-primary-light
         hover:bg-primary-contrast
 
-        dark:bg-primary-white
-        dark:hover:bg-primary-soft
+        dark:bg-primary-contrast
+        dark:hover:bg-primary-light
         
       `]: variant === ButtonVariant.FILLED,
       [`
@@ -240,7 +241,7 @@ export const HButton = function ({
         [EButtonTheme.PASSION_SELECTED]: EIconColor.PASSION_SELECTED,
       },
       [ButtonVariant.FILLED]: {
-        [EButtonTheme.PRIMARY]: EIconColor.PRIMARY,
+        [EButtonTheme.PRIMARY]: EIconColor.WHITE,
         [EButtonTheme.SECONDARY]: EIconColor.WHITE,
         [EButtonTheme.PASSION]: EIconColor.PASSION,
         [EButtonTheme.PASSION_SELECTED]: EIconColor.PASSION_SELECTED,

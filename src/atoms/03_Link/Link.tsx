@@ -1,7 +1,7 @@
 /* eslint no-unused-vars:0, no-shadow:0, @typescript-eslint/no-explicit-any:0 */
 // @atoms/Button.tsx
 import type { ReactNode as ChildrenType } from 'react';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useCallback } from 'react';
 import clsx from 'clsx';
 import MLink from '@mui/material/Link';
 
@@ -57,25 +57,31 @@ export const HLink = function ({
 }: ILink) {
   const startApp = useRef<() => void>(() => {});
 
-  const isInternal = (link: string) =>
-    link.startsWith('web+dreampip://') ||
-    link?.startsWith('https://www.dreampip.com') ||
-    link?.replace('http://', '').replace('https://', '').startsWith(host) ||
-    link.startsWith('/');
+  const isInternal = useCallback(
+    (link: string) =>
+      link.startsWith('web+dreampip://') ||
+      link?.startsWith('https://www.dreampip.com') ||
+      link?.replace('http://', '').replace('https://', '').startsWith(host) ||
+      link.startsWith('/'),
+    [host],
+  );
 
   // deep-linking: protocol
-  const toProtocol = (link: string): string => {
-    if (link.startsWith('https://')) {
-      return link?.replace('https://', 'web+dreampip://');
-    }
-    if (link.startsWith('http://')) {
-      return link?.replace('http://', 'web+dreampip://');
-    }
-    if (link.startsWith('/')) {
-      return `web+dreampip://${host}${link}`;
-    }
-    return link;
-  };
+  const toProtocol = useCallback(
+    (link: string): string => {
+      if (link.startsWith('https://')) {
+        return link?.replace('https://', 'web+dreampip://');
+      }
+      if (link.startsWith('http://')) {
+        return link?.replace('http://', 'web+dreampip://');
+      }
+      if (link.startsWith('/')) {
+        return `web+dreampip://${host}${link}`;
+      }
+      return link;
+    },
+    [host],
+  );
 
   const handleOnClick = () => {
     if (onClick) {

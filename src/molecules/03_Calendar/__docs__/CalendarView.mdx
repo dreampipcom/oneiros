@@ -1,0 +1,55 @@
+import { Canvas, Meta } from "@storybook/blocks";
+import Example from "./Example.tsx";
+import * as CalendarView from "./03-CalendarView.stories.tsx";
+
+<Meta of={CalendarView} title="CalendarView" />
+
+# CalendarView
+
+CalendarView component with different props.
+
+#### Example
+
+<Canvas of={CalendarView.Default} />
+
+## Usage
+
+```ts
+import { CalendarView } from "@dreampipcom/oneiros";
+
+export const DEFAULT_TRACKS = [
+  {
+    id: 'dreampip__chan_0000',
+    className: '',
+    onPlay: () => {},
+    title: 'This is the track playing',
+    url: 'https://www.dreampip.com/api/nexus/audio',
+    isPlaying: false,
+  },
+  {
+    id: 'dreampip__chan_0001',
+    className: '',
+    onPlay: () => {},
+    title: 'This is the track playing',
+    url: 'https://www.dreampip.com/api/nexus/audio/1',
+    isPlaying: false,
+  },
+];
+
+const App = () => {
+  return (
+      <CalendarView 
+        tracks={DEFAULT_TRACKS}
+      />
+  );
+};
+
+export default Example;
+```
+
+#### Arguments
+
+- **tracks** — An array of Tracks props, where each index represents a Card in the grid.
+- **onPlayTrack** — A function to run when the play button is clicked.
+- **nativeControls** — A boolean to determine whether the native browser player should display.
+- **prompt** — A string to show by the side of the player.
