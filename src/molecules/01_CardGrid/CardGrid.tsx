@@ -175,7 +175,7 @@ export const HCardGrid = function ({
     >
       {cards.map((card) => (
         <Card
-          key={`molecules__cardgrid__card__element--${card.title}`}
+          key={`molecules__cardgrid__card__element--${card.title}--${id}`}
           onLike={onLikeCard}
           {...card}
           theme={theme}
