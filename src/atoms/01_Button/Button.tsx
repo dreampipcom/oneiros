@@ -76,7 +76,7 @@ export const HButton = function ({
       return link?.replace('http://', 'web+dreampip://');
     }
     if (link.startsWith('/')) {
-      return `web+dreampip://${host}${link}`;
+      return `web+dreampip://${host.replace('https://', '').replace('http://', '')}${link}`;
     }
     return link;
   };
