@@ -157,6 +157,7 @@ export const HLink = function ({
       onClick={handleOnClick}
     >
       <Typography
+        as="span"
         className={styles}
         variant={variant}
         inherit
