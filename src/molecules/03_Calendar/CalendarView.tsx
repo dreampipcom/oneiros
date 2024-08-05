@@ -1,7 +1,7 @@
 /* eslint jsx-a11y/media-has-caption:0, no-nested-ternary:0, no-unused-vars:0, max-len:0, no-shadow:0, @typescript-eslint/no-explicit-any:0, object-curly-newline:0 */
 // @atoms/CalendarView.tsx
 import clsx from 'clsx';
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 
 import LibCal from '@fullcalendar/react';
 import timeGridPlugin from '@fullcalendar/timegrid'; // a plugin!
@@ -10,7 +10,7 @@ import { Box, Modal } from '@mui/material';
 
 import { Button } from '../../atoms/01_Button';
 import { Typography } from '../../atoms/02_Typography';
-// import { ESystemIcon } from '../../atoms/05_SystemIcon';
+import { ESystemIcon } from '../../atoms/05_SystemIcon';
 
 export const EventLocale = {
   default: {
@@ -650,10 +650,15 @@ export const HCalendarView = function ({
   events,
   locale,
   initialView = 'timeGridWeek',
-  headerToolbar = { start: 'title' },
+  headerToolbar = {
+    left: 'title',
+    center: '',
+    right: '',
+  },
   nowIndicator = false,
   theme = 'light',
 }: ICalendarView) {
+  const calendarRef = useRef(null);
   const [open, setOpen] = useState(false);
   const [modalPrompt, setModalPrompt] = useState('');
   const [askedCal, setAskedCal] = useState(false);
@@ -663,27 +668,32 @@ export const HCalendarView = function ({
   const gridSx = [
     {
       [`class03
+        relative
         flex
+        flex-col
+        w-full
         col-span-full col-start-0
         content-center
         items-center
         align-center
         justify-center
+        [&_*]:text-body-light
+        [&_*]:dark:text-body-dark
         `]: true,
     },
   ];
 
-  const style = {
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    width: 400,
-    bgcolor: 'background.paper',
-    border: '2px solid #000',
-    boxShadow: 24,
-    p: 4,
-  };
+  // const style = {
+  //   position: 'absolute',
+  //   top: '50%',
+  //   left: '50%',
+  //   transform: 'translate(-50%, -50%)',
+  //   width: 400,
+  //   bgcolor: 'background.paper',
+  //   border: '2px solid #000',
+  //   boxShadow: 24,
+  //   p: 4,
+  // };
 
   const gridStyles = `${clsx(gridSx)} ${className}`;
 
@@ -730,29 +740,39 @@ export const HCalendarView = function ({
     }
   };
 
+  const handlePreviousClick = () => {
+    const calendarAPI = calendarRef?.current?.getApi();
+    calendarAPI?.prev();
+  };
+
+  const handleNextClick = () => {
+    const calendarAPI = calendarRef?.current?.getApi();
+    calendarAPI?.next();
+  };
+
+  const handleTodayClick = () => {
+    const calendarAPI = calendarRef?.current?.getApi();
+    calendarAPI?.today();
+  };
+
   return (
-    <div>
+    <div className={gridStyles}>
       <LibCal
         id={id}
-        className={gridStyles}
+        key={theme}
         plugins={[timeGridPlugin, dayGridPlugin]}
         headerToolbar={headerToolbar}
         initialView={initialView}
         nowIndicator={nowIndicator}
         locale={locale}
         events={events}
-        height={400}
+        height={600}
         firstDay={1}
-        buttonText={{
-          today: localization.T,
-          month: localization.M,
-          week: localization.W,
-          day: localization.D,
-          list: localization.L,
-        }}
+        aspectRatio={2}
+        ref={calendarRef}
         allDayText={localization.allDay}
-        eventColor="#fff"
-        eventTextColor="#1b1b1b"
+        eventColor={theme === 'dark' ? '#fff' : '#1b1b1b'}
+        eventTextColor={theme === 'dark' ? '#1b1b1b' : '#fff'}
         eventClick={(info) => {
           info.jsEvent.preventDefault(); // don't let the browser navigate
           setModalPrompt(localization.calendarPrompt);
@@ -770,12 +790,29 @@ export const HCalendarView = function ({
           }
         }}
       />
+      <div className="flex relative">
+        <Button
+          theme={theme}
+          icon={ESystemIcon['arrow-left']}
+          onClick={handlePreviousClick}
+        />
+        <Button
+          theme={theme}
+          icon={ESystemIcon['arrow-right']}
+          onClick={handleNextClick}
+        />
+        <Button
+          theme={theme}
+          icon={ESystemIcon.calendar}
+          onClick={handleTodayClick}
+        />
+      </div>
       <Modal
         open={open}
         aria-labelledby="parent-modal-title"
         aria-describedby="parent-modal-description"
       >
-        <Box sx={{ ...style, maxWidth: 400, width: '90%' }}>
+        <Box sx={{ maxWidth: 400, width: '90%' }}>
           {/* <h2 id="parent-modal-title">1/2</h2> */}
           <Typography theme={theme} id="parent-modal-description">
             {modalPrompt}
