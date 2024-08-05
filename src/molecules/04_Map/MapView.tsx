@@ -604,7 +604,7 @@ export const HMapView = function ({
   const zoom = settings?.zoom || 3;
 
   return (
-    <div className="relative w-lvw h-lvh overflow-hidden">
+    <div id={id} className="relative w-lvw h-lvh overflow-hidden">
       <Map
         mapLib={import('mapbox-gl')}
         initialViewState={{
