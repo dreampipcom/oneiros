@@ -442,7 +442,7 @@ const Popup = function ({
       <Typography inherit className="text-body-light dark:text-body-light">
         {`${start}—${end}`}
       </Typography>
-      <div>
+      <div className="my-a2">
         <Link href={link} target="_blank" rel="noreferrer noopener">
           {localization.view}
         </Link>
@@ -648,12 +648,13 @@ export const HMapView = function ({
             mobile={mobile}
             city={city}
             onClose={onPopUpClose}
+            className="mapbox-purizu-custom [&_.mapboxgl-popup-close-button]:hidden"
           />
         ) : undefined}
         {hoverPopupOpen && hoverPopup.current ? (
           <GLPop
             onClose={onPopUpClose}
-            className="mapbox-purizu-custom"
+            className="mapbox-purizu-custom [&_.mapboxgl-popup-close-button]:hidden"
             latitude={hoverPopup?.current?.coordinates[1]}
             longitude={hoverPopup?.current?.coordinates[0]}
           >
