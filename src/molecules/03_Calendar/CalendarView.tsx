@@ -12,7 +12,7 @@ import { Button } from '../../atoms/01_Button';
 import { Typography } from '../../atoms/02_Typography';
 import { ESystemIcon } from '../../atoms/05_SystemIcon';
 
-export const EventLocale = {
+export const EventLocale: any = {
   default: {
     locale: 'en-us',
     timezone: 'Europe/Rome',
@@ -677,7 +677,7 @@ export const HCalendarView = function ({
   id = 'atom__CalendarView',
   className = '',
   events = DEFAULT_EVENTS.calData,
-  locale,
+  locale = 'en-US',
   initialView = 'timeGridWeek',
   headerToolbar = {
     left: 'title',
@@ -687,13 +687,14 @@ export const HCalendarView = function ({
   nowIndicator = false,
   theme = 'light',
 }: ICalendarView) {
-  const calendarRef = useRef(null);
+  const calendarRef = useRef<any>(null);
   const [open, setOpen] = useState(false);
   const [modalPrompt, setModalPrompt] = useState('');
   const [askedCal, setAskedCal] = useState(false);
-  const [info, setInfo] = useState({});
+  const [info, setInfo] = useState({ event: { url: '' } });
   // to-do add localization
-  const localization = EventLocale[locale] || EventLocale.default;
+  const localization =
+    EventLocale[locale as keyof typeof EventLocale] || EventLocale.default;
   const gridSx = [
     {
       [`class03
@@ -789,9 +790,8 @@ export const HCalendarView = function ({
   };
 
   return (
-    <div className={gridStyles}>
+    <div id={id} className={gridStyles}>
       <LibCal
-        id={id}
         key={theme}
         plugins={[timeGridPlugin, dayGridPlugin]}
         headerToolbar={headerToolbar}
@@ -806,18 +806,18 @@ export const HCalendarView = function ({
         allDayText={localization.allDay}
         eventColor={theme === 'dark' ? '#fff' : '#1b1b1b'}
         eventTextColor={theme === 'dark' ? '#1b1b1b' : '#fff'}
-        eventClick={(info) => {
+        eventClick={(info: any) => {
           info.jsEvent.preventDefault(); // don't let the browser navigate
           setModalPrompt(localization.calendarPrompt);
           setOpen(true);
           setInfo(info);
         }}
-        viewDidMount={(info) => {
+        viewDidMount={(info: any) => {
           try {
             const delta =
               info?.view?.calendar?.currentData?.dateProfile?.renderRange
                 ?.start || 0;
-            info?.view?.calendar?.scrollToTime(new Date() - delta);
+            info?.view?.calendar?.scrollToTime(new Date().getTime() - delta);
           } catch (e) {
             console.error(e);
           }
