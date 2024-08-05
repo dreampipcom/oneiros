@@ -596,24 +596,53 @@ export const EventLocale = {
   },
 };
 
-export const DEFAULT_EVENTS = [
-  {
-    id: 'dreampip__chan_0000',
-    className: '',
-    onPlay: () => {},
-    title: 'This is the track playing',
-    url: 'https://www.dreampip.com/api/nexus/audio',
-    isPlaying: false,
+export const DEFAULT_EVENTS = {
+  calData: [
+    {
+      id: '[musica, samba] Banda - Samba do São Lázaro',
+      title: '[musica, samba] Banda - Samba do São Lázaro',
+      url: 'https://instagram.com/samba_do_sl',
+      location:
+        'Largo de São Lázaro - Ondina, Salvador - BA, 40170-010, Brazil',
+      start: '2024-08-09T17:00:00-03:00',
+      end: '2024-08-09T20:00:00-03:00',
+      classNames: ['musica', 'samba'],
+      allDay: false,
+      terms: ['musica', 'samba'],
+      city: 'salvador',
+      artists: ['Banda'],
+      project: ['Samba do São Lázaro'],
+      timeframe: 'W',
+    },
+  ],
+  mapData: {
+    type: 'FeatureCollection',
+    features: [
+      {
+        type: 'Feature',
+        geometry: {
+          type: 'Point',
+          coordinates: [-38.5120851, -13.0076901],
+        },
+        properties: {
+          name: '[musica, samba] Banda - Samba do São Lázaro',
+          terms: ['musica', 'samba'],
+          city: 'salvador',
+          artists: ['Banda'],
+          project: ['Samba do São Lázaro'],
+          starttime: '2024-08-09T17:00:00-03:00',
+          endtime: '2024-08-09T20:00:00-03:00',
+          location:
+            'Largo de São Lázaro - Ondina, Salvador - BA, 40170-010, Brazil',
+          link: 'https://instagram.com/samba_do_sl',
+          timeframe: 'W',
+          clusterId: 'molecule__MapView',
+        },
+      },
+    ],
+    timeframe: 'W',
   },
-  {
-    id: 'dreampip__chan_0001',
-    className: '',
-    onPlay: () => {},
-    title: 'This is the track playing',
-    url: 'https://www.dreampip.com/api/nexus/audio/1',
-    isPlaying: false,
-  },
-];
+};
 
 export enum ECalendarViewVariant {
   DEFAULT = 'default',
@@ -647,7 +676,7 @@ export interface ICalendarView {
 export const HCalendarView = function ({
   id = 'atom__CalendarView',
   className = '',
-  events,
+  events = DEFAULT_EVENTS.calData,
   locale,
   initialView = 'timeGridWeek',
   headerToolbar = {
@@ -672,6 +701,7 @@ export const HCalendarView = function ({
         flex
         flex-col
         w-full
+        h-full
         col-span-full col-start-0
         content-center
         items-center
@@ -679,6 +709,7 @@ export const HCalendarView = function ({
         justify-center
         [&_*]:text-body-light
         [&_*]:dark:text-body-dark
+        [&_.fc]:w-full
         `]: true,
     },
   ];
@@ -767,11 +798,11 @@ export const HCalendarView = function ({
         locale={locale}
         events={events}
         height={600}
+        aspectRatio={1.5}
         firstDay={1}
-        aspectRatio={2}
         ref={calendarRef}
         allDayText={localization.allDay}
-        eventColor={theme === 'dark' ? '#fff' : '#1b1b1b'}
+        eventColor={theme === 'light' ? '#fff' : '#1b1b1b'}
         eventTextColor={theme === 'dark' ? '#1b1b1b' : '#fff'}
         eventClick={(info) => {
           info.jsEvent.preventDefault(); // don't let the browser navigate
@@ -814,13 +845,17 @@ export const HCalendarView = function ({
       >
         <Box sx={{ maxWidth: 400, width: '90%' }}>
           {/* <h2 id="parent-modal-title">1/2</h2> */}
-          <Typography theme={theme} id="parent-modal-description">
+          <Typography className="mr-a2" id="parent-modal-description">
             {modalPrompt}
           </Typography>
-          <Button theme={theme} onClick={handleCancelModalClick}>
+          <Button
+            className="mr-a2"
+            theme={theme}
+            onClick={handleCancelModalClick}
+          >
             Cancel
           </Button>
-          <Button theme={theme} onClick={handleOKModalClick}>
+          <Button className="mr-a2" theme={theme} onClick={handleOKModalClick}>
             OK
           </Button>
         </Box>
