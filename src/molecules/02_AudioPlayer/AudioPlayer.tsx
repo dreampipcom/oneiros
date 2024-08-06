@@ -94,7 +94,7 @@ export const HAudioPlayer = function ({
       audioElement.current.load();
       setStatus('stopped');
     } else {
-      audioElement.current.src = tracks[0].url;
+      audioElement.current.src = tracks[0].url || 'about:blank';
       audioElement.current.load();
       audioElement.current.play();
       setStatus('playing');
