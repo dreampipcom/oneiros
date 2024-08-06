@@ -89,11 +89,14 @@ export const HAudioPlayer = function ({
     const isPlaying = status === 'playing';
 
     if (isPlaying) {
-      audioElement.current?.pause();
-      audioElement.current.currentTime = 0;
+      audioElement.current.pause();
+      audioElement.current.src = 'about:blank';
+      audioElement.current.load();
       setStatus('stopped');
     } else {
-      audioElement.current?.play();
+      audioElement.current.src = tracks[0].url || 'about:blank';
+      audioElement.current.load();
+      audioElement.current.play();
       setStatus('playing');
     }
   };
