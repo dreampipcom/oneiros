@@ -2,8 +2,7 @@
   "name": "@dreampipcom/oneiros",
   "version": "0.0.1",
   "description": "DreamPip's Design System Component Library.",
-  "type": "module",
-  "main": "dist/index.cjs.js",
+  "main": "dist/index.cjs",
   "module": "dist/index.es.js",
   "types": "dist/index.d.ts",
   "repository": "https://github.com/dreampipcom/oneiros",
@@ -15,8 +14,8 @@
     "lint:icons": "eslint . --ext .ts,.tsx --ignore-path .gitignore --fix",
     "format": "prettier --write --parser typescript '**/*.{ts,tsx}' --ignore-path .ignoreicons",
     "lint": "eslint . --ext .ts,.tsx --ignore-path .ignoreicons --fix",
-    "build": "tsc -p tsconfig.json && cp ./tailwind.config.ts ./public/ && tsc -p tsconfig-dist.json && vite build",
-    "build:watch": "tsc -p tsconfig.json && cp ./tailwind.config.ts ./public/ && tsc -p tsconfig-dist.json && vite build --watch",
+    "build": "tsc -p tsconfig.json && cp ./tailwind.config.ts ./public/ && tsc -p tsconfig-dist.json && vite build --mode cjs && vite build --mode es",
+    "build:watch": "tsc -p tsconfig.json && cp ./tailwind.config.ts ./public/ && tsc -p tsconfig-dist.json && vite build --watch --mode es",
     "test": "vitest run",
     "test-watch": "vitest",
     "test:ui": "vitest --ui",
@@ -81,7 +80,6 @@
     "jsdom": "24.0.0",
     "lodash": "4.17.21",
     "mapbox-gl": "^3.5.2",
-    "moment": "^2.30.1",
     "postcss": "8.4.38",
     "prettier": "3.2.5",
     "react-map-gl": "^7.1.7",
@@ -98,7 +96,8 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "tailwindcss": "3.4.4",
-    "typescript": "5.4.5"
+    "typescript": "5.4.5",
+    "moment": "^2.30.1"
   },
   "optionalDependencies": {
     "@rollup/rollup-linux-x64-gnu": "4.9.5"
