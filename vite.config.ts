@@ -11,10 +11,11 @@ export default defineConfig((env) => {
     ? {
         // es-module
         build: {
+          outDir: './dist/esm',
           lib: {
             entry: './src/index.ts',
-            name: 'vite-react-ts-button',
-            fileName: (format) => `index.es.js'}`,
+            name: 'oneiros-esm',
+            fileName: (format) => `index.es.js`,
             formats: ['es'],
           },
           rollupOptions: {
@@ -25,7 +26,7 @@ export default defineConfig((env) => {
             ],
           },
           sourcemap: true,
-          emptyOutDir: true,
+          emptyOutDir: false,
         },
         plugins: [
           dts({
@@ -47,10 +48,11 @@ export default defineConfig((env) => {
     : {
         build: {
           // cjs
+          outDir: './dist/cjs',
           lib: {
             entry: './src/index.ts',
-            name: 'vite-react-ts-button',
-            fileName: (format) => `index.cjs'}`,
+            name: 'oneiros-cjs',
+            fileName: (format) => `index.cjs`,
             formats: ['cjs'],
           },
           rollupOptions: {
@@ -61,7 +63,7 @@ export default defineConfig((env) => {
             ],
           },
           sourcemap: true,
-          emptyOutDir: true,
+          emptyOutDir: false,
         },
         plugins: [
           dts({

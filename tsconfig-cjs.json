@@ -5,15 +5,16 @@
     "lib": ["DOM", "DOM.Iterable"],
     "module": "commonjs",
     "skipLibCheck": true,
-    "moduleResolution": "bundler",
     "allowImportingTsExtensions": true,
     "resolveJsonModule": true,
     "noEmit": true,
+    "esModuleInterop": true,
     "jsx": "react-jsx",
     "noUnusedLocals": false,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
     "declaration": true,
+    "outDir": "dist/cjs"
   },
   "include": ["src"],
   "exclude": [
