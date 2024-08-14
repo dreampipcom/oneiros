@@ -62,6 +62,12 @@ export default defineConfig((env) => {
               'react/jsx-runtime',
               'moment',
             ],
+            onwarn(warning, defaultHandler) {
+              if (warning.code === 'MODULE_LEVEL_DIRECTIVE') {
+                return;
+              }
+              defaultHandler(warning);
+            },
           },
           sourcemap: true,
           emptyOutDir: false,
