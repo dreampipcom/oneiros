@@ -15,7 +15,7 @@
     "lint:icons": "eslint . --ext .ts,.tsx --ignore-path .gitignore --fix",
     "format": "prettier --write --parser typescript '**/*.{ts,tsx}' --ignore-path .ignoreicons",
     "lint": "eslint . --ext .ts,.tsx --ignore-path .ignoreicons --fix",
-    "build": "tsc -p tsconfig-cjs.json && cp ./tailwind.config.ts ./public/ && tsc -p tsconfig-dist.json && vite build --mode cjs && tsc -p tsconfig.json && vite build --mode es",
+    "build": "tsc -p tsconfig-cjs.json && cp ./tailwind.config.ts ./public/ && tsc -p tsconfig-dist.json && vite build --mode cjs && tsc -p tsconfig.json && vite build --emptyOutDir=false --mode es",
     "build:watch": "tsc -p tsconfig.json && cp ./tailwind.config.ts ./public/ && tsc -p tsconfig-dist.json && vite build --watch --mode es",
     "test": "vitest run",
     "test-watch": "vitest",

@@ -7,7 +7,7 @@ import { peerDependencies } from './package.json';
 
 export default defineConfig((env) => {
   console.log({ env });
-  return env.MODE == 'es'
+  return env.mode == 'es'
     ? {
         // es-module
         build: {
@@ -31,7 +31,7 @@ export default defineConfig((env) => {
         plugins: [
           dts({
             insertTypesEntry: true,
-            tsconfigPath: './ts-config.json',
+            tsconfigPath: './tsconfig.json',
           }),
           react({ fastRefresh: false }),
           env.mode !== 'test' &&
