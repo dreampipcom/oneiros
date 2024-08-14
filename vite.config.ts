@@ -1,4 +1,5 @@
 /// <reference types='vitest' />
+import commonjs from 'vite-plugin-commonjs';
 import eslint from 'vite-plugin-eslint';
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
@@ -70,7 +71,8 @@ export default defineConfig((env) => {
             insertTypesEntry: true,
             tsconfigPath: './tsconfig-cjs.json',
           }),
-          react({ fastRefresh: false }),
+          commonjs(),
+          // react({ fastRefresh: false }),
           env.mode !== 'test' &&
             eslint({
               exclude: ['/virtual:/**', 'node_modules/**', '/sb-preview/**'],
