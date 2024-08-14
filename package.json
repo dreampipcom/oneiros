@@ -4,7 +4,7 @@
   "description": "DreamPip's Design System Component Library.",
   "type": "module",
   "main": "dist/cjs/index.cjs",
-  "module": "dist/es/index.es.js",
+  "module": "dist/esm/index.es.js",
   "types": "dist/index.d.ts",
   "repository": "https://github.com/dreampipcom/oneiros",
   "files": [
