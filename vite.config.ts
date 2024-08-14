@@ -7,7 +7,6 @@ import dts from 'vite-plugin-dts';
 import { peerDependencies } from './package.json';
 
 export default defineConfig((env) => {
-  console.log({ env });
   return env.mode != 'cjs'
     ? {
         // es-module
