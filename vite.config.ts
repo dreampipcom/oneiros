@@ -8,7 +8,7 @@ import { peerDependencies } from './package.json';
 
 export default defineConfig((env) => {
   console.log({ env });
-  return env.mode == 'es'
+  return env.mode != 'cjs'
     ? {
         // es-module
         build: {
