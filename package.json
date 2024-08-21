@@ -3,9 +3,18 @@
   "version": "0.0.1",
   "description": "DreamPip's Design System Component Library.",
   "type": "module",
-  "main": "dist/cjs/index.server.cjs",
-  "module": "dist/esm/index.es.js",
-  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/esm/index.es.js",
+      "require": "./dist/cjs/index.server.cjs"
+    },
+    "./styles": "./dist/esm/style.css",
+    "./dist/tailwind.config.js": {
+      "import": "./dist/esm/tailwind.config.js",
+      "require": "./dist/cjs/tailwind.config.js"
+    }
+  },
+  "types": "dist/esm/index.d.ts",
   "repository": "https://github.com/dreampipcom/oneiros",
   "files": [
     "/dist/**/*"
