@@ -8,7 +8,10 @@
       "import": "./dist/esm/index.es.js",
       "require": "./dist/cjs/index.server.cjs"
     },
-    "./styles": "./dist/esm/style.css",
+    "./styles": {
+      "import": "./dist/esm/style.css",
+      "require": "./dist/cjs/style.css"
+    },
     "./dist/tailwind.config.js": {
       "import": "./dist/esm/tailwind.config.js",
       "require": "./dist/cjs/tailwind.config.js"
