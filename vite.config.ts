@@ -48,6 +48,7 @@ export default defineConfig((env) => {
     : {
         build: {
           // cjs
+          ssr: 'index.server.cjs',
           outDir: './dist/cjs',
           lib: {
             entry: './src/index.ts',
@@ -66,6 +67,10 @@ export default defineConfig((env) => {
                 return;
               }
               defaultHandler(warning);
+            },
+            output: {
+              format: 'cjs',
+              entryFileNames: 'index.server.cjs',
             },
           },
           sourcemap: true,
