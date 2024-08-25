@@ -12,7 +12,7 @@ import { Button } from '../../atoms/01_Button';
 import { Typography } from '../../atoms/02_Typography';
 import { ESystemIcon } from '../../atoms/05_SystemIcon';
 
-export const EventLocale: any = {
+export const DEFAULT_DICTIONARY: any = {
   default: {
     locale: 'en-us',
     timezone: 'Europe/Rome',
@@ -27,7 +27,7 @@ export const EventLocale: any = {
     when: 'When',
     related: 'Other episodes from our guests',
     episodes: "Listen to this event's episodes",
-    back: 'Back to events',
+    back: 'Back to calData',
     countdown: 'Countdown',
     photos: 'Photos',
     local: 'Local time',
@@ -38,9 +38,9 @@ export const EventLocale: any = {
     or: 'Or, add your name to the event discount list:',
     reset: 'Reset filters',
     countries: 'Countries',
-    events: 'Events',
-    eventsDescription:
-      'A list of our events. Brought with love to your boroughs.',
+    calData: 'Events',
+    calDataDescription:
+      'A list of our calData. Brought with love to your boroughs.',
     D: 'Day',
     W: 'Week',
     Q: 'Quarter',
@@ -85,8 +85,8 @@ export const EventLocale: any = {
     or: "Oppure, iscriverti alla lista sconti dell'evento:",
     reset: 'Ripristina filtri',
     countries: 'Paesi',
-    events: 'Eventi',
-    eventsDescription:
+    calData: 'Eventi',
+    calDataDescription:
       'Un elenco dei nostri eventi. Portato con amore nei tuoi quartieri.',
     D: 'Giorno',
     W: 'Settimana',
@@ -132,8 +132,8 @@ export const EventLocale: any = {
     or: 'Ou adicione seu nome na lista de desconto:',
     reset: 'Redefinir filtros',
     countries: 'Países',
-    events: 'Eventos',
-    eventsDescription:
+    calData: 'Eventos',
+    calDataDescription:
       'Uma lista de nossos eventos. Trazidos com amor para seus bairros.',
     D: 'Dia',
     W: 'Semana',
@@ -179,8 +179,8 @@ export const EventLocale: any = {
     or: 'O añade tu nombre a la lista de descuentos del evento:',
     reset: 'Restablecer filtros',
     countries: 'Países',
-    events: 'Eventos',
-    eventsDescription:
+    calData: 'Eventos',
+    calDataDescription:
       'Una lista de nuestros eventos. Traído con amor a tus barrios.',
     D: 'Día',
     W: 'Semana',
@@ -227,8 +227,8 @@ export const EventLocale: any = {
     or: 'Oder fügen Sie Ihren Namen zur Rabattliste des Events hinzu:',
     reset: 'Filter zurücksetzen',
     countries: 'Länder',
-    events: 'Veranstaltungen',
-    eventsDescription:
+    calData: 'Veranstaltungen',
+    calDataDescription:
       'Eine Liste unserer Veranstaltungen. Mit Liebe in deine Bezirke gebracht.',
     D: 'Tag',
     W: 'Woche',
@@ -276,8 +276,8 @@ export const EventLocale: any = {
     or: "Ou ajoutez votre nom à la liste de réduction de l'événement:",
     reset: 'Réinitialiser les filtres',
     countries: 'Pays',
-    events: 'Événements',
-    eventsDescription:
+    calData: 'Événements',
+    calDataDescription:
       'Une liste de nos événements. Apportée avec amour dans vos quartiers.',
     D: 'Jour',
     W: 'Semaine',
@@ -324,8 +324,8 @@ export const EventLocale: any = {
     or: 'Sau, adaugă-ți numele în lista de reduceri a evenimentului:',
     reset: 'Resetează filtrele',
     countries: 'Țări',
-    events: 'Evenimente',
-    eventsDescription:
+    calData: 'Evenimente',
+    calDataDescription:
       'O listă a evenimentelor noastre. Adusă cu dragoste în cartierele tale.',
     D: 'Zi',
     W: 'Săptămână',
@@ -372,8 +372,8 @@ export const EventLocale: any = {
     or: 'Lub dodaj swoje imię do listy zniżek na wydarzenie:',
     reset: 'Zresetuj filtry',
     countries: 'Kraje',
-    events: 'Wydarzenia',
-    eventsDescription:
+    calData: 'Wydarzenia',
+    calDataDescription:
       'Lista naszych wydarzeń. Przygotowane z miłością do twoich dzielnic.',
     D: 'Dzień',
     W: 'Tydzień',
@@ -418,8 +418,8 @@ export const EventLocale: any = {
     or: 'Nebo se přidejte na seznam slev k události:',
     reset: 'Resetovat filtry',
     countries: 'Země',
-    events: 'Události',
-    eventsDescription: 'Seznam našich událostí. S láskou pro vaše obvody.',
+    calData: 'Události',
+    calDataDescription: 'Seznam našich událostí. S láskou pro vaše obvody.',
     D: 'Den',
     W: 'Týden',
     Q: 'Čtvrtletí',
@@ -464,8 +464,8 @@ export const EventLocale: any = {
     or: 'Eller, lägg till ditt namn i evenemangets rabattlista:',
     reset: 'Återställ filter',
     countries: 'Länder',
-    events: 'Evenemang',
-    eventsDescription:
+    calData: 'Evenemang',
+    calDataDescription:
       'En lista över våra evenemang. Levererat med kärlek till dina stadsdelar.',
     D: 'Dag',
     W: 'Vecka',
@@ -512,8 +512,8 @@ export const EventLocale: any = {
     or: 'Või lisage oma nimi ürituse soodustuste nimekirja:',
     reset: 'Lähtesta filtrid',
     countries: 'Riigid',
-    events: 'Üritused',
-    eventsDescription:
+    calData: 'Üritused',
+    calDataDescription:
       'Nimekiri meie üritustest. Toome armastusega teie linnaosadesse.',
     D: 'Päev',
     W: 'Nädal',
@@ -559,8 +559,9 @@ export const EventLocale: any = {
     or: 'または、イベントの割引リストに名前を追加してください：',
     reset: 'フィルターをリセット',
     countries: '国々',
-    events: 'イベント',
-    eventsDescription: '私たちのイベントのリスト。あなたの地区への愛を込めて。',
+    calData: 'イベント',
+    calDataDescription:
+      '私たちのイベントのリスト。あなたの地区への愛を込めて。',
     D: '日',
     W: '週',
     Q: '四半期',
@@ -596,7 +597,7 @@ export const EventLocale: any = {
   },
 };
 
-export const DEFAULT_EVENTS = {
+export const DEFAULT_CALDATA = {
   calData: [
     {
       id: '[musica, samba] Banda - Samba do São Lázaro',
@@ -665,8 +666,9 @@ export interface IAudioTrack {
 export interface ICalendarView {
   id?: string;
   className?: string;
-  events?: any[];
+  calData?: any[];
   locale?: string;
+  dictionary?: any;
   initialView?: string;
   headerToolbar?: any;
   nowIndicator?: boolean;
@@ -676,9 +678,10 @@ export interface ICalendarView {
 export const HCalendarView = function ({
   id = 'atom__CalendarView',
   className = '',
-  events = DEFAULT_EVENTS.calData,
+  calData = DEFAULT_CALDATA.calData,
   locale = 'en-US',
   initialView = 'timeGridWeek',
+  dictionary = DEFAULT_DICTIONARY,
   headerToolbar = {
     left: 'title',
     center: '',
@@ -692,9 +695,9 @@ export const HCalendarView = function ({
   const [modalPrompt, setModalPrompt] = useState('');
   const [askedCal, setAskedCal] = useState(false);
   const [info, setInfo] = useState({ event: { url: '' } });
-  // to-do add localization
+  // to-do add dictionary
   const localization =
-    EventLocale[locale as keyof typeof EventLocale] || EventLocale.default;
+    dictionary[locale as keyof typeof dictionary] || dictionary.default;
   const gridSx = [
     {
       [`class03
@@ -798,7 +801,7 @@ export const HCalendarView = function ({
         initialView={initialView}
         nowIndicator={nowIndicator}
         locale={locale}
-        events={events}
+        calData={calData}
         height={600}
         aspectRatio={1.5}
         firstDay={1}
@@ -861,10 +864,10 @@ export const HCalendarView = function ({
             theme={theme}
             onClick={handleCancelModalClick}
           >
-            Cancel
+            {localization.cancel}
           </Button>
           <Button theme={theme} onClick={handleOKModalClick}>
-            OK
+            localization.ok
           </Button>
         </Box>
       </Modal>
