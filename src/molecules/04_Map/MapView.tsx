@@ -5,11 +5,12 @@
 import clsx from 'clsx';
 import Map, { Source, Layer, Popup as GLPop } from 'react-map-gl';
 import bbox from '@turf/bbox';
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useRef, useState, useEffect, useMemo } from 'react';
 import { Button, ButtonVariant, EButtonTheme } from '../../atoms/01_Button';
 import { Typography } from '../../atoms/02_Typography';
 import { Link } from '../../atoms/03_Link';
 import { SystemIcon, ESystemIcon } from '../../atoms/05_SystemIcon';
+import { DreamPipColors } from '../../../tailwind.config.ts';
 
 import 'mapbox-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
@@ -275,50 +276,6 @@ export const MAP_CENTRES = {
   },
 };
 
-export const clusterLayer = {
-  id: 'clusters',
-  type: 'circle',
-  source: 'molecule__MapView',
-  filter: ['has', 'point_count'],
-  paint: {
-    'circle-color': [
-      'step',
-      ['get', 'point_count'],
-      '#fff',
-      10,
-      '#22cc00',
-      30,
-      '#cc2200',
-    ],
-    'circle-radius': ['step', ['get', 'point_count'], 20, 5, 30, 10, 40],
-  },
-};
-
-export const clusterCountLayer = {
-  id: 'molecule__MapView',
-  type: 'symbol',
-  source: 'molecule__MapView',
-  filter: ['has', 'point_count'],
-  layout: {
-    'text-field': '{point_count_abbreviated}',
-    // 'text-font': ['Comfortaa', 'Arial Unicode MS Bold'],
-    'text-size': 12,
-  },
-};
-
-export const unclusteredPointLayer = {
-  id: 'point',
-  type: 'circle',
-  source: 'molecule__MapView',
-  filter: ['!', ['has', 'point_count']],
-  paint: {
-    'circle-color': '#fff',
-    'circle-radius': 10,
-    'circle-stroke-width': 1,
-    'circle-stroke-color': '#fff',
-  },
-};
-
 export const DEFAULT_EVENTS = {
   calData: [
     {
@@ -374,7 +331,7 @@ export enum EMapViewVariant {
 export interface IMapView {
   id?: string;
   className?: string;
-  events?: any;
+  mapData?: any;
   locale?: string;
   mobile?: boolean;
   city?: string;
@@ -415,7 +372,7 @@ const Popup = function ({
   return (
     <GLPop
       id={id}
-      className={`${className} mapbox-purizu-custom`}
+      className={`${className} mapbox-dreampip-custom`}
       longitude={lng}
       latitude={lat}
       onClose={onClose}
@@ -466,7 +423,7 @@ const Popup = function ({
             //   location,
             //   locale,
             // });
-            // await download(`purizu-external-${name}.ics`, invite, mobile);
+            // await download(`dreampip-external-${name}.ics`, invite, mobile);
           }}
         >
           {localization.calendar}
@@ -479,7 +436,7 @@ const Popup = function ({
 export const HMapView = function ({
   id = 'molecule__MapView',
   className = '',
-  events = DEFAULT_EVENTS,
+  mapData = DEFAULT_EVENTS,
   locale,
   mobile,
   city,
@@ -489,6 +446,67 @@ export const HMapView = function ({
   fetchNewData,
   theme = 'light',
 }: IMapView) {
+  const clusterLayer = {
+    id: 'clusters',
+    type: 'circle',
+    source: 'molecule__MapView',
+    filter: ['has', 'point_count'],
+    paint: {
+      'circle-color': [
+        'step',
+        ['get', 'point_count'],
+        theme === 'dark'
+          ? DreamPipColors.icon.dark.bg
+          : DreamPipColors.icon.light.bg,
+        10,
+        theme === 'dark'
+          ? DreamPipColors.icon.dark.secondary
+          : DreamPipColors.icon.light.secondary,
+        30,
+        theme === 'dark'
+          ? DreamPipColors.icon.dark.primary
+          : DreamPipColors.icon.light.primary,
+      ],
+      'circle-radius': ['step', ['get', 'point_count'], 20, 5, 30, 10, 40],
+    },
+  };
+
+  const clusterCountLayer = {
+    id: 'molecule__MapView',
+    type: 'symbol',
+    source: 'molecule__MapView',
+    filter: ['has', 'point_count'],
+    layout: {
+      'text-field': '{point_count_abbreviated}',
+      // 'text-font': ['Comfortaa', 'Arial Unicode MS Bold'],
+      'text-size': 12,
+    },
+  };
+
+  console.log({ DreamPipColors });
+
+  const unclusteredPointLayer = useMemo(
+    () => ({
+      id: 'point',
+      type: 'circle',
+      source: 'molecule__MapView',
+      filter: ['!', ['has', 'point_count']],
+      paint: {
+        'circle-color':
+          theme === 'dark'
+            ? DreamPipColors.icon.dark.bg
+            : DreamPipColors.icon.light.bg,
+        'circle-radius': 10,
+        'circle-stroke-width': 1,
+        'circle-stroke-color':
+          theme === 'dark'
+            ? DreamPipColors.icon.dark.bg
+            : DreamPipColors.icon.light.bg,
+      },
+    }),
+    [theme, DreamPipColors],
+  );
+
   const mapRef = useRef(null);
   const popup = useRef({ open: false, feature: undefined });
   const hoverPopup = useRef<unknown[]>(null);
@@ -551,15 +569,15 @@ export const HMapView = function ({
   };
 
   useEffect(() => {
-    if (events?.timeframe !== timeframe) {
+    if (mapData?.timeframe !== timeframe) {
       fetchNewData({ force: true });
     }
   }, [timeframe]);
 
   useEffect(() => {
-    // if (!events?.mapData) return;
-    if (mapRef?.current && events?.mapData?.features?.length) {
-      const bounds = bbox(events?.mapData);
+    // if (!mapData?.mapData) return;
+    if (mapRef?.current && mapData?.mapData?.features?.length) {
+      const bounds = bbox(mapData?.mapData);
 
       if (bounds?.length) {
         try {
@@ -569,7 +587,7 @@ export const HMapView = function ({
         }
       }
     }
-  }, [JSON.stringify(events?.mapData)]);
+  }, [JSON.stringify(mapData?.mapData)]);
 
   const onClick = (event) => {
     const [target] = event.features;
@@ -631,7 +649,7 @@ export const HMapView = function ({
         <Source
           id="molecule__MapView"
           type="geojson"
-          data={events?.mapData}
+          data={mapData?.mapData}
           cluster
           clusterMaxZoom={14}
           clusterRadius={50}
@@ -648,13 +666,13 @@ export const HMapView = function ({
             mobile={mobile}
             city={city}
             onClose={onPopUpClose}
-            className="mapbox-purizu-custom [&_.mapboxgl-popup-close-button]:hidden"
+            className="mapbox-dreampip-custom [&_.mapboxgl-popup-close-button]:hidden"
           />
         ) : undefined}
         {hoverPopupOpen && hoverPopup.current ? (
           <GLPop
             onClose={onPopUpClose}
-            className="mapbox-purizu-custom [&_.mapboxgl-popup-close-button]:hidden"
+            className="mapbox-dreampip-custom [&_.mapboxgl-popup-close-button]:hidden"
             latitude={hoverPopup?.current?.coordinates[1]}
             longitude={hoverPopup?.current?.coordinates[0]}
           >

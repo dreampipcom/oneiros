@@ -34,12 +34,14 @@ export declare const DreamPipColors: {
       secondary: string;
       bw: string;
       white: string;
+      bg: string;
     };
     dark: {
       primary: string;
       secondary: string;
       bw: string;
       white: string;
+      bg: string;
     };
   };
   primary: {
@@ -140,12 +142,14 @@ declare const _default: {
           secondary: string;
           bw: string;
           white: string;
+          bg: string;
         };
         dark: {
           primary: string;
           secondary: string;
           bw: string;
           white: string;
+          bg: string;
         };
       };
       primary: {

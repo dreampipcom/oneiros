@@ -107,12 +107,14 @@ export const DreamPipColors = {
       secondary,
       bw: n300,
       white: white,
+      bg: dark1,
     },
     dark: {
       primary,
       secondary,
       bw: white,
       white: white,
+      bg: light1,
     },
   },
   primary: {
