@@ -5,8 +5,14 @@
   "type": "module",
   "exports": {
     ".": {
-      "import": "./dist/esm/index.es.js",
-      "require": "./dist/cjs/index.server.cjs"
+      "import": {
+        "types": "./dist/esm/index.d.ts",
+        "default": "./dist/esm/index.es.js"
+      },
+      "require": {
+        "types": "./dist/cjs/src/index.d.ts",
+        "default": "./dist/cjs/index.server.cjs"
+      }
     },
     "./styles": {
       "import": "./dist/esm/style.css",
