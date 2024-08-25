@@ -27,19 +27,27 @@ export enum ECardBackground {
   NONE = 'none',
 }
 
+interface ILocation {
+  lat: number;
+  lng: number;
+  radius: number;
+}
+
 export interface ICard {
   id?: string;
   className?: string;
   onLike?: (item: string) => void;
   title?: string;
+  description?: string;
+  latlng?: ILocation;
   where?: string;
   when?: string;
-  price?: string;
+  value?: string;
   link?: string;
   rating?: string;
   badgeLink?: string;
   selected?: boolean;
-  image?: string;
+  images?: string[];
   background?: ECardBackground;
   theme?: 'light' | 'dark';
 }
@@ -51,13 +59,15 @@ export const HCard = function ({
   rating = '4.5/5',
   link = 'https://dreampip.com',
   title = 'This is a very long title for a card to see how it displays on it.',
+  description = 'This is a very long description for a card to see how it displays on it.',
   where = 'Home',
   when = 'Whenever',
+  latlng = { lat: 0, lng: 0, radius: 0.4 },
   selected = false,
-  price = '1900€',
+  value = '1800£',
   background = ECardBackground.NONE,
   badgeLink = '',
-  image = 'https://placehold.co/600x400',
+  images = ['https://placehold.co/600x400'],
   theme = 'light',
 }: ICard) {
   const gridSx = [
@@ -87,7 +97,7 @@ export const HCard = function ({
       <Grid className="relative" theme={theme} full>
         <Link href={link} faux>
           <Image
-            src={image}
+            src={images[0]}
             variant={EImageVariant.SIXTEEN_PER_NINE}
             className="col-span-full col-start-0 md:col-span-4 md:col-start-0 rounded-md overflow-hidden"
           />
@@ -122,6 +132,15 @@ export const HCard = function ({
             variant={TypographyVariant.SMALL}
             className="w-full pt-a1 pb-0 text-neutral-light dark:text-body-dark col-span-full col-start-0 md:col-span-full md:col-start-0"
           >
+            {description}
+          </Typography>
+          <Typography
+            inherit
+            variant={TypographyVariant.SMALL}
+            data-lat={latlng.lat}
+            data-lng={latlng.lng}
+            className="w-full pt-a1 pb-0 text-neutral-light dark:text-body-dark col-span-full col-start-0 md:col-span-full md:col-start-0"
+          >
             {where}
           </Typography>
           <Typography
@@ -135,7 +154,7 @@ export const HCard = function ({
             variant={EPriceTagVariant.NORMAL}
             className="w-full pt-a2 pb-a0 col-span-4 col-start-0 md:col-span-4 md:col-start-0"
           >
-            {price}
+            {value}
           </PriceTag>
         </Link>
       </Grid>
