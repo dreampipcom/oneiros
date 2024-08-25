@@ -161,7 +161,7 @@ export const HAudioPlayer = function ({
           ))}
         </audio>
       </div>
-      <Typography className="col-span-4 col-start-1" truncate>
+      <Typography className="ml-a2 col-span-4 col-start-1" truncate>
         {title}
       </Typography>
     </div>

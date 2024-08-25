@@ -94,12 +94,14 @@ exports.DreamPipColors = {
             secondary: secondary,
             bw: n300,
             white: white,
+            bg: dark1,
         },
         dark: {
             primary: primary,
             secondary: secondary,
             bw: white,
             white: white,
+            bg: light1,
         },
     },
     primary: {

@@ -32,7 +32,7 @@ export const DEFAULT_CARDS = [
     price: '299€',
     link: 'https://dreampip.com',
     badgeLink: 'https://dreampip.com',
-    rating: '4.5/5',
+    rating: '',
     selected: true,
   },
   {

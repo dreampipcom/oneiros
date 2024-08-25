@@ -27,19 +27,28 @@ export enum ECardBackground {
   NONE = 'none',
 }
 
+interface ILocation {
+  lat: number;
+  lng: number;
+  radius: number;
+}
+
 export interface ICard {
   id?: string;
   className?: string;
   onLike?: (item: string) => void;
   title?: string;
+  description?: string;
+  latlng?: ILocation;
   where?: string;
   when?: string;
-  price?: string;
+  value?: string;
   link?: string;
   rating?: string;
+  badgeText?: string;
   badgeLink?: string;
   selected?: boolean;
-  image?: string;
+  images?: string[];
   background?: ECardBackground;
   theme?: 'light' | 'dark';
 }
@@ -48,16 +57,19 @@ export const HCard = function ({
   id = 'atom__Card',
   className = '',
   onLike = () => {},
-  rating = '4.5/5',
+  rating = '',
   link = 'https://dreampip.com',
   title = 'This is a very long title for a card to see how it displays on it.',
+  description = 'This is a very long description for a card to see how it displays on it.',
   where = 'Home',
   when = 'Whenever',
+  latlng = { lat: 0, lng: 0, radius: 0.4 },
   selected = false,
-  price = '1900€',
+  value = '1800£',
   background = ECardBackground.NONE,
+  badgeText = '',
   badgeLink = '',
-  image = 'https://placehold.co/600x400',
+  images = ['https://placehold.co/600x400'],
   theme = 'light',
 }: ICard) {
   const gridSx = [
@@ -84,59 +96,125 @@ export const HCard = function ({
         background === ECardBackground.NONE ? undefined : EGradientVariant.WHITE
       }
     >
-      <Grid className="relative" theme={theme} full>
-        <Link href={link} faux>
-          <Image
-            src={image}
-            variant={EImageVariant.SIXTEEN_PER_NINE}
-            className="col-span-full col-start-0 md:col-span-4 md:col-start-0 rounded-md overflow-hidden"
-          />
-        </Link>
-        <Review theme={theme} className="absolute left-a1 sm:top-a1 top-a2">
-          {rating}
-        </Review>
-        <Button
-          onClick={() => onLike(id)}
-          theme={theme}
-          buttonTheme={
-            selected ? EButtonTheme.PASSION_SELECTED : EButtonTheme.PASSION
-          }
-          icon={selected ? ESystemIcon.heart : ESystemIcon['heart-broken']}
-          className="absolute right-a1 sm:top-a1 top-a2"
-        />
-        <Link href={badgeLink || link} faux>
-          <BadgeChip className="absolute left-a1 bottom-a1" />
-        </Link>
-      </Grid>
+      {images.length > 0 ? (
+        <Grid className="relative" theme={theme} full>
+          <Link href={link} faux>
+            <Image
+              src={images[0]}
+              variant={EImageVariant.SIXTEEN_PER_NINE}
+              className="col-span-full col-start-0 md:col-span-4 md:col-start-0 rounded-md overflow-hidden"
+            />
+          </Link>
+          {rating ? (
+            <Review theme={theme} className="absolute left-a1 sm:top-a1 top-a2">
+              {rating}
+            </Review>
+          ) : undefined}
+          {onLike ? (
+            <Button
+              onClick={() => onLike(id)}
+              theme={theme}
+              buttonTheme={
+                selected ? EButtonTheme.PASSION_SELECTED : EButtonTheme.PASSION
+              }
+              icon={selected ? ESystemIcon.heart : ESystemIcon['heart-broken']}
+              className="absolute right-a1 sm:top-a1 top-a2"
+            />
+          ) : undefined}
+          {badgeText ? (
+            <Link href={badgeLink || link} faux>
+              <BadgeChip className="absolute left-a1 bottom-a1">
+                {badgeText}
+              </BadgeChip>
+            </Link>
+          ) : undefined}
+        </Grid>
+      ) : undefined}
       <Grid theme={theme} full className="gap-0">
+        {images.length === 0 ? (
+          <Grid
+            variant={EGridVariant.TWELVE_COLUMNS}
+            bleed={EBleedVariant.ZERO}
+            className="grid gap-a2"
+          >
+            {onLike ? (
+              <Button
+                onClick={() => onLike(id)}
+                theme={theme}
+                buttonTheme={
+                  selected
+                    ? EButtonTheme.PASSION_SELECTED
+                    : EButtonTheme.PASSION
+                }
+                icon={
+                  selected ? ESystemIcon.heart : ESystemIcon['heart-broken']
+                }
+                className="col-start-0 col-span-2"
+              />
+            ) : undefined}
+            {rating ? (
+              <Review theme={theme} className="col-span-4 col-start-0">
+                {rating}
+              </Review>
+            ) : undefined}
+            {badgeText ? (
+              <Link
+                href={badgeLink || link}
+                faux
+                className="col-span-4 col-start-0"
+              >
+                <BadgeChip className="">{badgeText}</BadgeChip>
+              </Link>
+            ) : undefined}
+          </Grid>
+        ) : undefined}
         <Link href={link} title={title} faux className="flex flex-col">
-          <Typography
-            variant={TypographyVariant.H4}
-            truncate
-            className="w-full pt-a2 col-span-full col-start-0 md:col-span-full md:col-start-0"
-          >
-            {title}
-          </Typography>
-          <Typography
-            inherit
-            variant={TypographyVariant.SMALL}
-            className="w-full pt-a1 pb-0 text-neutral-light dark:text-body-dark col-span-full col-start-0 md:col-span-full md:col-start-0"
-          >
-            {where}
-          </Typography>
-          <Typography
-            inherit
-            variant={TypographyVariant.SMALL}
-            className="w-full pt-0 text-neutral-light dark:text-body-dark col-span-full col-start-0 md:col-span-full md:col-start-0"
-          >
-            {when}
-          </Typography>
-          <PriceTag
-            variant={EPriceTagVariant.NORMAL}
-            className="w-full pt-a2 pb-a0 col-span-4 col-start-0 md:col-span-4 md:col-start-0"
-          >
-            {price}
-          </PriceTag>
+          {title ? (
+            <Typography
+              variant={TypographyVariant.H4}
+              truncate
+              className="pt-a2 w-full col-span-full col-start-0 md:col-span-full md:col-start-0"
+            >
+              {title}
+            </Typography>
+          ) : undefined}
+          {description ? (
+            <Typography
+              inherit
+              variant={TypographyVariant.SMALL}
+              className="w-full pt-a1 pb-0 text-neutral-light dark:text-body-dark col-span-full col-start-0 md:col-span-full md:col-start-0"
+            >
+              {description}
+            </Typography>
+          ) : undefined}
+          {where ? (
+            <Typography
+              inherit
+              variant={TypographyVariant.SMALL}
+              data-lat={latlng.lat}
+              data-lng={latlng.lng}
+              className="w-full pt-a1 pb-0 text-neutral-light dark:text-body-dark col-span-full col-start-0 md:col-span-full md:col-start-0"
+            >
+              {where}
+            </Typography>
+          ) : undefined}
+          {when ? (
+            <Typography
+              inherit
+              variant={TypographyVariant.SMALL}
+              className="w-full pt-0 text-neutral-light dark:text-body-dark col-span-full col-start-0 md:col-span-full md:col-start-0"
+            >
+              {when}
+            </Typography>
+          ) : undefined}
+          {value ? (
+            <PriceTag
+              variant={EPriceTagVariant.NORMAL}
+              className="w-full pt-a2 pb-a0 col-span-4 col-start-0 md:col-span-4 md:col-start-0"
+            >
+              {value}
+            </PriceTag>
+          ) : undefined}
         </Link>
       </Grid>
     </Grid>
