@@ -67,9 +67,9 @@ export const HCard = function ({
   selected = false,
   value = '1800£',
   background = ECardBackground.NONE,
-  badgeText = 'aasda',
+  badgeText = '',
   badgeLink = '',
-  images = [],
+  images = ['https://placehold.co/600x400'],
   theme = 'light',
 }: ICard) {
   const gridSx = [
@@ -131,44 +131,44 @@ export const HCard = function ({
         </Grid>
       ) : undefined}
       <Grid theme={theme} full className="gap-0">
+        {images.length === 0 ? (
+          <Grid
+            variant={EGridVariant.TWELVE_COLUMNS}
+            bleed={EBleedVariant.ZERO}
+            className="grid gap-a2"
+          >
+            {onLike ? (
+              <Button
+                onClick={() => onLike(id)}
+                theme={theme}
+                buttonTheme={
+                  selected
+                    ? EButtonTheme.PASSION_SELECTED
+                    : EButtonTheme.PASSION
+                }
+                icon={
+                  selected ? ESystemIcon.heart : ESystemIcon['heart-broken']
+                }
+                className="col-start-0 col-span-2"
+              />
+            ) : undefined}
+            {rating ? (
+              <Review theme={theme} className="col-span-4 col-start-0">
+                {rating}
+              </Review>
+            ) : undefined}
+            {badgeText ? (
+              <Link
+                href={badgeLink || link}
+                faux
+                className="col-span-4 col-start-0"
+              >
+                <BadgeChip className="">{badgeText}</BadgeChip>
+              </Link>
+            ) : undefined}
+          </Grid>
+        ) : undefined}
         <Link href={link} title={title} faux className="flex flex-col">
-          {images.length === 0 ? (
-            <Grid
-              variant={EGridVariant.TWELVE_COLUMNS}
-              bleed={EBleedVariant.ZERO}
-              className="grid gap-a2"
-            >
-              {onLike ? (
-                <Button
-                  onClick={() => onLike(id)}
-                  theme={theme}
-                  buttonTheme={
-                    selected
-                      ? EButtonTheme.PASSION_SELECTED
-                      : EButtonTheme.PASSION
-                  }
-                  icon={
-                    selected ? ESystemIcon.heart : ESystemIcon['heart-broken']
-                  }
-                  className="col-start-0 col-span-2"
-                />
-              ) : undefined}
-              {rating ? (
-                <Review theme={theme} className="col-span-4 col-start-0">
-                  {rating}
-                </Review>
-              ) : undefined}
-              {badgeText ? (
-                <Link
-                  href={badgeLink || link}
-                  faux
-                  className="col-span-4 col-start-0"
-                >
-                  <BadgeChip className="">{badgeText}</BadgeChip>
-                </Link>
-              ) : undefined}
-            </Grid>
-          ) : undefined}
           {title ? (
             <Typography
               variant={TypographyVariant.H4}
