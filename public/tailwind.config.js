@@ -28,36 +28,56 @@ var n300 = '#aaaaaa';
 var n400 = '#ffffff';
 // const n500 = '#550000';
 // const n600 = '#660000';
-var st0 = '#F69240';
-var st1 = '#F8D49A';
-var st2 = '#50A2FA';
-var st3 = '#65E9DD';
-var st4 = '#6F32D8';
-var st5 = '#83FAAF';
-var st6 = '#EB5E1D';
-var st7 = '#F8F8F8';
-var st8 = '#f4ede1';
-var dp200 = st0; // average pastel orange
-var dp300 = st1; // light pastel orange
-var dp400 = st2; // average pastel blue
-var dp500 = st3; // light cyan
-var dp600 = st4; // dark purple
-var dp700 = st5; // light pastel green
-var dp800 = st6; // dark orange
-var dp900 = st8; // soft pastel orange
+var slyPink = '#f1cfff';
+var purpleHaze = '#563769';
+var royalWhite = '#e9eeff';
+var navyWise = '#002972';
+var karunaNara = '#f7bfa5';
+var pinkDive = '#C476CB';
+var pinkSurf = '#F4AFFF';
+var pinkSand = '#FFE5FC';
+var pinkFacade = '#FACEFB';
+var functionOne = '#c4abef';
+var functionTwo = '#c4acf1';
+var functionThree = '#c3a9ef';
+var shadesBlu1 = '#b7d9fd';
+var shadesBlu2 = '#b9d8fc';
+var shadesBlu3 = '#b6d8fd';
+var shadesCyan1 = '#c0f6f1';
+var shadesCyan2 = '#bef6f1';
+var shadesCyan3 = '#c4f6f1';
+var shadesGreen1 = '#ccfdde';
+var shadesGreen2 = '#cbfddd';
+var shadesGreen3 = '#cffcdf';
+var shadesAmar1 = '#fcedd5';
+var shadesNara1 = '#fbd2b0';
+var shadesNara2 = '#fbd1af';
+var shadesNara3 = '#fcd3b3';
+var shadesNara4 = '#f8bea7';
+var st0 = shadesNara1;
+var st1 = shadesAmar1;
+var st2 = shadesBlu1;
+var st3 = shadesCyan1;
+var st4 = functionOne;
+var st5 = shadesGreen1;
+var st6 = karunaNara;
+var st7 = royalWhite;
+var st8 = royalWhite;
 var transparent = '#00000000';
-var bg2 = dp900;
-var secondary = dp200;
-var primary = dp800;
-var tertiary = dp800;
-var dark1 = n100;
-var dark2 = n200;
-var passion = 'pink';
-var passionLight = '#660000';
-var passionSoft = '#880000';
-var white = '#ffffff';
-var light1 = dp300;
-var light2 = dp200;
+var bgLight = slyPink;
+var bgDark = navyWise;
+var secondary = pinkFacade;
+var primary = functionOne;
+var tertiary = purpleHaze;
+var dark1 = navyWise;
+var dark2 = purpleHaze;
+var passion = pinkDive;
+var passionLight = pinkSurf;
+var passionSoft = pinkSand;
+var white = royalWhite;
+var black = purpleHaze;
+var light1 = royalWhite;
+var light2 = slyPink;
 exports.DreamPipColors = {
     transparent: transparent,
     logo: {
@@ -69,7 +89,7 @@ exports.DreamPipColors = {
             st4: st4,
             st5: st5,
             st6: st6,
-            st7: dark1,
+            st7: navyWise,
         },
         dark: {
             st0: st0,
@@ -84,9 +104,9 @@ exports.DreamPipColors = {
     },
     card: {
         white: white,
-        soft: bg2,
-        dark: dark1,
-        foggy: dark2,
+        soft: bgLight,
+        dark: black,
+        foggy: black,
     },
     icon: {
         light: {
@@ -94,7 +114,7 @@ exports.DreamPipColors = {
             secondary: secondary,
             bw: n300,
             white: white,
-            bg: dark1,
+            bg: black,
         },
         dark: {
             primary: primary,
@@ -111,8 +131,8 @@ exports.DreamPipColors = {
         passion: passion,
         passionLight: passionLight,
         passionSoft: passionSoft,
-        soft: bg2,
-        green: dp700,
+        soft: slyPink,
+        green: shadesGreen1,
         white: white,
     },
     secondary: {
@@ -122,12 +142,12 @@ exports.DreamPipColors = {
         passion: passion,
         passionLight: passionLight,
         passionSoft: passionSoft,
-        soft: bg2,
+        soft: bgLight,
     },
     gradient: {
         soft: {
             light: {
-                from: bg2,
+                from: bgLight,
                 to: light1,
             },
             dark: {
@@ -137,19 +157,19 @@ exports.DreamPipColors = {
         },
     },
     soft: {
-        light: white,
-        constrast: light2,
-        bg: bg2,
-        dark: '#C9FFC4',
+        light: slyPink,
+        constrast: pinkSand,
+        bg: pinkSand,
+        dark: pinkSand,
     },
     outro: {
-        light: '#B473CA',
-        dark: '#DEBDFF',
+        light: purpleHaze,
+        dark: purpleHaze,
     },
     body: {
         primary: primary,
-        light: dark2,
-        dark: white,
+        light: black,
+        dark: light1,
         passion: passion,
     },
     inverse: {

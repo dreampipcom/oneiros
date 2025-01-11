@@ -102,7 +102,7 @@ export const HButton = function ({
         class1
 
         text-body-dark
-        dark:text-body-dark
+        dark:text-body-light
 
 
         bg-primary-light
@@ -133,7 +133,7 @@ export const HButton = function ({
       [`
         class3
         text-body-dark
-        dark:text-body-dark
+        dark:text-body-light
 
         bg-soft-light
         hover:bg-soft-constrast
@@ -150,7 +150,7 @@ export const HButton = function ({
         hover:bg-soft-bg
 
         dark:!border-secondary-soft 
-        dark:text-body-dark 
+        dark:text-body-light 
 
         dark:hover:border-secondary-dark 
         dark:hover:bg-primary-dark

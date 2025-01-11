@@ -70,15 +70,15 @@ export const HDateRange = function ({
         md:[&_.base-Popper-root]:!top-a5
         md:[&_.base-Popper-root]:!mt-0
 
-        [&_.MuiPickersToolbarText-root.Mui-selected]:text-primary-light
-        dark:[&_.MuiPickersToolbarText-root.Mui-selected]:text-soft-light
+        [&_.MuiPickersToolbarText-root.Mui-selected]:text-body-passion
+        dark:[&_.MuiPickersToolbarText-root.Mui-selected]:text-body-passion
 
         dark:!text-body-dark
         [&_.MuiDateRangePickerDay-day.Mui-selected]:bg-primary-light
         hover:[&_.MuiDateRangePickerDay-day.Mui-selected]:bg-primary-light
         focus:[&_.MuiDateRangePickerDay-day.Mui-selected]:bg-primary-light
 
-        [&_.MuiButton-colorPrimary]:!text-secondary-light
+        [&_.MuiButton-colorPrimary]:!text-body-passion
 
         [&_.MuiDateRangePickerDay-rangeIntervalDayHighlight]:!bg-secondary-light
         hover:[&_.MuiDateRangePickerDay-day]:!bg-primary-light
