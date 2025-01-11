@@ -107,7 +107,7 @@ export const DreamPipColors = {
       st4,
       st5,
       st6,
-      st7: dark1,
+      st7: navyWise,
     },
     dark: {
       st0,
