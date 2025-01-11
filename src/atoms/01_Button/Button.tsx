@@ -195,11 +195,11 @@ export const HButton = function ({
         text-body-dark
         hover:text-body-light
 
-        bg-primary-dark
+        bg-primary-dark2
         hover:bg-primary-passionLight
 
-        dark:bg-primary-passion
-        dark:hover:bg-primary-passionSoft
+        dark:bg-primary-dark
+        dark:hover:bg-primary-passion
         dark:text-body-dark
         dark:hover:text-body-light
       `]: variant === ButtonVariant.FILLED,
@@ -228,15 +228,15 @@ export const HButton = function ({
   const iconColorVariantMap = {
     light: {
       [ButtonVariant.OUTLINE]: {
-        [EButtonTheme.PRIMARY]: EIconColor.PASSION_SELECTED,
+        [EButtonTheme.PRIMARY]: EIconColor.PRIMARY,
         [EButtonTheme.SECONDARY]: EIconColor.SECONDARY,
         [EButtonTheme.PASSION]: EIconColor.PASSION,
         [EButtonTheme.PASSION_SELECTED]: EIconColor.PASSION_SELECTED,
       },
       [ButtonVariant.FILLED]: {
-        [EButtonTheme.PRIMARY]: EIconColor.PASSION_SELECTED,
+        [EButtonTheme.PRIMARY]: EIconColor.PRIMARY,
         [EButtonTheme.SECONDARY]: EIconColor.SECONDARY,
-        [EButtonTheme.PASSION]: EIconColor.WHITE,
+        [EButtonTheme.PASSION]: EIconColor.PASSION,
         [EButtonTheme.PASSION_SELECTED]: EIconColor.PASSION_SELECTED,
       },
     },

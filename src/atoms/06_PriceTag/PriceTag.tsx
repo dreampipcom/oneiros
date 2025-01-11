@@ -27,8 +27,8 @@ export const HPriceTag = function ({
   const sx = [
     {
       [`
-        text-primary-light 
-        dark:text-primary-dark
+        text-primary-passion 
+        dark:text-primary-passionSoft
         font-bold
         `]: true,
     },

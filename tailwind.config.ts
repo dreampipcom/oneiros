@@ -150,6 +150,7 @@ export const DreamPipColors = {
     light: primary,
     contrast: secondary,
     dark,
+    dark2: dark1,
     passion,
     passionLight,
     passionSoft,

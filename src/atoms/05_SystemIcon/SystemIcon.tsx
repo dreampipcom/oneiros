@@ -67,24 +67,24 @@ export const HSystemIcon = function ({
 
   const colorMap = {
     light: {
-      primary: DreamPipColors.icon.light.primary,
-      secondary: DreamPipColors.icon.light.secondary,
+      primary: DreamPipColors.outro.dark,
+      secondary: DreamPipColors.outro.dark,
       bw: DreamPipColors.icon.light.bw,
       white: DreamPipColors.icon.light.white,
       passion: DreamPipColors.primary.passion,
       light: DreamPipColors.primary.dark,
       'passion-light': DreamPipColors.primary.green,
-      'passion-selected': DreamPipColors.primary.dark,
+      'passion-selected': DreamPipColors.primary.green,
     },
     dark: {
       primary: DreamPipColors.icon.dark.primary,
-      secondary: DreamPipColors.icon.dark.secondary,
+      secondary: DreamPipColors.outro.dark,
       bw: DreamPipColors.icon.dark.bw,
       white: DreamPipColors.icon.dark.white,
-      passion: DreamPipColors.primary.passion,
+      passion: DreamPipColors.outro.dark,
       light: DreamPipColors.primary.dark,
       'passion-light': DreamPipColors.primary.green,
-      'passion-selected': DreamPipColors.outro.dark,
+      'passion-selected': DreamPipColors.primary.green,
     },
   };
 
