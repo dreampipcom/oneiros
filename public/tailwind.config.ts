@@ -82,12 +82,14 @@ const transparent = '#00000000';
 const bgLight = slyPink;
 const bgDark = navyWise;
 
-const secondary = pinkFacade;
+const secondary = slyPink;
 const primary = functionOne;
 const tertiary = purpleHaze;
 
 const dark1 = navyWise;
 const dark2 = purpleHaze;
+const light1 = royalWhite;
+const light2 = slyPink;
 
 const passion = pinkDive;
 const passionLight = pinkSurf;
@@ -95,9 +97,8 @@ const passionSoft = pinkSand;
 
 const white = royalWhite;
 const black = purpleHaze;
-
-const light1 = royalWhite;
-const light2 = slyPink;
+const dark = dark2;
+const light = light2;
 
 export const DreamPipColors = {
   transparent,
@@ -148,22 +149,27 @@ export const DreamPipColors = {
   primary: {
     light: primary,
     contrast: secondary,
-    dark: light2,
+    dark,
+    dark2: dark1,
     passion,
     passionLight,
     passionSoft,
     soft: slyPink,
     green: shadesGreen1,
+    purpleHaze,
     white,
   },
   secondary: {
     light: secondary,
     constrast: light1,
-    dark: light2,
+    dark,
     passion,
     passionLight,
     passionSoft,
-    soft: bgLight,
+    soft: slyPink,
+    green: shadesGreen1,
+    purpleHaze,
+    white,
   },
   gradient: {
     soft: {
@@ -181,16 +187,17 @@ export const DreamPipColors = {
     light: slyPink,
     constrast: pinkSand,
     bg: pinkSand,
-    dark: pinkSand,
+    dark: purpleHaze,
   },
   outro: {
-    light: purpleHaze,
+    light: slyPink,
     dark: purpleHaze,
   },
   body: {
     primary,
     light: black,
     dark: light1,
+    soft: slyPink,
     passion,
   },
   inverse: {

@@ -66,18 +66,20 @@ var st8 = royalWhite;
 var transparent = '#00000000';
 var bgLight = slyPink;
 var bgDark = navyWise;
-var secondary = pinkFacade;
+var secondary = slyPink;
 var primary = functionOne;
 var tertiary = purpleHaze;
 var dark1 = navyWise;
 var dark2 = purpleHaze;
+var light1 = royalWhite;
+var light2 = slyPink;
 var passion = pinkDive;
 var passionLight = pinkSurf;
 var passionSoft = pinkSand;
 var white = royalWhite;
 var black = purpleHaze;
-var light1 = royalWhite;
-var light2 = slyPink;
+var dark = dark2;
+var light = light2;
 exports.DreamPipColors = {
     transparent: transparent,
     logo: {
@@ -127,22 +129,27 @@ exports.DreamPipColors = {
     primary: {
         light: primary,
         contrast: secondary,
-        dark: light2,
+        dark: dark,
+        dark2: dark1,
         passion: passion,
         passionLight: passionLight,
         passionSoft: passionSoft,
         soft: slyPink,
         green: shadesGreen1,
+        purpleHaze: purpleHaze,
         white: white,
     },
     secondary: {
         light: secondary,
         constrast: light1,
-        dark: light2,
+        dark: dark,
         passion: passion,
         passionLight: passionLight,
         passionSoft: passionSoft,
-        soft: bgLight,
+        soft: slyPink,
+        green: shadesGreen1,
+        purpleHaze: purpleHaze,
+        white: white,
     },
     gradient: {
         soft: {
@@ -160,16 +167,17 @@ exports.DreamPipColors = {
         light: slyPink,
         constrast: pinkSand,
         bg: pinkSand,
-        dark: pinkSand,
+        dark: purpleHaze,
     },
     outro: {
-        light: purpleHaze,
+        light: slyPink,
         dark: purpleHaze,
     },
     body: {
         primary: primary,
         light: black,
         dark: light1,
+        soft: slyPink,
         passion: passion,
     },
     inverse: {

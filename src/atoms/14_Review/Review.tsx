@@ -80,7 +80,7 @@ export const HReview = function ({
     dark:
       variant === EReviewVariant.NO_BADGE
         ? EIconColor.PRIMARY
-        : EIconColor.PASSION_SELECTED,
+        : EIconColor.PASSION,
   };
 
   return (
