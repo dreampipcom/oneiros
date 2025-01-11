@@ -123,6 +123,11 @@ export const HDropdown = function ({
 
         [&>div]:flex
         [&>div]:items-center
+
+        [&_fieldset]:!border-primary-light
+        hover:!border-primary-dark
+        hover:[&_fieldset]:!border-primary-dark
+        
         [&.Mui-focused_fieldset]:!border-primary-light
         [&.Mui-focused_fieldset_legend]:!w-auto
 
