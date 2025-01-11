@@ -166,8 +166,8 @@ export const DreamPipColors = {
     passion,
   },
   inverse: {
-    light: '#F2F2F2',
-    dark: '#353535',
+    light: white,
+    dark: dark1,
   },
   neutral: {
     light: n200,
