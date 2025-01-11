@@ -248,7 +248,7 @@ export const HButton = function ({
         [EButtonTheme.PASSION_SELECTED]: EIconColor.PASSION_SELECTED,
       },
       [ButtonVariant.FILLED]: {
-        [EButtonTheme.PRIMARY]: EIconColor.PASSION_SELECTED,
+        [EButtonTheme.PRIMARY]: EIconColor.SECONDARY,
         [EButtonTheme.SECONDARY]: EIconColor.SECONDARY,
         [EButtonTheme.PASSION]: EIconColor.PASSION,
         [EButtonTheme.PASSION_SELECTED]: EIconColor.PASSION_SELECTED,

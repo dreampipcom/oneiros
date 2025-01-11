@@ -10,7 +10,7 @@ import { Button, ButtonVariant, EButtonTheme } from '../../atoms/01_Button';
 import { Typography } from '../../atoms/02_Typography';
 import { Link } from '../../atoms/03_Link';
 import { SystemIcon, ESystemIcon } from '../../atoms/05_SystemIcon';
-import { DreamPipColors } from '../../../tailwind.config.ts';
+import { DreamPipColors } from '../../../dist/esm/tailwind.config.ts';
 
 import 'mapbox-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
@@ -381,7 +381,7 @@ const Popup = function ({
       <div style={{ display: 'flex' }}>
         <Typography
           inherit
-          className="text-body-primary dark:text-body-primary"
+          className="text-body-light dark:text-body-light"
           style={{ flex: '1 0 60%' }}
         >
           {name}
@@ -396,11 +396,16 @@ const Popup = function ({
           sx={{ padding: '4px', width: '32px', height: '32px' }}
         />
       </div>
-      <Typography inherit className="text-body-light dark:text-body-light">
+      <Typography inherit className="text-body-primary dark:text-body-primary">
         {`${start}—${end}`}
       </Typography>
       <div className="my-a2">
-        <Link href={link} target="_blank" rel="noreferrer noopener">
+        <Link
+          href={link}
+          className="dark:text-body-light"
+          target="_blank"
+          rel="noreferrer noopener"
+        >
           {localization.view}
         </Link>
       </div>
