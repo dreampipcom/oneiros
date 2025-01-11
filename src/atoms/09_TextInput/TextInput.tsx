@@ -130,7 +130,7 @@ export const HTextInput = function (props: ITextInput) {
       [`
         rounded-md
         bg-soft-bg
-        dark:bg-transparent
+        dark:bg-gradient-soft
         dark:!text-primary-dark
         [&>div]:flex
         [&>div]:items-center
