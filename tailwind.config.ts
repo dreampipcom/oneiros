@@ -82,7 +82,7 @@ const transparent = '#00000000';
 const bgLight = slyPink;
 const bgDark = navyWise;
 
-const secondary = pinkFacade;
+const secondary = slyPink;
 const primary = functionOne;
 const tertiary = purpleHaze;
 
@@ -160,7 +160,7 @@ export const DreamPipColors = {
   secondary: {
     light: secondary,
     constrast: light1,
-    dark: light2,
+    dark: primary,
     passion,
     passionLight,
     passionSoft,
