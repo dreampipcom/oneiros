@@ -33,6 +33,40 @@ const n400 = '#ffffff';
 // const n500 = '#550000';
 // const n600 = '#660000';
 
+const purpleHaze: '#563769';
+
+const slyPink = '#f1cfff';
+
+const navyWise = '#002972';
+
+const pinkDive = '#C476CB';
+const pinkSurf = '#F4AFFF';
+const pinkSand = '#FFE5FC';
+const pinkFacade: '#FACEFB';
+
+const functionOne = '#c4abef';
+const functionTwo = '#c4acf1';
+const functionThree = '#c3a9ef';
+
+const shadesBlu1 = '#b7d9fd';
+const shadesBlu2 = '#b9d8fc';
+const shadesBlu3 = '#b6d8fd';
+
+const shadesCyan1 = '#c0f6f1';
+const shadesCyan2 = '#bef6f1';
+const shadesCyan3 = '#c4f6f1';
+
+const shadesGreen1 = '#ccfdde';
+const shadesGreen2 = '#cbfddd';
+const shadesGreen3 = '#cffcdf';
+
+const shadesAmar1 = '#fcedd5';
+
+const shadesNara1 = '#fbd2b0';
+const shadesNara2 = '#fbd1af';
+const shadesNara3 = '#fcd3b3';
+const shadesNara4 = '#f8bea7';
+
 const st0 = '#F69240';
 const st1 = '#F8D49A';
 const st2 = '#50A2FA';
