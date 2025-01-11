@@ -114,7 +114,7 @@ export const HDropdown = function ({
       [`
         rounded-md
         bg-soft-bg
-        dark:bg-soft-dark
+        dark:bg-primary-dark
         dark:!text-primary-dark
 
 
@@ -126,8 +126,8 @@ export const HDropdown = function ({
         [&.Mui-focused_fieldset]:!border-primary-light
         [&.Mui-focused_fieldset_legend]:!w-auto
 
-        dark:!border-primary-dark
-        dark:[&_fieldset]:!border-primary-dark
+        dark:!border-primary-soft
+        dark:[&_fieldset]:!border-primary-soft
         dark:[&.Mui-focused_fieldset]:!border-primary-dark
         `]: true,
       '[&_fieldset_legend]:!w-0': !value,

@@ -197,6 +197,7 @@ export const DreamPipColors = {
     primary,
     light: black,
     dark: light1,
+    soft: slyPink,
     passion,
   },
   inverse: {
