@@ -116,6 +116,11 @@ export const HDropdown = function ({
         bg-soft-bg
         dark:bg-soft-dark
         dark:!text-primary-dark
+
+
+        text-body-light
+        dark:text-body-dark
+
         [&>div]:flex
         [&>div]:items-center
         [&.Mui-focused_fieldset]:!border-primary-light
