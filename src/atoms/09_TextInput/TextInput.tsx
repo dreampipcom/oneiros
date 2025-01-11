@@ -130,16 +130,21 @@ export const HTextInput = function (props: ITextInput) {
       [`
         rounded-md
         bg-soft-bg
-        dark:bg-gradient-soft
+        dark:bg-soft-dark
         dark:!text-primary-dark
         [&>div]:flex
         [&>div]:items-center
+
+        [&_fieldset]:!border-primary-light
+        hover:!border-primary-dark
+        hover:[&_fieldset]:!border-primary-dark
+
         [&.Mui-focused_fieldset]:!border-primary-light
         [&.Mui-focused_fieldset_legend]:!w-auto
 
         dark:!border-primary-dark
         dark:[&_fieldset]:!border-primary-dark
-        dark:[&.Mui-focused_fieldset]:!border-primary-dark
+        dark:[&.Mui-focused_fieldset]:!border-primary-soft
         `]: true,
     },
   ];

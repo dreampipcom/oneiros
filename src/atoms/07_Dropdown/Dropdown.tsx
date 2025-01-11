@@ -114,7 +114,7 @@ export const HDropdown = function ({
       [`
         rounded-md
         bg-soft-bg
-        dark:bg-transparent
+        dark:bg-soft-dark
         dark:!text-primary-dark
         [&>div]:flex
         [&>div]:items-center
@@ -162,7 +162,7 @@ export const HDropdown = function ({
         hover:bg-soft-bg 
         focus:bg-soft-bg 
 
-        [&.Mui-selected]:bg-soft-bg 
+        [&.Mui-selected]:bg-soft-bg
 
         [&.Mui-focusVisible]:bg-soft-bg 
 

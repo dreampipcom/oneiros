@@ -154,6 +154,7 @@ export const DreamPipColors = {
     passionSoft,
     soft: slyPink,
     green: shadesGreen1,
+    dark2,
     white,
   },
   secondary: {
@@ -181,7 +182,7 @@ export const DreamPipColors = {
     light: slyPink,
     constrast: pinkSand,
     bg: pinkSand,
-    dark: pinkSand,
+    dark: purpleHaze,
   },
   outro: {
     light: purpleHaze,

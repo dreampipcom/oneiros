@@ -101,8 +101,7 @@ export const HButton = function ({
       [`
         class1
 
-        text-body-dark
-        dark:text-body-light
+        text-body-light
 
 
         bg-primary-light
