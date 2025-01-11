@@ -130,6 +130,10 @@ export const HTextInput = function (props: ITextInput) {
       [`
         rounded-md
         bg-soft-bg
+
+        text-body-light
+        dark:text-body-dark
+
         dark:bg-soft-dark
         dark:!text-primary-dark
         [&>div]:flex
