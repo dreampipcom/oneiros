@@ -33,16 +33,16 @@ const n400 = '#ffffff';
 // const n500 = '#550000';
 // const n600 = '#660000';
 
-const purpleHaze: '#563769';
-
 const slyPink = '#f1cfff';
-
+const purpleHaze = '#563769';
+const royalWhite = '#e9eeff';
 const navyWise = '#002972';
+const karunaNara = '#f7bfa5';
 
 const pinkDive = '#C476CB';
 const pinkSurf = '#F4AFFF';
 const pinkSand = '#FFE5FC';
-const pinkFacade: '#FACEFB';
+const pinkFacade = '#FACEFB';
 
 const functionOne = '#c4abef';
 const functionTwo = '#c4acf1';
@@ -67,43 +67,34 @@ const shadesNara2 = '#fbd1af';
 const shadesNara3 = '#fcd3b3';
 const shadesNara4 = '#f8bea7';
 
-const st0 = '#F69240';
-const st1 = '#F8D49A';
-const st2 = '#50A2FA';
-const st3 = '#65E9DD';
-const st4 = '#6F32D8';
-const st5 = '#83FAAF';
-const st6 = '#EB5E1D';
-const st7 = '#F8F8F8';
-const st8 = '#f4ede1';
-
-const dp200 = st0; // average pastel orange
-const dp300 = st1; // light pastel orange
-const dp400 = st2; // average pastel blue
-const dp500 = st3; // light cyan
-const dp600 = st4; // dark purple
-const dp700 = st5; // light pastel green
-const dp800 = st6; // dark orange
-const dp900 = st8; // soft pastel orange
+const st0 = shadesNara1;
+const st1 = shadesAmar1;
+const st2 = shadesBlu1;
+const st3 = shadesCyan1;
+const st4 = functionOne;
+const st5 = shadesGreen1;
+const st6 = karunaNara;
+const st7 = royalWhite;
+const st8 = royalWhite;
 
 const transparent = '#00000000';
-const bg2 = dp900;
+const bg2 = slyPink;
 
-const secondary = dp200;
-const primary = dp800;
-const tertiary = dp800;
+const secondary = pinkFacade;
+const primary = functionOne;
+const tertiary = purpleHaze;
 
 const dark1 = n100;
 const dark2 = n200;
 
-const passion = 'pink';
-const passionLight = '#660000';
-const passionSoft = '#880000';
+const passion = pinkDive;
+const passionLight = pinkSurf;
+const passionSoft = pinkSand;
 
-const white = '#ffffff';
+const white = royalWhite;
 
-const light1 = dp300;
-const light2 = dp200;
+const light1 = royalWhite;
+const light2 = slyPink;
 
 export const DreamPipColors = {
   transparent,
@@ -158,8 +149,8 @@ export const DreamPipColors = {
     passion,
     passionLight,
     passionSoft,
-    soft: bg2,
-    green: dp700,
+    soft: slyPink,
+    green: shadesGreen1,
     white,
   },
   secondary: {
@@ -184,14 +175,14 @@ export const DreamPipColors = {
     },
   },
   soft: {
-    light: white,
-    constrast: light2,
-    bg: bg2,
-    dark: '#C9FFC4',
+    light: slyPink,
+    constrast: pinkSand,
+    bg: pinkDive,
+    dark: pinkDive,
   },
   outro: {
-    light: '#B473CA',
-    dark: '#DEBDFF',
+    light: purpleHaze,
+    dark: purpleHaze,
   },
   body: {
     primary,
