@@ -381,7 +381,7 @@ const Popup = function ({
       <div style={{ display: 'flex' }}>
         <Typography
           inherit
-          className="text-body-primary dark:text-body-primary"
+          className="text-body-light dark:text-body-light"
           style={{ flex: '1 0 60%' }}
         >
           {name}
@@ -396,11 +396,16 @@ const Popup = function ({
           sx={{ padding: '4px', width: '32px', height: '32px' }}
         />
       </div>
-      <Typography inherit className="text-body-light dark:text-body-light">
+      <Typography inherit className="text-body-primary dark:text-body-primary">
         {`${start}—${end}`}
       </Typography>
       <div className="my-a2">
-        <Link href={link} target="_blank" rel="noreferrer noopener">
+        <Link
+          href={link}
+          className="dark:text-body-light"
+          target="_blank"
+          rel="noreferrer noopener"
+        >
           {localization.view}
         </Link>
       </div>
@@ -456,16 +461,16 @@ export const HMapView = function ({
         'step',
         ['get', 'point_count'],
         theme === 'dark'
-          ? DreamPipColors.icon.dark.bg
-          : DreamPipColors.icon.light.bg,
+          ? DreamPipColors.outro.light
+          : DreamPipColors.outro.dark,
         10,
         theme === 'dark'
-          ? DreamPipColors.icon.dark.secondary
-          : DreamPipColors.icon.light.secondary,
+          ? DreamPipColors.secondary.dark
+          : DreamPipColors.secondary.light,
         30,
         theme === 'dark'
-          ? DreamPipColors.icon.dark.primary
-          : DreamPipColors.icon.light.primary,
+          ? DreamPipColors.primary.dark
+          : DreamPipColors.primary.light,
       ],
       'circle-radius': ['step', ['get', 'point_count'], 20, 5, 30, 10, 40],
     },
@@ -494,14 +499,14 @@ export const HMapView = function ({
       paint: {
         'circle-color':
           theme === 'dark'
-            ? DreamPipColors.icon.dark.bg
-            : DreamPipColors.icon.light.bg,
+            ? DreamPipColors.outro.light
+            : DreamPipColors.outro.dark,
         'circle-radius': 10,
         'circle-stroke-width': 1,
         'circle-stroke-color':
           theme === 'dark'
-            ? DreamPipColors.icon.dark.bg
-            : DreamPipColors.icon.light.bg,
+            ? DreamPipColors.outro.light
+            : DreamPipColors.outro.dark,
       },
     }),
     [theme, DreamPipColors],

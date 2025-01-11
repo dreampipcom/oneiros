@@ -114,15 +114,25 @@ export const HDropdown = function ({
       [`
         rounded-md
         bg-soft-bg
-        dark:bg-transparent
-        dark:!text-body-dark
+        dark:bg-primary-dark
+        dark:!text-primary-dark
+
+
+        text-body-light
+        dark:text-body-dark
+
         [&>div]:flex
         [&>div]:items-center
+
+        [&_fieldset]:!border-primary-light
+        hover:!border-primary-dark
+        hover:[&_fieldset]:!border-primary-dark
+        
         [&.Mui-focused_fieldset]:!border-primary-light
         [&.Mui-focused_fieldset_legend]:!w-auto
 
-        dark:!border-primary-dark
-        dark:[&_fieldset]:!border-body-dark
+        dark:!border-primary-soft
+        dark:[&_fieldset]:!border-primary-soft
         dark:[&.Mui-focused_fieldset]:!border-primary-dark
         `]: true,
       '[&_fieldset_legend]:!w-0': !value,
@@ -157,12 +167,12 @@ export const HDropdown = function ({
   const menuItemSx = [
     {
       [`
-        dark:text-body-light
+        text-body-light
 
         hover:bg-soft-bg 
         focus:bg-soft-bg 
 
-        [&.Mui-selected]:bg-soft-bg 
+        [&.Mui-selected]:bg-soft-bg
 
         [&.Mui-focusVisible]:bg-soft-bg 
 
@@ -234,7 +244,7 @@ export const HDropdown = function ({
                 <Icon
                   icon={icon}
                   theme={theme}
-                  color={EIconColor.BW}
+                  color={EIconColor.PRIMARY}
                   size={EIconSize.SMALL}
                 />
               ) : undefined}

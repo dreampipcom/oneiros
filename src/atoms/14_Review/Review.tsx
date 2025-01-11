@@ -79,8 +79,8 @@ export const HReview = function ({
     light: EIconColor.PRIMARY,
     dark:
       variant === EReviewVariant.NO_BADGE
-        ? EIconColor.WHITE
-        : EIconColor.PRIMARY,
+        ? EIconColor.PRIMARY
+        : EIconColor.PASSION,
   };
 
   return (

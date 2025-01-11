@@ -67,7 +67,7 @@ const StartIcon = function ({ icon, hide, theme }: any) {
       className={`textInputIcon mb-b0 motion-reduce:transition-width ease-in-out duration-300 delay-1000 overflow-hidden ${hide ? 'min-w-0 w-0' : 'min-w-a3'}`}
       icon={icon}
       theme={theme}
-      color={EIconColor.BW}
+      color={EIconColor.PRIMARY}
       size={EIconSize.SMALL}
     />
   );
@@ -130,16 +130,24 @@ export const HTextInput = function (props: ITextInput) {
       [`
         rounded-md
         bg-soft-bg
-        dark:bg-transparent
-        dark:!text-body-dark
+
+        text-body-light
+
+        dark:bg-primary-dark
+        dark:!text-body-soft
         [&>div]:flex
         [&>div]:items-center
+
+        [&_fieldset]:!border-primary-light
+        hover:!border-primary-dark
+        hover:[&_fieldset]:!border-primary-dark
+
         [&.Mui-focused_fieldset]:!border-primary-light
         [&.Mui-focused_fieldset_legend]:!w-auto
 
-        dark:!border-primary-dark
-        dark:[&_fieldset]:!border-body-dark
-        dark:[&.Mui-focused_fieldset]:!border-primary-dark
+        dark:!border-primary-soft
+        dark:[&_fieldset]:!border-primary-soft
+        dark:[&.Mui-focused_fieldset]:!border-primary-light
         `]: true,
     },
   ];

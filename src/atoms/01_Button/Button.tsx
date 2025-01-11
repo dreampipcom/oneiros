@@ -101,8 +101,7 @@ export const HButton = function ({
       [`
         class1
 
-        text-body-dark
-        dark:text-body-dark
+        text-body-light
 
 
         bg-primary-light
@@ -114,8 +113,8 @@ export const HButton = function ({
       `]: variant === ButtonVariant.FILLED,
       [`
         class2
-        border-primary-light 
-        text-primary-light 
+        border-primary-dark 
+        text-primary-dark 
 
         hover:border-secondary-light
         hover:text-secondary-light
@@ -132,11 +131,14 @@ export const HButton = function ({
     buttonTheme === EButtonTheme.SECONDARY && {
       [`
         class3
-        text-body-dark
-        dark:text-body-dark
 
-        bg-soft-light
-        hover:bg-soft-constrast
+        text-body-light
+        dark:text-body-light
+
+        bg-secondary-light
+        hover:bg-primary-light
+        dark:bg-primary-light
+        dark:hover:bg-secondary-light
 
         dark:bg-secondary-dark 
         dark:hover:bg-primary-light
@@ -144,13 +146,13 @@ export const HButton = function ({
       [`
         class4
         !border-transparent
-        text-secondary-light 
+        text-primary-dark 
 
         hover:border-none
         hover:bg-soft-bg
 
         dark:!border-secondary-soft 
-        dark:text-body-dark 
+        dark:text-body-light 
 
         dark:hover:border-secondary-dark 
         dark:hover:bg-primary-dark
@@ -159,26 +161,27 @@ export const HButton = function ({
     buttonTheme === EButtonTheme.PASSION && {
       [`
         class3
-        text-body-dark
+        text-body-light
         dark:text-body-passion
 
-        bg-primary-passion
+        bg-primary-passionSoft
         hover:bg-primary-passionLight
 
         dark:bg-primary-passionSoft
-        dark:hover:bg-primary-passionSoft
+        dark:hover:bg-primary-passion
         dark:text-body-dark
+        dark:hover:text-body-dark
       `]: variant === ButtonVariant.FILLED,
       [`
         class4
-        border-none
         text-body-passion 
 
-        bg-transparent
-        hover:border-none
+        border-primary-passion
+        hover:border-primary-dark 
         hover:bg-primary-passionSoft
+        hover:text-body-light
 
-        dark:border-secondary-dark 
+        dark:border-primary-passionSoft
         dark:text-body-passion
 
         dark:hover:border-primary-passionSoft 
@@ -190,23 +193,27 @@ export const HButton = function ({
       [`
         class3
         text-body-dark
-        dark:text-body-passion
+        hover:text-body-light
 
-        bg-primary-passion
+        bg-primary-dark2
         hover:bg-primary-passionLight
 
-        dark:bg-primary-passionSoft
-        dark:hover:bg-primary-passionSoft
+        dark:bg-primary-dark
+        dark:hover:bg-primary-passion
         dark:text-body-dark
+        dark:hover:text-body-light
       `]: variant === ButtonVariant.FILLED,
       [`
         class4
-        border-none
         text-body-passion 
 
-        bg-transparent
-        hover:border-none
         hover:bg-primary-passionSoft
+
+        bg-primary-passionSoft
+        border-primary-passion
+        hover:border-primary-passion 
+        hover:bg-transparent
+        hover:text-body-light
 
         dark:border-secondary-dark 
         dark:text-body-passion
@@ -227,9 +234,9 @@ export const HButton = function ({
         [EButtonTheme.PASSION_SELECTED]: EIconColor.PASSION_SELECTED,
       },
       [ButtonVariant.FILLED]: {
-        [EButtonTheme.PRIMARY]: EIconColor.WHITE,
-        [EButtonTheme.SECONDARY]: EIconColor.WHITE,
-        [EButtonTheme.PASSION]: EIconColor.WHITE,
+        [EButtonTheme.PRIMARY]: EIconColor.PRIMARY,
+        [EButtonTheme.SECONDARY]: EIconColor.SECONDARY,
+        [EButtonTheme.PASSION]: EIconColor.PASSION,
         [EButtonTheme.PASSION_SELECTED]: EIconColor.PASSION_SELECTED,
       },
     },
@@ -241,8 +248,8 @@ export const HButton = function ({
         [EButtonTheme.PASSION_SELECTED]: EIconColor.PASSION_SELECTED,
       },
       [ButtonVariant.FILLED]: {
-        [EButtonTheme.PRIMARY]: EIconColor.WHITE,
-        [EButtonTheme.SECONDARY]: EIconColor.WHITE,
+        [EButtonTheme.PRIMARY]: EIconColor.SECONDARY,
+        [EButtonTheme.SECONDARY]: EIconColor.SECONDARY,
         [EButtonTheme.PASSION]: EIconColor.PASSION,
         [EButtonTheme.PASSION_SELECTED]: EIconColor.PASSION_SELECTED,
       },

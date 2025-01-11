@@ -38,15 +38,17 @@ export const HBadgeChip = function ({
   const sx = [
     {
       [`
-        text-body-dark 
-        dark:text-body-dark
+        text-body-light 
+        dark:text-body-light
         `]: true,
       [`
-        bg-secondary-light
+        bg-primary-light
+        dark:bg-primary-dark
         `]: variant === EBadgeChipVariant.PRIMARY,
       [`
         text-body-light
-        bg-secondary-dark
+        bg-secondary-light
+        dark:bg-secondary-dark
         `]: variant === EBadgeChipVariant.SECONDARY,
     },
   ];
