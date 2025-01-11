@@ -48,11 +48,13 @@ export declare const DreamPipColors: {
     light: string;
     contrast: string;
     dark: string;
+    dark2: string;
     passion: string;
     passionLight: string;
     passionSoft: string;
     soft: string;
     green: string;
+    purpleHaze: string;
     white: string;
   };
   secondary: {
@@ -63,6 +65,9 @@ export declare const DreamPipColors: {
     passionLight: string;
     passionSoft: string;
     soft: string;
+    green: string;
+    purpleHaze: string;
+    white: string;
   };
   gradient: {
     soft: {
@@ -90,6 +95,7 @@ export declare const DreamPipColors: {
     primary: string;
     light: string;
     dark: string;
+    soft: string;
     passion: string;
   };
   inverse: {
@@ -156,11 +162,13 @@ declare const _default: {
         light: string;
         contrast: string;
         dark: string;
+        dark2: string;
         passion: string;
         passionLight: string;
         passionSoft: string;
         soft: string;
         green: string;
+        purpleHaze: string;
         white: string;
       };
       secondary: {
@@ -171,6 +179,9 @@ declare const _default: {
         passionLight: string;
         passionSoft: string;
         soft: string;
+        green: string;
+        purpleHaze: string;
+        white: string;
       };
       gradient: {
         soft: {
@@ -198,6 +209,7 @@ declare const _default: {
         primary: string;
         light: string;
         dark: string;
+        soft: string;
         passion: string;
       };
       inverse: {
