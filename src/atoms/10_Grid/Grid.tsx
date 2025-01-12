@@ -159,7 +159,7 @@ export const HGrid = function ({
     return (
       <Box
         component="article"
-        className={`${child?.props?.className || 'grid'}`}
+        className={`${child?.props?.className || `grid ${variant === EGridVariant.DEFAULT ? 'grid-cols-8' : ''}`}`}
       >
         {child}
       </Box>

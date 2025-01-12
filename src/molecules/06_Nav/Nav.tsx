@@ -378,7 +378,7 @@ export const CCTA = function ({ type, href, label, className }: IControl) {
   return (
     <Button
       controlType={type}
-      className="w-full justify-self-start self-center col-span-1 col-start-1 md:col-span-2 col-start-3"
+      className="w-full justify-self-start self-center  col-span-full col-start-3 md:col-span-2"
       href={href}
     >
       {label}
