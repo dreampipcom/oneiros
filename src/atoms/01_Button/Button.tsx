@@ -113,7 +113,7 @@ export const HButton = function ({
         hover:bg-primary-contrast
 
         dark:bg-primary-contrast
-        dark:hover:bg-primary-light
+        dark:hover:bg-primary-passionSoft
         
       `]: variant === ButtonVariant.FILLED,
       [`
