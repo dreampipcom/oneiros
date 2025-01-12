@@ -31,28 +31,28 @@ export enum ENavControlVariant {
   CTA,
 }
 
-export enum ETickerStatus {
+export enum ESpotStatus {
   ACTIVE,
   DISMISSED,
   COMPLETED,
   DELETED,
 }
 
-export enum ETickerBadgeVariant {
+export enum ESpotBadgeVariant {
   BRANDED_ICON,
   SYSTEM_ICON,
   CHIP,
   CUSTOM_IMAGE,
 }
 
-export enum ETickerMessageType {
+export enum ESpotMessageType {
   ANNOUNCEMENT,
   CAMPAIGN,
   OFFER,
   STATEMENT,
 }
 
-export enum ETickerVariant {
+export enum ESpotVariant {
   TWO_CENTER_STACK = 'two-center-stack',
   THREE_CENTER_141424_STACK = 'three-center-stack',
   ONE_ROW_ELLIPSIS = 'one-row-ellipsis',
@@ -158,14 +158,14 @@ export const NavLocale = {
 export const DEFAULT_PROMO = {
   badges: [
     {
-      type: ETickerBadgeVariant.BRANDED_ICON,
+      type: ESpotBadgeVariant.BRANDED_ICON,
       icon: EBrandedIcon.googleplay,
       href: 'https://apps.apple.com/us/app/purizu/id1639022876',
       target: '_blank',
       alt: 'Download on Google Play.',
     },
     {
-      type: ETickerBadgeVariant.BRANDED_ICON,
+      type: ESpotBadgeVariant.BRANDED_ICON,
       icon: EBrandedIcon.appstore,
       href: '',
       target: '_blank',
@@ -181,18 +181,18 @@ export const DEFAULT_PROMO = {
       content: "Don't miss this opportunity to.",
       href: '',
       target: '_blank',
-      alt: 'Offer ticker accessible',
-      type: ETickerMessageType.OFFER,
+      alt: 'Offer spot accessible',
+      type: ESpotMessageType.OFFER,
     },
   ],
-  variant: ETickerVariant.THREE_CENTER_141424_STACK,
-  status: ETickerStatus.DISMISSED,
+  variant: ESpotVariant.THREE_CENTER_141424_STACK,
+  status: ESpotStatus.DISMISSED,
 };
 
 export const DEFAULT_PROMOS = [DEFAULT_PROMO];
 
 interface IBadge {
-  type?: ETickerBadgeVariant;
+  type?: ESpotBadgeVariant;
   icon?: EBrandedIcon;
   href?: string;
   target?: string;
@@ -208,7 +208,7 @@ interface IMessage {
   href?: string;
   target?: string;
   alt?: string;
-  type?: ETickerMessageType;
+  type?: ESpotMessageType;
 }
 
 export const DEFAULT_PROFILE = {
@@ -323,7 +323,7 @@ export interface IPromo {
 }
 
 export interface INavPromoGenerator {
-  tickers?: IPromo[];
+  spots?: IPromo[];
   className?: string;
 }
 
@@ -335,7 +335,7 @@ export interface INav {
   breadcrumb?: string;
   prefix?: string;
   menu?: INavMenu;
-  tickers?: IPromo[];
+  spots?: IPromo[];
   controls?: INavControls;
   hidePromos?: boolean;
   hideControls?: boolean;
@@ -427,23 +427,23 @@ export const HControls = function ({
 const PNoPromoContent = function ({ className, onRefresh }: IControl) {
   return (
     <Grid full className={className}>
-      <Typography>No ticker loaded.</Typography>
+      <Typography>No spot loaded.</Typography>
       <Button onClick={onRefresh} icon={ESystemIcon['rotate-clockwise']} />
     </Grid>
   );
 };
 
-export const HPromo = function ({ tickers, className }: INavPromoGenerator) {
-  console.log({ tickers });
-  const allDismissed = tickers.every(
-    (ticker) => ticker.status !== ETickerStatus.ACTIVE,
+export const HPromo = function ({ spots, className }: INavPromoGenerator) {
+  console.log({ spots });
+  const allDismissed = spots.every(
+    (spot) => spot.status !== ESpotStatus.ACTIVE,
   );
   if (allDismissed) return;
-  if (!(Object.values(tickers)?.length > 0)) return <PNoPromoContent />;
+  if (!(Object.values(spots)?.length > 0)) return <PNoPromoContent />;
 
   const generatePromoBadge = ({ badge, columnClasses }) => {
     const classes = columnClasses.pop();
-    if (badge?.type === ETickerBadgeVariant.BRANDED_ICON) {
+    if (badge?.type === ESpotBadgeVariant.BRANDED_ICON) {
       return [
         <Link
           className={classes}
@@ -456,7 +456,7 @@ export const HPromo = function ({ tickers, className }: INavPromoGenerator) {
       ];
     }
 
-    if (badge?.type === ETickerBadgeVariant.SYSTEM_ICON) {
+    if (badge?.type === ESpotBadgeVariant.SYSTEM_ICON) {
       return [
         <Link
           className={classes}
@@ -492,16 +492,16 @@ export const HPromo = function ({ tickers, className }: INavPromoGenerator) {
       bleed={EBleedVariant.HORIZONTAL}
       className={`${className} grid auto-rows-fr`}
     >
-      {tickers?.map((ticker) => {
-        const totalColumns = tickers.reduce(
-          (counter, ticker) => ticker.badges.length + ticker.messages.length,
+      {spots?.map((spot) => {
+        const totalColumns = spots.reduce(
+          (counter, spot) => spot.badges.length + spot.messages.length,
           0,
         );
 
         const getVariantClasses = ({ variant, column }) => {
           console.log({ variant, column });
           let classes = '';
-          if (variant === ETickerVariant.THREE_CENTER_141424_STACK) {
+          if (variant === ESpotVariant.THREE_CENTER_141424_STACK) {
             console.log({ math: (column + 1) % 3 });
             if ((column + 1) % 3 === 0) {
               classes +=
@@ -518,7 +518,7 @@ export const HPromo = function ({ tickers, className }: INavPromoGenerator) {
         times(totalColumns, () => columnBuffers.push(''));
         const columnClasses = columnBuffers.map((column, index) => {
           const classes = getVariantClasses({
-            variant: ticker.variant,
+            variant: spot.variant,
             column: index,
           });
           console.log({ classes });
@@ -529,7 +529,7 @@ export const HPromo = function ({ tickers, className }: INavPromoGenerator) {
 
         console.log({ columnClasses });
 
-        const batchedColumns = ticker.badges
+        const batchedColumns = spot.badges
           ?.map((badge) =>
             generatePromoBadge({
               badge,
@@ -537,7 +537,7 @@ export const HPromo = function ({ tickers, className }: INavPromoGenerator) {
             }),
           )
           .concat(
-            ticker.messages?.map((message) =>
+            spot.messages?.map((message) =>
               generatePromoMessage({
                 message,
                 columnClasses,
@@ -559,7 +559,7 @@ export const HNav = function ({
   breadcrumb = 'whereami',
   menu = DEFAULT_MENU,
   controls = DEFAULT_CONTROLS,
-  tickers = DEFAULT_PROMOS,
+  spots = DEFAULT_PROMOS,
   hidePromos,
   hideControls,
   hideMenu,
@@ -607,7 +607,7 @@ export const HNav = function ({
       <nav className={navStyles}>
         {!hidePromos ? (
           <HPromo
-            tickers={tickers}
+            spots={spots}
             className="grid min-h-a9 !bg-primary-dark dark:!bg-primary-soft"
           />
         ) : undefined}
