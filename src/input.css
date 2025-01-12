@@ -7,4 +7,47 @@
   body * {
     font-family: "Comfortaa", system-ui, sans-serif !important;
   }
+
+  /* Google Play */
+  .cls-1 {
+    fill: #4285f4;
+  }
+
+  .cls-2 {
+    fill: #a6a6a6;
+  }
+
+  .cls-3 {
+    stroke: #fff;
+    stroke-miterlimit: 10;
+    stroke-width: .2px;
+  }
+
+  .cls-3, .cls-4, .cls-5 {
+    fill: #fff;
+  }
+
+  .cls-6 {
+    fill: #34a853;
+  }
+
+  .cls-7 {
+    fill: #fbbc04;
+  }
+
+  .cls-5 {
+    fill-opacity: 0;
+  }
+
+  .cls-8 {
+    fill: #ea4335;
+  }
+
+  .fill-white {
+    fill: white;
+  }
+
+  .fill-a6 {
+    fill: #a6a6a6;
+  }
 }

@@ -5,9 +5,11 @@ import { ESystemIcon } from '../assets';
 
 const Example: FC<SystemIconProps> = function ({
   icon = ESystemIcon.account,
+  collection,
   theme,
   size,
 }) {
+  const nextIcon = icon;
   return (
     <div
       style={{
@@ -19,7 +21,12 @@ const Example: FC<SystemIconProps> = function ({
         margin: '0 auto',
       }}
     >
-      <SystemIcon icon={icon} theme={theme} size={size} />
+      <SystemIcon
+        icon={nextIcon}
+        theme={theme}
+        size={size}
+        collection={collection}
+      />
     </div>
   );
 };

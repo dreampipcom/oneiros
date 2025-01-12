@@ -38,7 +38,7 @@ export const HSystemIcon = function ({
   className,
   color = EIconColor.PRIMARY,
   icon = ESystemIcon.account,
-  collection = 'branded',
+  collection = 'system',
   theme = 'light',
   size = EIconSize.MEDIUM,
   id = 'atom__link',
@@ -47,6 +47,7 @@ export const HSystemIcon = function ({
     collection === 'system' ? ESystemIcon[icon] : EBrandedIcon[icon];
 
   console.log({ collection, icon, transposeIcon });
+
   const sx = [
     {
       [`
@@ -96,7 +97,7 @@ export const HSystemIcon = function ({
 
   const IconComponent = useMemo(
     () => Icons[transposeIcon || icon],
-    [icon, theme, transposeIcon],
+    [icon, theme, transposeIcon, collection],
   );
 
   if (!transposeIcon) return <>Icon not found.</>;

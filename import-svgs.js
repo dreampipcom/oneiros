@@ -19,16 +19,16 @@ function convertHyphenatedAttributesToCamelCase(input) {
 }
 
 const map = {
-	logo: {
-		name: 'Logo',
-		input: 'src/atoms/04_Logo/assets/svgs',
-		output: 'src/atoms/04_Logo/assets/components'
-	},
-	systemIcons: {
-		name: 'SystemIcon',
-		input: 'src/atoms/05_SystemIcon/assets/svgs',
-		output: 'src/atoms/05_SystemIcon/assets/components'
-	},
+	// logo: {
+	// 	name: 'Logo',
+	// 	input: 'src/atoms/04_Logo/assets/svgs',
+	// 	output: 'src/atoms/04_Logo/assets/components'
+	// },
+	// systemIcons: {
+	// 	name: 'SystemIcon',
+	// 	input: 'src/atoms/05_SystemIcon/assets/svgs',
+	// 	output: 'src/atoms/05_SystemIcon/assets/components'
+	// },
 	branded: {
 		name: 'BrandedIcon',
 		input: 'src/atoms/05_SystemIcon/assets/svgs-branded',

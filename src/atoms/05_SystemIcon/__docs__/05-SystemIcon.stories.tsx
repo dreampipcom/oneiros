@@ -12,11 +12,7 @@ const meta: Meta<typeof Example> = {
       options: [...Object.keys(EBrandedIcon), ...Object.keys(ESystemIcon)],
       control: { type: 'select' },
     },
-    brandedIcon: {
-      options: Object.keys(EBrandedIcon),
-      control: { type: 'select' },
-    },
-    collecitons: {
+    collection: {
       options: ['system', 'branded'],
       control: { type: 'select' },
     },
