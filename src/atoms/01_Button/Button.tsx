@@ -4,6 +4,7 @@ import type { ReactNode as ChildrenType } from 'react';
 import clsx from 'clsx';
 import Button from '@mui/material/Button';
 import { Typography, TypographyVariant } from '../02_Typography';
+import { Image } from '../08_Image';
 
 import {
   SystemIcon as Icon,
@@ -35,6 +36,7 @@ export interface IButton {
   variant?: ButtonVariant;
   theme?: 'light' | 'dark';
   buttonTheme?: EButtonTheme;
+  image?: string;
   onClick?: () => void;
   target?: string;
   href?: string;
@@ -51,6 +53,7 @@ export const HButton = function ({
   className,
   variant = ButtonVariant.FILLED,
   buttonTheme = EButtonTheme.PRIMARY,
+  image = '',
   theme = 'light',
   href = '',
   host = 'www.dreampip.com',
@@ -93,9 +96,11 @@ export const HButton = function ({
 
   const sx = [
     {
-      'relative normal-case shadow-none hover:shadow-none': true,
+      'relative normal-case shadow-none hover:shadow-none overflow-hidden':
+        true,
       'rounded-md w-full px-a3 py-b1': !!children,
       'rounded-md px-0 py-0 min-h-b5 max-w-b5 min-w-b5 max-h-b5': !children,
+      [`bg-[url('${image}')]`]: !!image,
     },
     buttonTheme === EButtonTheme.PRIMARY && {
       [`
@@ -270,6 +275,9 @@ export const HButton = function ({
       onClick={onClick}
       type={type}
     >
+      {image ? (
+        <Image className="absolute opacity-30" src={image} />
+      ) : undefined}
       {icon && iconPosition === EButtonIconPosition.START ? (
         <Icon
           icon={icon}
