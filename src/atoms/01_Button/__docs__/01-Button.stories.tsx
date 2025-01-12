@@ -21,7 +21,7 @@ const meta: Meta<typeof Example> = {
       control: { type: 'radio' },
     },
     icon: {
-      options: Object.values(ESystemIcon),
+      options: Object.keys(ESystemIcon),
       control: { type: 'select' },
     },
     iconPosition: {

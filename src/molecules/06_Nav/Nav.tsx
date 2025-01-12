@@ -8,7 +8,12 @@ import { Button, ButtonVariant, EButtonTheme } from '../../atoms/01_Button';
 import { Typography } from '../../atoms/02_Typography';
 import { Link } from '../../atoms/03_Link';
 import { Logo } from '../../atoms/04_Logo';
-import { SystemIcon, ESystemIcon } from '../../atoms/05_SystemIcon';
+import {
+  SystemIcon,
+  ESystemIcon,
+  EBrandedIcon,
+  EIconCollection,
+} from '../../atoms/05_SystemIcon';
 import { Image } from '../../atoms/08_Image';
 import { Grid, EGridVariant, EBleedVariant } from '../../atoms/10_Grid';
 import { DreamPipColors } from '../../../dist/esm/tailwind.config.ts';
@@ -169,14 +174,20 @@ export const HNav = function ({
             href="https://play.google.com/store/apps/details?id=com.angeloreale.purizumobile"
             aria-label="Download on App Store."
           >
-            <SystemIcon icon={ESystemIcon.googleplay} />
+            <SystemIcon
+              collection={EIconCollection.BRANDED}
+              icon={EBrandedIcon.googleplay}
+            />
           </a>
           <a
             className={appStyles}
             href="https://apps.apple.com/us/app/purizu/id1639022876"
             aria-label="Download on Google Play."
           >
-            <SystemIcon icon={ESystemIcon.apps} />
+            <SystemIcon
+              collection={EIconCollection.BRANDED}
+              icon={EBrandedIcon.appstore}
+            />
           </a>
         </Grid>
         <div className="relative">

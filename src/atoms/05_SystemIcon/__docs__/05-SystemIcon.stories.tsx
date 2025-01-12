@@ -1,7 +1,7 @@
 // @atoms/05_SystemIcon/__test__/05-SystemIcon.stories.tsx
 import type { Meta, StoryObj } from '@storybook/react';
 import Example from './Example.tsx';
-import { EIconSize } from '../SystemIcon';
+import { EIconSize, EIconCollection } from '../SystemIcon';
 import { ESystemIcon, EBrandedIcon } from '../assets/index.ts';
 
 const meta: Meta<typeof Example> = {
@@ -13,7 +13,7 @@ const meta: Meta<typeof Example> = {
       control: { type: 'select' },
     },
     collection: {
-      options: ['system', 'branded'],
+      options: Object.values(EIconCollection),
       control: { type: 'select' },
     },
     theme: {
