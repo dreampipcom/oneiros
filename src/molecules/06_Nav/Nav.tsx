@@ -4,6 +4,7 @@
 // @ts-nocheck
 import clsx from 'clsx';
 import React, { useRef, useState, useEffect, useMemo } from 'react';
+import { clone, times } from 'lodash';
 import { AudioPlayer } from '../02_AudioPlayer';
 import { Button, ButtonVariant, EButtonTheme } from '../../atoms/01_Button';
 import { Typography } from '../../atoms/02_Typography';
@@ -42,6 +43,12 @@ export enum EPromoMessageType {
   CAMPAIGN,
   OFFER,
   STATEMENT,
+}
+
+export enum EPromoVariant {
+  TWO_CENTER_STACK = 'two-center-stack',
+  THREE_CENTER_141424_STACK = 'three-center-stack',
+  ONE_ROW_ELLIPSIS = 'one-row-ellipsis',
 }
 
 export enum ENavItemVariant {
@@ -171,6 +178,7 @@ export const DEFAULT_PROMO = {
       type: EPromoMessageType.OFFER,
     },
   ],
+  variant: EPromoVariant.THREE_CENTER_141424_STACK,
 };
 
 export const DEFAULT_PROMOS = [DEFAULT_PROMO];
@@ -417,10 +425,16 @@ export const HPromo = function ({ promos, className }: INavPromoGenerator) {
   console.log({ promos });
   if (!(Object.values(promos)?.length > 0)) return <PNoPromoContent />;
 
-  const generatePromoBadge = ({ badge, className }) => {
+  const generatePromoBadge = ({ badge, columnClasses }) => {
+    const classes = columnClasses.pop();
     if (badge?.type === EPromoBadgeVariant.BRANDED_ICON) {
       return [
-        <Link href={badge.href} target={badge.target} aria-label={badge.alt}>
+        <Link
+          className={classes}
+          href={badge.href}
+          target={badge.target}
+          aria-label={badge.alt}
+        >
           <SystemIcon collection={EIconCollection.BRANDED} icon={badge.icon} />
         </Link>,
       ];
@@ -428,7 +442,12 @@ export const HPromo = function ({ promos, className }: INavPromoGenerator) {
 
     if (badge?.type === EPromoBadgeVariant.SYSTEM_ICON) {
       return [
-        <Link href={badge.href} target={badge.target} aria-label={badge.alt}>
+        <Link
+          className={classes}
+          href={badge.href}
+          target={badge.target}
+          aria-label={badge.alt}
+        >
           <SystemIcon collection={EIconCollection.SYSTEM} icon={badge.icon} />
         </Link>,
       ];
@@ -437,23 +456,78 @@ export const HPromo = function ({ promos, className }: INavPromoGenerator) {
     return [<PNoPromoContent />];
   };
 
-  const generatePromoMessage = ({ message }) => {
+  const generatePromoMessage = ({ message, columnClasses }) => {
+    const classes = columnClasses.pop();
     if (message?.type === 'lorem') console.log('ipsum');
-    return [<Typography>{message?.content}</Typography>];
+    return [
+      <Typography
+        className={`${classes} justify-self-center self-center text-body-dark dark:text-body-light`}
+      >
+        {message?.content}
+      </Typography>,
+    ];
   };
 
   return (
     <Grid
       variant={EGridVariant.DEFAULT}
       bleed={EBleedVariant.ZERO}
-      className={`${className} grid place-items-center justify-center`}
+      className={`${className} grid auto-rows-fr`}
     >
-      {promos?.map((promo) =>
-        promo.badges?.map((badge) => generatePromoBadge({ badge })),
-      )}
-      {promos?.map((promo) =>
-        promo.messages?.map((message) => generatePromoMessage({ message })),
-      )}
+      {promos?.map((promo) => {
+        const totalColumns = promos.reduce(
+          (counter, promo) => promo.badges.length + promo.messages.length,
+          0,
+        );
+
+        const getVariantClasses = ({ variant, column }) => {
+          console.log({ variant, column });
+          let classes = '';
+          if (variant === EPromoVariant.THREE_CENTER_141424_STACK) {
+            console.log({ math: (column + 1) % 3 });
+            if ((column + 1) % 3 === 0) {
+              classes += ' col-start-0 col-span-full md:col-span-2';
+            } else {
+              classes += ` col-start-${column + 1 + 2 * column} col-span-3 md:col-span-1`;
+            }
+            classes += ` justify-self-center self-center md:col-start-${column + 3}`;
+          }
+          return classes;
+        };
+
+        const columnBuffers = [];
+        times(totalColumns, () => columnBuffers.push(''));
+        const columnClasses = columnBuffers.map((column, index) => {
+          const classes = getVariantClasses({
+            variant: promo.variant,
+            column: index,
+          });
+          console.log({ classes });
+          return classes;
+        });
+
+        columnClasses.reverse();
+
+        console.log({ columnClasses });
+
+        const batchedColumns = promo.badges
+          ?.map((badge) =>
+            generatePromoBadge({
+              badge,
+              columnClasses,
+            }),
+          )
+          .concat(
+            promo.messages?.map((message) =>
+              generatePromoMessage({
+                message,
+                columnClasses,
+              }),
+            ),
+          );
+
+        return batchedColumns;
+      })}
     </Grid>
   );
 };
@@ -522,7 +596,7 @@ export const HNav = function ({
               variant={EGridVariant.DEFAULT}
               bleed={EBleedVariant.ZERO}
               gradient={EGradientVariant.SOFT}
-              className="grid !p-a2 !px-a3"
+              className="grid !p-a2 !px-a3 auto-rows-fr"
             >
               <div className="justify-self-start self-center col-span-2 col-start-0 md:!col-span-1 md:!col-start-0">
                 <Button
