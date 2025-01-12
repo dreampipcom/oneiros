@@ -201,6 +201,7 @@ export const HNav = function ({
                   edge="end"
                   color="inherit"
                   aria-label="menu"
+                  image="https://cdn.cloudflare.steamstatic.com/steamcommunity/public/images/avatars/77/776da1334bdeef44dd70be72d6892847c1e7cd0b_full.jpg"
                 />
               </div>
               <div className="justify-self-center self-center col-span-2 col-start-2 md:!col-span-2 md:!col-start-4">
