@@ -15,7 +15,12 @@ import {
   EIconCollection,
 } from '../../atoms/05_SystemIcon';
 import { Image } from '../../atoms/08_Image';
-import { Grid, EGridVariant, EBleedVariant } from '../../atoms/10_Grid';
+import {
+  Grid,
+  EGridVariant,
+  EBleedVariant,
+  EGradientVariant,
+} from '../../atoms/10_Grid';
 import { DreamPipColors } from '../../../dist/esm/tailwind.config.ts';
 
 export const NavLocale = {
@@ -203,7 +208,11 @@ export const HNav = function ({
           bleed={EBleedVariant.RESPONSIVE}
         >
           <div className={toolsStyles}>
-            <Grid variant={EGridVariant.DEFAULT} bleed={EBleedVariant.ZERO}>
+            <Grid
+              variant={EGridVariant.DEFAULT}
+              bleed={EBleedVariant.ZERO}
+              gradient={EGradientVariant.SOFT}
+            >
               <div className="justify-self-start self-center col-span-2 col-start-0 md:!col-span-1 md:!col-start-0">
                 <Button
                   icon={ESystemIcon.apps}
