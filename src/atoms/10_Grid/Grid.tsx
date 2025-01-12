@@ -157,7 +157,10 @@ export const HGrid = function ({
   const mappedChildren = Children.map(children, (child: any) => {
     if (!child) return undefined;
     return (
-      <Box component="article" className={`${child?.props?.className || ''}`}>
+      <Box
+        component="article"
+        className={`${child?.props?.className || 'grid'}`}
+      >
         {child}
       </Box>
     );

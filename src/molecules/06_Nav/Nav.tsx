@@ -416,7 +416,7 @@ export const HControls = function ({
   };
 
   return (
-    <Grid full className={`${className} w-full`}>
+    <Grid full className={`${className} w-full auto-rows-fr auto-cols-fr`}>
       {controls?.top.map((control) => generateControl({ control }))}
       {controls?.center.map((control) => generateControl({ control }))}
       {controls?.bottom.map((control) => generateControl({ control }))}

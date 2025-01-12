@@ -77,6 +77,7 @@ export const HAudioPlayer = function ({
         items-center
         align-center
         justify-center
+        basis-full
         `]: true,
     },
   ];
@@ -161,7 +162,7 @@ export const HAudioPlayer = function ({
           ))}
         </audio>
       </div>
-      <Typography className="ml-a2 col-span-4 col-start-1" truncate>
+      <Typography className="basis-full ml-a2 col-span-4 col-start-1" truncate>
         {title}
       </Typography>
     </div>
