@@ -404,7 +404,7 @@ export const HControls = function ({
   };
 
   return (
-    <Grid full className={className}>
+    <Grid full className={`${className} w-full`}>
       {controls?.top.map((control) => generateControl({ control }))}
       {controls?.center.map((control) => generateControl({ control }))}
       {controls?.bottom.map((control) => generateControl({ control }))}
@@ -463,7 +463,7 @@ export const HPromo = function ({ promos, className }: INavPromoGenerator) {
       <Link
         truncate
         href="https://www.dreampip.com"
-        className={`${classes} justify-self-center self-center text-body-dark dark:text-body-light`}
+        className={`${classes} justify-self-center self-center !text-body-dark dark:!text-body-light`}
       >
         {message?.content}
       </Link>,
