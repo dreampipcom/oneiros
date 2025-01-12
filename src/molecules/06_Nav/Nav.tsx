@@ -174,7 +174,7 @@ export const HNav = function ({
         <Grid
           variant={EGridVariant.DEFAULT}
           bleed={EBleedVariant.ZERO}
-          className="grid min-h-a9 !bg-primary-dark px-a2"
+          className="grid min-h-a9 !bg-primary-dark dark:!bg-primary-green px-a2"
         >
           <a
             className={`${appStyles} flex w-full h-full justify-center items-center md:col-start-4 md:col-span-1 col-span-3 col-start-0"`}
