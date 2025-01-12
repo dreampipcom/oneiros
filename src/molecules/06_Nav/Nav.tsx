@@ -213,6 +213,7 @@ export interface INavControls {
 
 export interface INavControlsGenerator {
   controls?: INavControls;
+  className?: string;
 }
 
 export interface INavMenuItems {
@@ -289,7 +290,10 @@ const CNoControlContent = function () {
   return <Typography>No controls loaded. Refresh.</Typography>;
 };
 
-export const HControls = function ({ controls }: INavControlsGenerator) {
+export const HControls = function ({
+  controls,
+  className,
+}: INavControlsGenerator) {
   console.log({ controls });
   if (!(Object.values(controls)?.length > 0)) return <CNoControlContent />;
 
@@ -309,10 +313,7 @@ export const HControls = function ({ controls }: INavControlsGenerator) {
   };
 
   return (
-    <Grid
-      full
-      className="grid md:justify-self-end self-center col-span-6 col-start-0 md:!col-span-3 md:!col-start-6"
-    >
+    <Grid full className={className}>
       {controls?.top.map((control) => generateControl({ control }))}
       {controls?.center.map((control) => generateControl({ control }))}
       {controls?.bottom.map((control) => generateControl({ control }))}
@@ -429,7 +430,10 @@ export const HNav = function ({
                   </span>
                 </Link>
               </div>
-              <HControls controls={controls} />
+              <HControls
+                className="grid md:justify-self-end self-center col-span-6 col-start-0 md:!col-span-3 md:!col-start-6"
+                controls={controls}
+              />
             </Grid>
           </div>
         </Grid>
