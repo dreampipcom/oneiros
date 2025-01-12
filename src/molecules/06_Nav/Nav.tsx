@@ -4,6 +4,7 @@
 // @ts-nocheck
 import clsx from 'clsx';
 import React, { useRef, useState, useEffect, useMemo } from 'react';
+import { AudioPlayer } from '../02_AudioPlayer';
 import { Button, ButtonVariant, EButtonTheme } from '../../atoms/01_Button';
 import { Typography } from '../../atoms/02_Typography';
 import { Link } from '../../atoms/03_Link';
@@ -25,6 +26,11 @@ import { DreamPipColors } from '../../../dist/esm/tailwind.config.ts';
 
 export const NavLocale = {
   default: {
+    locale: 'en-us',
+    view: 'View more',
+    calendar: 'Add to calendar',
+  },
+  en: {
     locale: 'en-us',
     view: 'View more',
     calendar: 'Add to calendar',
@@ -131,7 +137,7 @@ export interface INav {
 export const HNav = function ({
   id = 'molecule__Nav',
   className = '',
-  locale,
+  locale = 'en',
   profile = DEFAULT_PROFILE,
   breadcrumb = 'whereami',
   prefix,
@@ -235,10 +241,20 @@ export const HNav = function ({
                   </span>
                 </Link>
               </div>
-              <Grid className="grid md:justify-self-end self-center col-span-6 col-start-0 md:!col-span-3 md:!col-start-6">
+              <Grid
+                full
+                className="grid md:justify-self-end self-center col-span-6 col-start-0 md:!col-span-3 md:!col-start-6"
+              >
                 <Typography className="justify-self-start self-center col-span-1 col-start-0 md:col-span-2 col-start-0">
                   {breadcrumb}
                 </Typography>
+                <AudioPlayer className="w-full" />
+                <Button
+                  className="w-full justify-self-start self-center col-span-1 col-start-1 md:col-span-2 col-start-3"
+                  href="/join"
+                >
+                  {NavLocale[locale].view}
+                </Button>
               </Grid>
             </Grid>
           </div>
