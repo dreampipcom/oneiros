@@ -17,6 +17,7 @@ export enum EBleedVariant {
   ZERO = 'zero',
   RESPONSIVE = 'responsive',
   VERTICAL = 'vertical',
+  HORIZONTAL = 'horizontal',
 }
 
 export enum EGradientVariant {
@@ -103,6 +104,10 @@ export const HGrid = function ({
           py-a2
           md:py-a6
         `]: coercedBleed === EBleedVariant.VERTICAL,
+      [`
+          px-a2
+          md:px-a6
+        `]: coercedBleed === EBleedVariant.HORIZONTAL,
     },
   ];
 

@@ -460,18 +460,20 @@ export const HPromo = function ({ promos, className }: INavPromoGenerator) {
     const classes = columnClasses.pop();
     if (message?.type === 'lorem') console.log('ipsum');
     return [
-      <Typography
+      <Link
+        truncate
+        href="https://www.dreampip.com"
         className={`${classes} justify-self-center self-center text-body-dark dark:text-body-light`}
       >
         {message?.content}
-      </Typography>,
+      </Link>,
     ];
   };
 
   return (
     <Grid
       variant={EGridVariant.DEFAULT}
-      bleed={EBleedVariant.ZERO}
+      bleed={EBleedVariant.HORIZONTAL}
       className={`${className} grid auto-rows-fr`}
     >
       {promos?.map((promo) => {
@@ -486,11 +488,12 @@ export const HPromo = function ({ promos, className }: INavPromoGenerator) {
           if (variant === EPromoVariant.THREE_CENTER_141424_STACK) {
             console.log({ math: (column + 1) % 3 });
             if ((column + 1) % 3 === 0) {
-              classes += ' col-start-0 col-span-full md:col-span-2';
+              classes +=
+                ' justify-start col-start-0 col-span-full md:col-span-3';
             } else {
-              classes += ` col-start-${column + 1 + 2 * column} col-span-3 md:col-span-1`;
+              classes += ` justify-center col-start-${column + 1 + 2 * column} col-span-3 md:col-span-1`;
             }
-            classes += ` justify-self-center self-center md:col-start-${column + 3}`;
+            classes += ` w-full flex  align-center justify-self-center self-center md:col-start-${column + 3}`;
           }
           return classes;
         };
