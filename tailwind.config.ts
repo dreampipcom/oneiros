@@ -220,7 +220,11 @@ export default {
     'col-span-6',
     'col-start-1',
     'md:col-span-4',
+    'md:col-start-1',
+    'md:col-start-2',
     'md:col-start-3',
+    'md:col-start-4',
+    'md:col-start-5',
     'overflow-scroll',
   ],
   theme: {

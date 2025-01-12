@@ -138,12 +138,6 @@ export const HNav = function ({
   const appSx = [
     {
       [`class02
-        mr-a2
-        relative
-        block
-        h-a4
-        w-a8
-        col-span-1
         `]: true,
     },
   ];
@@ -156,21 +150,22 @@ export const HNav = function ({
         dark:bg-primary-dark2
         bg-primary-light
         justify-between
+        px-a2
         `]: true,
     },
   ];
   const toolsStyles = `${clsx(toolsSx)}`;
 
   return (
-    <div id={id} className="relative">
+    <div id={id}>
       <nav className={navStyles}>
         <Grid
           variant={EGridVariant.DEFAULT}
           bleed={EBleedVariant.ZERO}
-          className="grid bg-primary-dark place-items-center items-center"
+          className="grid min-h-a9 !bg-primary-dark px-a2"
         >
           <a
-            className={appStyles}
+            className={`${appStyles} flex w-full h-full justify-center items-center md:col-start-4 md:col-span-1 col-span-3 col-start-0"`}
             href="https://play.google.com/store/apps/details?id=com.angeloreale.purizumobile"
             aria-label="Download on App Store."
           >
@@ -180,7 +175,7 @@ export const HNav = function ({
             />
           </a>
           <a
-            className={appStyles}
+            className={`${appStyles} flex w-full h-full justify-center items-center md:col-start-5 md:col-span-1 col-span-3 col-start-3"`}
             href="https://apps.apple.com/us/app/purizu/id1639022876"
             aria-label="Download on Google Play."
           >
@@ -190,7 +185,11 @@ export const HNav = function ({
             />
           </a>
         </Grid>
-        <div className="relative">
+        <Grid
+          full
+          variant={EGridVariant.DEFAULT}
+          bleed={EBleedVariant.RESPONSIVE}
+        >
           <div className={toolsStyles}>
             <Grid variant={EGridVariant.DEFAULT} bleed={EBleedVariant.ZERO}>
               <div className="justify-self-start self-center col-span-2 col-start-0 md:!col-span-1 md:!col-start-0">
@@ -218,7 +217,7 @@ export const HNav = function ({
               </Grid>
             </Grid>
           </div>
-        </div>
+        </Grid>
         {/* {interacted ? (
           <Drawer
             listItems={menuItems}
