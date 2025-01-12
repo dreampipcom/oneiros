@@ -203,6 +203,7 @@ export interface IControl {
   src?: string;
   href?: string;
   className?: string;
+  onRefresh?: () => void;
 }
 
 export interface INavControls {
@@ -214,6 +215,7 @@ export interface INavControls {
 export interface INavControlsGenerator {
   controls?: INavControls;
   className?: string;
+  onRefresh?: () => void;
 }
 
 export interface INavMenuItems {
@@ -286,15 +288,22 @@ export const CCTA = function ({ type, href, label, className }: IControl) {
   );
 };
 
-const CNoControlContent = function () {
-  return <Typography>No controls loaded. Refresh.</Typography>;
+const CNoControlContent = function ({ className, onRefresh }: IControl) {
+  return (
+    <Grid full className={className}>
+      <Typography>No controls loaded.</Typography>
+      <Button onClick={onRefresh} icon={ESystemIcon['rotate-clockwise']} />
+    </Grid>
+  );
 };
 
 export const HControls = function ({
   controls,
+  onRefresh,
   className,
 }: INavControlsGenerator) {
   console.log({ controls });
+  return <CNoControlContent className={className} />;
   if (!(Object.values(controls)?.length > 0)) return <CNoControlContent />;
 
   const generateControl = ({ control }) => {
@@ -309,7 +318,7 @@ export const HControls = function ({
     if (control?.type === ENavControlVariant.CTA) {
       return <CCTA label={control?.label} href={control?.href} />;
     }
-    return <CNoControlContent />;
+    return <CNoControlContent onRefresh={onRefresh} />;
   };
 
   return (
@@ -433,6 +442,7 @@ export const HNav = function ({
               <HControls
                 className="grid md:justify-self-end self-center col-span-6 col-start-0 md:!col-span-3 md:!col-start-6"
                 controls={controls}
+                onRefresh={fetchNewData}
               />
             </Grid>
           </div>
