@@ -1,4 +1,4 @@
-/* eslint   no-unreachable:0, @typescript-eslint/no-unused-vars:0, no-import-assign:0, import/no-unresolved:0, import/no-webpack-loader-syntax:0, jsx-a11y/media-has-caption:0, no-nested-ternary:0, no-unused-vars:0, max-len:0, no-shadow:0, @typescript-eslint/no-explicit-any:0, object-curly-newline:0 */
+/* eslint   no-unreachable:0, react/jsx-one-expression-per-line:0, @typescript-eslint/no-unused-vars:0, no-import-assign:0, import/no-unresolved:0, import/no-webpack-loader-syntax:0, jsx-a11y/media-has-caption:0, no-nested-ternary:0, no-unused-vars:0, max-len:0, no-shadow:0, @typescript-eslint/no-explicit-any:0, object-curly-newline:0 */
 // @molecules/Nav.tsx
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-nocheck
@@ -81,10 +81,11 @@ export const NavLocale = {
   },
 };
 
-export const DEFAULT_USER = {
-  name: 'Lorinho',
+export const DEFAULT_PROFILE = {
+  name: 'Lorinha',
   email: 'Lorenzetti@Lorenzus.zu',
-  avatar: 'https://placeholder.com',
+  image:
+    'https://avatars.steamstatic.com/776da1334bdeef44dd70be72d6892847c1e7cd0b_full.jpg',
 };
 
 export const DEFAULT_NAV_ITEMS = {
@@ -102,10 +103,20 @@ export enum ENavVariant {
   DEFAULT = 'default',
 }
 
+interface INavProfile {
+  name?: string;
+  image?: string;
+  badges?: unknown;
+  awards?: unknown;
+  ticks?: unknown;
+  symbols?: unknown;
+}
+
 export interface INav {
   id?: string;
   className?: string;
   locale?: string;
+  profile?: INavProfile;
   breadcrumb?: string;
   prefix?: string;
   fetchNewData?: () => void;
@@ -116,6 +127,7 @@ export const HNav = function ({
   id = 'molecule__Nav',
   className = '',
   locale,
+  profile = DEFAULT_PROFILE,
   breadcrumb = 'whereami',
   prefix,
   fetchNewData,
@@ -201,8 +213,11 @@ export const HNav = function ({
                   edge="end"
                   color="inherit"
                   aria-label="menu"
-                  image="https://cdn.cloudflare.steamstatic.com/steamcommunity/public/images/avatars/77/776da1334bdeef44dd70be72d6892847c1e7cd0b_full.jpg"
+                  image={profile?.image}
                 />
+                <Typography className="m-a2">
+                  @{profile?.name}@:dpip.cc
+                </Typography>
               </div>
               <div className="justify-self-center self-center col-span-2 col-start-2 md:!col-span-2 md:!col-start-4">
                 <Link href="/">
