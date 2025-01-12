@@ -23,6 +23,7 @@ import {
   EBleedVariant,
   EGradientVariant,
 } from '../../atoms/10_Grid';
+import { Popover } from '../../atoms/15_Popover';
 import { DreamPipColors } from '../../../dist/esm/tailwind.config.ts';
 
 export enum ENavControlVariant {
@@ -578,6 +579,7 @@ export const HNav = function ({
   theme = 'light',
 }: INav) {
   const [open, setOpen] = useState(false);
+  const anchor = useRef(null);
 
   const navSx = [
     {
@@ -634,16 +636,23 @@ export const HNav = function ({
             >
               <div className="justify-self-start self-center col-span-3 col-start-1 md:!col-span-2 md:!col-start-1">
                 {!hideMenu ? (
-                  <Button
-                    icon={ESystemIcon.apps}
-                    onClick={() => {
-                      setOpen(true);
-                    }}
-                    edge="end"
-                    color="inherit"
-                    aria-label="menu"
-                    image={profile?.image}
-                  />
+                  <div className="block" ref={anchor}>
+                    <Button
+                      icon={ESystemIcon.apps}
+                      onClick={() => {
+                        setOpen(true);
+                      }}
+                      edge="end"
+                      color="inherit"
+                      aria-label="menu"
+                      image={profile?.image}
+                    />
+                    {open ? (
+                      <Popover anchor={anchor} onClose={() => setOpen(false)}>
+                        Hello.
+                      </Popover>
+                    ) : undefined}
+                  </div>
                 ) : undefined}
                 {!hideProfile ? (
                   <Typography className="hidden md:flex m-a2">

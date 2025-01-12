@@ -12,9 +12,11 @@ export enum EPopoverVariant {
 
 export interface IPopover {
   className?: string;
+  anchor?: unknown;
   theme?: 'light' | 'dark';
   children: ChildrenType;
   variant?: EPopoverVariant;
+  onClose?: () => void;
   open?: boolean;
   id?: string;
 }
@@ -23,7 +25,9 @@ export const HPopover = function ({
   className = '',
   children = '1100€',
   open = true,
+  onClose = () => {},
   theme = 'light',
+  anchor = undefined,
   variant = EPopoverVariant.DEFAULT,
   id = 'atom__review',
 }: IPopover) {
@@ -47,9 +51,22 @@ export const HPopover = function ({
     },
   ];
   const boxStyles = `${clsx(boxSx)} ${className}`;
+  console.log({ anchor });
 
   return (
-    <Popover theme={theme} open={open} id={id} className={boxStyles}>
+    <Popover
+      onClose={onClose}
+      theme={theme}
+      open={open}
+      id={id}
+      className={boxStyles}
+      anchorEl={anchor}
+      anchorOrigin={{
+        vertical: 'bottom',
+        horizontal: 'left',
+      }}
+      transformOrigin={{ vertical: 'top', horizontal: 'left' }}
+    >
       {children}
     </Popover>
   );
