@@ -378,7 +378,7 @@ export const CCTA = function ({ type, href, label, className }: IControl) {
   return (
     <Button
       controlType={type}
-      className="w-full justify-self-start self-center  col-span-full col-start-3"
+      className="w-full justify-self-start self-center  col-span-full col-start-1"
       href={href}
     >
       {label}
@@ -632,7 +632,7 @@ export const HNav = function ({
               gradient={EGradientVariant.SOFT}
               className="grid !p-a2 !px-a3 auto-rows-fr"
             >
-              <div className="justify-self-start self-center col-span-3 col-start-1 md:!col-span-1 md:!col-start-0">
+              <div className="justify-self-start self-center col-span-3 col-start-1 md:!col-span-2 md:!col-start-1">
                 {!hideMenu ? (
                   <Button
                     icon={ESystemIcon.apps}
@@ -661,7 +661,7 @@ export const HNav = function ({
               </div>
               {!hideControls ? (
                 <HControls
-                  className="grid md:justify-self-end self-center col-span-6 col-start-0 md:!col-span-3 md:!col-start-6"
+                  className="grid md:justify-self-start self-end col-span-6 col-start-1 md:!col-span-3 md:!col-start-6"
                   controls={controls}
                   onRefresh={fetchNewData}
                 />
