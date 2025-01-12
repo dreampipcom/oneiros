@@ -56,6 +56,7 @@ export enum ESpotVariant {
   TWO_CENTER_STACK = 'two-center-stack',
   THREE_CENTER_141424_STACK = 'three-center-stack',
   ONE_ROW_ELLIPSIS = 'one-row-ellipsis',
+  IMAGE = 'image',
 }
 
 export enum ENavItemVariant {
@@ -185,8 +186,9 @@ export const DEFAULT_PROMO = {
       type: ESpotMessageType.OFFER,
     },
   ],
+  image: 'https://www.dreampip.com/og-image.png',
   variant: ESpotVariant.THREE_CENTER_141424_STACK,
-  status: ESpotStatus.DISMISSED,
+  status: ESpotStatus.ACTIVE,
 };
 
 export const DEFAULT_PROMOS = [DEFAULT_PROMO];
@@ -317,13 +319,13 @@ export interface INavProfile {
   symbols?: unknown;
 }
 
-export interface IPromo {
+export interface ISpot {
   badges?: IBadge[];
   messages?: IMessage[];
 }
 
-export interface INavPromoGenerator {
-  spots?: IPromo[];
+export interface INavSpotGenerator {
+  spots?: ISpot[];
   className?: string;
 }
 
@@ -335,9 +337,9 @@ export interface INav {
   breadcrumb?: string;
   prefix?: string;
   menu?: INavMenu;
-  spots?: IPromo[];
+  spots?: ISpot[];
   controls?: INavControls;
-  hidePromos?: boolean;
+  hideSpots?: boolean;
   hideControls?: boolean;
   hideMenu?: boolean;
   hideProfile?: boolean;
@@ -424,7 +426,7 @@ export const HControls = function ({
   );
 };
 
-const PNoPromoContent = function ({ className, onRefresh }: IControl) {
+const PNoSpotContent = function ({ className, onRefresh }: IControl) {
   return (
     <Grid full className={className}>
       <Typography>No spot loaded.</Typography>
@@ -433,15 +435,15 @@ const PNoPromoContent = function ({ className, onRefresh }: IControl) {
   );
 };
 
-export const HPromo = function ({ spots, className }: INavPromoGenerator) {
+export const HSpot = function ({ spots, className }: INavSpotGenerator) {
   console.log({ spots });
   const allDismissed = spots.every(
     (spot) => spot.status !== ESpotStatus.ACTIVE,
   );
   if (allDismissed) return;
-  if (!(Object.values(spots)?.length > 0)) return <PNoPromoContent />;
+  if (!(Object.values(spots)?.length > 0)) return <PNoSpotContent />;
 
-  const generatePromoBadge = ({ badge, columnClasses }) => {
+  const generateSpotBadge = ({ badge, columnClasses }) => {
     const classes = columnClasses.pop();
     if (badge?.type === ESpotBadgeVariant.BRANDED_ICON) {
       return [
@@ -469,10 +471,10 @@ export const HPromo = function ({ spots, className }: INavPromoGenerator) {
       ];
     }
 
-    return [<PNoPromoContent />];
+    return [<PNoSpotContent />];
   };
 
-  const generatePromoMessage = ({ message, columnClasses }) => {
+  const generateSpotMessage = ({ message, columnClasses }) => {
     const classes = columnClasses.pop();
     if (message?.type === 'lorem') console.log('ipsum');
     return [
@@ -490,6 +492,10 @@ export const HPromo = function ({ spots, className }: INavPromoGenerator) {
     <Grid
       variant={EGridVariant.DEFAULT}
       bleed={EBleedVariant.HORIZONTAL}
+      background={{
+        mobile: 'https://www.dreampip.com/og-image.png',
+        desktop: 'https://www.dreampip.com/og-image.png',
+      }}
       className={`${className} grid auto-rows-fr`}
     >
       {spots?.map((spot) => {
@@ -501,6 +507,9 @@ export const HPromo = function ({ spots, className }: INavPromoGenerator) {
         const getVariantClasses = ({ variant, column }) => {
           console.log({ variant, column });
           let classes = '';
+          if (variant === ESpotVariant.IMAGE) {
+            return classes;
+          }
           if (variant === ESpotVariant.THREE_CENTER_141424_STACK) {
             console.log({ math: (column + 1) % 3 });
             if ((column + 1) % 3 === 0) {
@@ -531,14 +540,14 @@ export const HPromo = function ({ spots, className }: INavPromoGenerator) {
 
         const batchedColumns = spot.badges
           ?.map((badge) =>
-            generatePromoBadge({
+            generateSpotBadge({
               badge,
               columnClasses,
             }),
           )
           .concat(
             spot.messages?.map((message) =>
-              generatePromoMessage({
+              generateSpotMessage({
                 message,
                 columnClasses,
               }),
@@ -560,7 +569,7 @@ export const HNav = function ({
   menu = DEFAULT_MENU,
   controls = DEFAULT_CONTROLS,
   spots = DEFAULT_PROMOS,
-  hidePromos,
+  hideSpots,
   hideControls,
   hideMenu,
   hideProfile,
@@ -605,8 +614,8 @@ export const HNav = function ({
   return (
     <div id={id}>
       <nav className={navStyles}>
-        {!hidePromos ? (
-          <HPromo
+        {!hideSpots ? (
+          <HSpot
             spots={spots}
             className="grid min-h-a9 !bg-primary-dark dark:!bg-primary-soft"
           />
