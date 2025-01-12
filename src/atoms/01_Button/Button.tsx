@@ -4,7 +4,7 @@ import type { ReactNode as ChildrenType } from 'react';
 import clsx from 'clsx';
 import Button from '@mui/material/Button';
 import { Typography, TypographyVariant } from '../02_Typography';
-import { Image } from '../08_Image';
+import { Image, EImageVariant } from '../08_Image';
 
 import {
   SystemIcon as Icon,
@@ -276,7 +276,11 @@ export const HButton = function ({
       type={type}
     >
       {image ? (
-        <Image className="absolute opacity-30" src={image} />
+        <Image
+          className="absolute opacity-30"
+          variant={EImageVariant.ONE_PER_ONE}
+          src={image}
+        />
       ) : undefined}
       {icon && iconPosition === EButtonIconPosition.START ? (
         <Icon
