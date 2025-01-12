@@ -494,7 +494,7 @@ export const HSpot = function ({ spots, className }: INavSpotGenerator) {
       bleed={EBleedVariant.HORIZONTAL}
       background={{
         mobile: 'https://www.dreampip.com/og-image.png',
-        desktop: 'https://www.dreampip.com/og-image.png',
+        desktop: 'https://i.giphy.com/26DNfl7IrX8b40klW.webp',
       }}
       className={`${className} grid auto-rows-fr`}
     >
