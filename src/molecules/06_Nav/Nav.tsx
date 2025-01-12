@@ -24,72 +24,106 @@ import {
 } from '../../atoms/10_Grid';
 import { DreamPipColors } from '../../../dist/esm/tailwind.config.ts';
 
+export enum ENavControlVariant {
+  BREADCRUMB,
+  PLAYER,
+  CTA,
+}
+
+export enum ENavItemVariant {
+  LINK = 'link',
+  OTHER = 'other',
+}
+
+export enum ENavVariant {
+  DEFAULT = 'default',
+  AUTHENTICATED = 'authenticated',
+}
+
 export const NavLocale = {
   default: {
     locale: 'en-us',
+    home: 'Home',
     view: 'View more',
     calendar: 'Add to calendar',
   },
   en: {
     locale: 'en-us',
+    home: 'Home',
     view: 'View more',
     calendar: 'Add to calendar',
   },
   'it-it': {
     locale: 'it-it',
+    home: 'Casa',
     view: 'Vedi altro',
     calendar: 'Aggiungi al calendario',
   },
   'pt-br': {
     locale: 'pt-pt',
+    home: 'Casa',
     view: 'Veja mais',
     calendar: 'Adicionar ao calendário',
   },
   'es-es': {
     locale: 'es-es',
+    home: 'Hogar',
     view: 'Ver más',
     calendar: 'Añadir al calendario',
   },
   'de-de': {
     locale: 'de-de',
+    home: 'Haus',
     view: 'Mehr anzeigen',
     calendar: 'Zum Kalender hinzufügen',
   },
   'fr-fr': {
     locale: 'fr-fr',
+    home: 'Mainson',
     view: 'Voir plus',
     calendar: 'Ajouter au calendrier',
   },
   ro: {
     locale: 'ro-ro',
+    home: 'Home',
     view: 'Vezi mai mult',
     calendar: 'Adaugă în calendar',
   },
   'pl-pl': {
     locale: 'pl-pl',
+    home: 'Home',
     view: 'Zobacz więcej',
     calendar: 'Dodaj do kalendarza',
   },
   'cs-cz': {
     locale: 'cs-cz',
+    home: 'Home',
     view: 'Zobrazit více',
     calendar: 'Přidat do kalendáře',
   },
   'sv-se': {
     locale: 'sv-se',
+    home: 'Home',
     view: 'Visa mer',
     calendar: 'Lägg till i kalendern',
   },
   'et-ee': {
     locale: 'et-ee',
+    home: 'Home',
     view: 'Vaata rohkem',
     calendar: 'Lisa kalendrisse',
   },
   'ja-jp': {
     locale: 'ja-jp',
+    home: 'Home',
     view: 'もっと見る',
     calendar: 'カレンダーに追加',
   },
+};
+
+export const DEFAULT_PROMO = {
+  badges: [],
+  message: {},
 };
 
 export const DEFAULT_PROFILE = {
@@ -99,22 +133,87 @@ export const DEFAULT_PROFILE = {
     'https://avatars.steamstatic.com/776da1334bdeef44dd70be72d6892847c1e7cd0b_full.jpg',
 };
 
-export const DEFAULT_NAV_ITEMS = {
-  drawer: [
+export const DEFAULT_CONTROLS = {
+  top: [
     {
-      name: 'Home',
-      type: 'link',
-      value: 'https://www.dreampip.com',
-      target: '_blank',
+      type: ENavControlVariant.BREADCRUMB,
+      label: NavLocale.home,
+    },
+  ],
+  center: [
+    {
+      type: ENavControlVariant.PLAYER,
+      label: 'Rotations portal live',
+      src: 'https://www.dremapip.com/api/nexus/audio',
+    },
+  ],
+  bottom: [
+    {
+      type: ENavControlVariant.CTA,
+      label: NavLocale.view,
+      href: '/join',
     },
   ],
 };
 
-export enum ENavVariant {
-  DEFAULT = 'default',
+const DEFAULT_L1_NAV_ITEMS = [
+  {
+    name: 'Home',
+    type: 'link',
+    value: 'https://www.dreampip.com',
+    target: '_blank',
+    l2: [],
+  },
+  {
+    name: 'Home',
+    type: 'link',
+    value: 'https://www.dreampip.com',
+    target: '_blank',
+    l2: [],
+  },
+  {
+    name: 'Home',
+    type: 'link',
+    value: 'https://www.dreampip.com',
+    target: '_blank',
+    l2: [],
+  },
+  {
+    name: 'Home',
+    type: 'link',
+    value: 'https://www.dreampip.com',
+    target: '_blank',
+    l2: [],
+  },
+];
+
+export const DEFAULT_MENU = {
+  items: DEFAULT_L1_NAV_ITEMS,
+};
+
+export interface IControl {
+  type: ENavControlVariant;
+  label?: string;
+  src?: string;
+  href?: string;
 }
 
-interface INavProfile {
+export interface INavControls {
+  top?: IControl[];
+  center?: IControl[];
+  bottom?: IControl[];
+}
+
+export interface INavMenuItems {
+  name?: string;
+  type?: ENavItemVariant;
+}
+
+export interface INavMenu {
+  items?: INavMenuItems[];
+}
+
+export interface INavProfile {
   name?: string;
   image?: string;
   badges?: unknown;
@@ -130,6 +229,8 @@ export interface INav {
   profile?: INavProfile;
   breadcrumb?: string;
   prefix?: string;
+  menu?: INavMenu;
+  controls?: INavControls;
   fetchNewData?: () => void;
   theme?: 'light' | 'dark';
 }
@@ -140,6 +241,8 @@ export const HNav = function ({
   locale = 'en',
   profile = DEFAULT_PROFILE,
   breadcrumb = 'whereami',
+  menu = DEFAULT_MENU,
+  controls = DEFAULT_CONTROLS,
   prefix,
   fetchNewData,
   theme = 'light',
