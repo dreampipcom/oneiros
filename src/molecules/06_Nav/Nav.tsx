@@ -1,4 +1,4 @@
-/* eslint   no-unreachable:0, consistent-return:0, react/no-unused-prop-types:0, react/jsx-one-expression-per-line:0, @typescript-eslint/no-unused-vars:0, no-import-assign:0, import/no-unresolved:0, import/no-webpack-loader-syntax:0, jsx-a11y/media-has-caption:0, no-nested-ternary:0, no-unused-vars:0, max-len:0, no-shadow:0, @typescript-eslint/no-explicit-any:0, object-curly-newline:0 */
+/* eslint   no-unreachable:0, consistent-return:0, function-paren-newline:0, react/no-unused-prop-types:0, react/jsx-one-expression-per-line:0, @typescript-eslint/no-unused-vars:0, no-import-assign:0, import/no-unresolved:0, import/no-webpack-loader-syntax:0, jsx-a11y/media-has-caption:0, no-nested-ternary:0, no-unused-vars:0, max-len:0, no-shadow:0, @typescript-eslint/no-explicit-any:0, object-curly-newline:0 */
 // @molecules/Nav.tsx
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-nocheck
@@ -28,6 +28,20 @@ export enum ENavControlVariant {
   BREADCRUMB,
   AUDIO_PLAYER,
   CTA,
+}
+
+export enum EPromoBadgeVariant {
+  BRANDED_ICON,
+  SYSTEM_ICON,
+  CHIP,
+  CUSTOM_IMAGE,
+}
+
+export enum EPromoMessageType {
+  ANNOUNCEMENT,
+  CAMPAIGN,
+  OFFER,
+  STATEMENT,
 }
 
 export enum ENavItemVariant {
@@ -128,12 +142,62 @@ export const NavLocale = {
 };
 
 export const DEFAULT_PROMO = {
-  badges: [],
-  message: {},
+  badges: [
+    {
+      type: EPromoBadgeVariant.BRANDED_ICON,
+      icon: EBrandedIcon.googleplay,
+      href: 'https://apps.apple.com/us/app/purizu/id1639022876',
+      target: '_blank',
+      alt: 'Download on Google Play.',
+    },
+    {
+      type: EPromoBadgeVariant.BRANDED_ICON,
+      icon: EBrandedIcon.appstore,
+      href: '',
+      target: '_blank',
+      alt: 'Download on App Store.',
+    },
+  ],
+  messages: [
+    {
+      cap: '50% off!',
+      start: new Date(),
+      end: new Date(),
+      badges: [],
+      content: "Don't miss this opportunity to.",
+      href: '',
+      target: '_blank',
+      alt: 'Offer promo accessible',
+      type: EPromoMessageType.OFFER,
+    },
+  ],
 };
 
+export const DEFAULT_PROMOS = [DEFAULT_PROMO];
+
+interface IBadge {
+  type?: EPromoBadgeVariant;
+  icon?: EBrandedIcon;
+  href?: string;
+  target?: string;
+  alt?: string;
+}
+
+interface IMessage {
+  cap?: string;
+  start?: Date;
+  end?: Date;
+  badges?: IBadge[];
+  content?: string;
+  href?: string;
+  target?: string;
+  alt?: string;
+  type?: EPromoMessageType;
+}
+
 export const DEFAULT_PROFILE = {
-  name: 'Lorinha',
+  displayName: 'Lorinha',
+  handle: 'loretta',
   email: 'Lorenzetti@Lorenzus.zu',
   image:
     'https://avatars.steamstatic.com/776da1334bdeef44dd70be72d6892847c1e7cd0b_full.jpg',
@@ -228,12 +292,23 @@ export interface INavMenu {
 }
 
 export interface INavProfile {
-  name?: string;
+  handle?: string;
+  displayName?: string;
   image?: string;
-  badges?: unknown;
+  badges?: IBadge[];
   awards?: unknown;
   ticks?: unknown;
   symbols?: unknown;
+}
+
+export interface IPromo {
+  badges?: IBadge[];
+  messages?: IMessage[];
+}
+
+export interface INavPromoGenerator {
+  promos?: IPromo[];
+  className?: string;
 }
 
 export interface INav {
@@ -244,6 +319,7 @@ export interface INav {
   breadcrumb?: string;
   prefix?: string;
   menu?: INavMenu;
+  promos?: IPromo[];
   controls?: INavControls;
   fetchNewData?: () => void;
   theme?: 'light' | 'dark';
@@ -302,8 +378,6 @@ export const HControls = function ({
   onRefresh,
   className,
 }: INavControlsGenerator) {
-  console.log({ controls });
-  return <CNoControlContent className={className} />;
   if (!(Object.values(controls)?.length > 0)) return <CNoControlContent />;
 
   const generateControl = ({ control }) => {
@@ -330,6 +404,60 @@ export const HControls = function ({
   );
 };
 
+const PNoPromoContent = function ({ className, onRefresh }: IControl) {
+  return (
+    <Grid full className={className}>
+      <Typography>No promo loaded.</Typography>
+      <Button onClick={onRefresh} icon={ESystemIcon['rotate-clockwise']} />
+    </Grid>
+  );
+};
+
+export const HPromo = function ({ promos, className }: INavPromoGenerator) {
+  console.log({ promos });
+  if (!(Object.values(promos)?.length > 0)) return <PNoPromoContent />;
+
+  const generatePromoBadge = ({ badge, className }) => {
+    if (badge?.type === EPromoBadgeVariant.BRANDED_ICON) {
+      return [
+        <Link href={badge.href} target={badge.target} aria-label={badge.alt}>
+          <SystemIcon collection={EIconCollection.BRANDED} icon={badge.icon} />
+        </Link>,
+      ];
+    }
+
+    if (badge?.type === EPromoBadgeVariant.SYSTEM_ICON) {
+      return [
+        <Link href={badge.href} target={badge.target} aria-label={badge.alt}>
+          <SystemIcon collection={EIconCollection.SYSTEM} icon={badge.icon} />
+        </Link>,
+      ];
+    }
+
+    return [<PNoPromoContent />];
+  };
+
+  const generatePromoMessage = ({ message }) => {
+    if (message?.type === 'lorem') console.log('ipsum');
+    return [<Typography>{message?.content}</Typography>];
+  };
+
+  return (
+    <Grid
+      variant={EGridVariant.DEFAULT}
+      bleed={EBleedVariant.ZERO}
+      className={`${className} grid place-items-center justify-center`}
+    >
+      {promos?.map((promo) =>
+        promo.badges?.map((badge) => generatePromoBadge({ badge })),
+      )}
+      {promos?.map((promo) =>
+        promo.messages?.map((message) => generatePromoMessage({ message })),
+      )}
+    </Grid>
+  );
+};
+
 export const HNav = function ({
   id = 'molecule__Nav',
   className = '',
@@ -338,6 +466,7 @@ export const HNav = function ({
   breadcrumb = 'whereami',
   menu = DEFAULT_MENU,
   controls = DEFAULT_CONTROLS,
+  promos = DEFAULT_PROMOS,
   prefix,
   fetchNewData,
   theme = 'light',
@@ -379,32 +508,10 @@ export const HNav = function ({
   return (
     <div id={id}>
       <nav className={navStyles}>
-        <Grid
-          variant={EGridVariant.DEFAULT}
-          bleed={EBleedVariant.ZERO}
+        <HPromo
+          promos={promos}
           className="grid min-h-a9 !bg-primary-dark dark:!bg-primary-soft"
-        >
-          <a
-            className={`${appStyles} flex w-full h-full justify-center items-center md:col-start-4 md:col-span-1 col-span-3 col-start-0"`}
-            href="https://play.google.com/store/apps/details?id=com.angeloreale.purizumobile"
-            aria-label="Download on App Store."
-          >
-            <SystemIcon
-              collection={EIconCollection.BRANDED}
-              icon={EBrandedIcon.googleplay}
-            />
-          </a>
-          <a
-            className={`${appStyles} flex w-full h-full justify-center items-center md:col-start-5 md:col-span-1 col-span-3 col-start-3"`}
-            href="https://apps.apple.com/us/app/purizu/id1639022876"
-            aria-label="Download on Google Play."
-          >
-            <SystemIcon
-              collection={EIconCollection.BRANDED}
-              icon={EBrandedIcon.appstore}
-            />
-          </a>
-        </Grid>
+        />
         <Grid
           full
           variant={EGridVariant.DEFAULT}
@@ -429,7 +536,7 @@ export const HNav = function ({
                   image={profile?.image}
                 />
                 <Typography className="m-a2">
-                  @{profile?.name}:@dpip.cc
+                  @{profile?.displayName || profile?.handle || 'dear'}:@dpip.cc
                 </Typography>
               </div>
               <div className="justify-self-center self-center col-span-2 col-start-2 md:!col-span-2 md:!col-start-4">
