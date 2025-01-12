@@ -31,6 +31,13 @@ export enum ENavControlVariant {
   CTA,
 }
 
+export enum EPromoStatus {
+  ACTIVE,
+  DISMISSED,
+  COMPLETED,
+  DELETED,
+}
+
 export enum EPromoBadgeVariant {
   BRANDED_ICON,
   SYSTEM_ICON,
@@ -179,6 +186,7 @@ export const DEFAULT_PROMO = {
     },
   ],
   variant: EPromoVariant.THREE_CENTER_141424_STACK,
+  status: EPromoStatus.DISMISSED,
 };
 
 export const DEFAULT_PROMOS = [DEFAULT_PROMO];
@@ -329,6 +337,10 @@ export interface INav {
   menu?: INavMenu;
   promos?: IPromo[];
   controls?: INavControls;
+  hidePromos?: boolean;
+  hideControls?: boolean;
+  hideMenu?: boolean;
+  hideProfile?: boolean;
   fetchNewData?: () => void;
   theme?: 'light' | 'dark';
 }
@@ -423,6 +435,10 @@ const PNoPromoContent = function ({ className, onRefresh }: IControl) {
 
 export const HPromo = function ({ promos, className }: INavPromoGenerator) {
   console.log({ promos });
+  const allDismissed = promos.every(
+    (promo) => promo.status !== EPromoStatus.ACTIVE,
+  );
+  if (allDismissed) return;
   if (!(Object.values(promos)?.length > 0)) return <PNoPromoContent />;
 
   const generatePromoBadge = ({ badge, columnClasses }) => {
@@ -544,6 +560,10 @@ export const HNav = function ({
   menu = DEFAULT_MENU,
   controls = DEFAULT_CONTROLS,
   promos = DEFAULT_PROMOS,
+  hidePromos,
+  hideControls,
+  hideMenu,
+  hideProfile,
   prefix,
   fetchNewData,
   theme = 'light',
@@ -585,10 +605,12 @@ export const HNav = function ({
   return (
     <div id={id}>
       <nav className={navStyles}>
-        <HPromo
-          promos={promos}
-          className="grid min-h-a9 !bg-primary-dark dark:!bg-primary-soft"
-        />
+        {!hidePromos ? (
+          <HPromo
+            promos={promos}
+            className="grid min-h-a9 !bg-primary-dark dark:!bg-primary-soft"
+          />
+        ) : undefined}
         <Grid
           full
           variant={EGridVariant.DEFAULT}
@@ -602,19 +624,24 @@ export const HNav = function ({
               className="grid !p-a2 !px-a3 auto-rows-fr"
             >
               <div className="justify-self-start self-center col-span-3 col-start-1 md:!col-span-1 md:!col-start-0">
-                <Button
-                  icon={ESystemIcon.apps}
-                  onClick={() => {
-                    setOpen(true);
-                  }}
-                  edge="end"
-                  color="inherit"
-                  aria-label="menu"
-                  image={profile?.image}
-                />
-                <Typography className="hidden md:flex m-a2">
-                  @{profile?.displayName || profile?.handle || 'dear'}:@dpip.cc
-                </Typography>
+                {!hideMenu ? (
+                  <Button
+                    icon={ESystemIcon.apps}
+                    onClick={() => {
+                      setOpen(true);
+                    }}
+                    edge="end"
+                    color="inherit"
+                    aria-label="menu"
+                    image={profile?.image}
+                  />
+                ) : undefined}
+                {!hideProfile ? (
+                  <Typography className="hidden md:flex m-a2">
+                    @{profile?.displayName || profile?.handle || 'dear'}
+                    :@dpip.cc
+                  </Typography>
+                ) : undefined}
               </div>
               <div className="justify-self-center self-center col-span-3 col-start-4 md:!col-span-2 md:!col-start-4">
                 <Link href="/">
@@ -623,14 +650,18 @@ export const HNav = function ({
                   </span>
                 </Link>
               </div>
-              <HControls
-                className="grid md:justify-self-end self-center col-span-6 col-start-0 md:!col-span-3 md:!col-start-6"
-                controls={controls}
-                onRefresh={fetchNewData}
-              />
-              <Typography className="flex md:hidden m-a2">
-                @{profile?.displayName || profile?.handle || 'dear'}:@dpip.cc
-              </Typography>
+              {!hideControls ? (
+                <HControls
+                  className="grid md:justify-self-end self-center col-span-6 col-start-0 md:!col-span-3 md:!col-start-6"
+                  controls={controls}
+                  onRefresh={fetchNewData}
+                />
+              ) : undefined}
+              {!hideProfile ? (
+                <Typography className="flex md:hidden m-a2">
+                  @{profile?.displayName || profile?.handle || 'dear'}:@dpip.cc
+                </Typography>
+              ) : undefined}
             </Grid>
           </div>
         </Grid>
