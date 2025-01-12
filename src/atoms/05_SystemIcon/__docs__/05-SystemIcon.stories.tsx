@@ -9,7 +9,7 @@ const meta: Meta<typeof Example> = {
   component: Example,
   argTypes: {
     icon: {
-      options: [...Object.keys(EBrandedIcon), ...Object.keys(ESystemIcon)],
+      options: [...Object.values(EBrandedIcon), ...Object.values(ESystemIcon)],
       control: { type: 'select' },
     },
     collection: {
