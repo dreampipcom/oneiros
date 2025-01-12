@@ -1,4 +1,4 @@
-/* eslint   no-unreachable:0, react/jsx-one-expression-per-line:0, @typescript-eslint/no-unused-vars:0, no-import-assign:0, import/no-unresolved:0, import/no-webpack-loader-syntax:0, jsx-a11y/media-has-caption:0, no-nested-ternary:0, no-unused-vars:0, max-len:0, no-shadow:0, @typescript-eslint/no-explicit-any:0, object-curly-newline:0 */
+/* eslint   no-unreachable:0, consistent-return:0, react/no-unused-prop-types:0, react/jsx-one-expression-per-line:0, @typescript-eslint/no-unused-vars:0, no-import-assign:0, import/no-unresolved:0, import/no-webpack-loader-syntax:0, jsx-a11y/media-has-caption:0, no-nested-ternary:0, no-unused-vars:0, max-len:0, no-shadow:0, @typescript-eslint/no-explicit-any:0, object-curly-newline:0 */
 // @molecules/Nav.tsx
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-nocheck
@@ -26,7 +26,7 @@ import { DreamPipColors } from '../../../dist/esm/tailwind.config.ts';
 
 export enum ENavControlVariant {
   BREADCRUMB,
-  PLAYER,
+  AUDIO_PLAYER,
   CTA,
 }
 
@@ -38,6 +38,12 @@ export enum ENavItemVariant {
 export enum ENavVariant {
   DEFAULT = 'default',
   AUTHENTICATED = 'authenticated',
+}
+
+type ILocales = 'en' | 'es-es';
+
+export interface ILocaleString {
+  [key: ILocales]: string;
 }
 
 export const NavLocale = {
@@ -137,12 +143,12 @@ export const DEFAULT_CONTROLS = {
   top: [
     {
       type: ENavControlVariant.BREADCRUMB,
-      label: NavLocale.home,
+      label: NavLocale.default.home,
     },
   ],
   center: [
     {
-      type: ENavControlVariant.PLAYER,
+      type: ENavControlVariant.AUDIO_PLAYER,
       label: 'Rotations portal live',
       src: 'https://www.dremapip.com/api/nexus/audio',
     },
@@ -150,7 +156,7 @@ export const DEFAULT_CONTROLS = {
   bottom: [
     {
       type: ENavControlVariant.CTA,
-      label: NavLocale.view,
+      label: NavLocale.default.view,
       href: '/join',
     },
   ],
@@ -196,12 +202,17 @@ export interface IControl {
   label?: string;
   src?: string;
   href?: string;
+  className?: string;
 }
 
 export interface INavControls {
   top?: IControl[];
   center?: IControl[];
   bottom?: IControl[];
+}
+
+export interface INavControlsGenerator {
+  controls?: INavControls;
 }
 
 export interface INavMenuItems {
@@ -234,6 +245,80 @@ export interface INav {
   fetchNewData?: () => void;
   theme?: 'light' | 'dark';
 }
+
+export const CBreadcrumb = function ({ type, label, className }: IControl) {
+  return (
+    <Typography
+      controlType={type}
+      className="justify-self-start self-center col-span-1 col-start-0 md:col-span-2 col-start-0"
+    >
+      {label}
+    </Typography>
+  );
+};
+
+export const CAudioPlayer = function ({
+  type,
+  src,
+  label,
+  className,
+}: IControl) {
+  return (
+    <AudioPlayer
+      controlType={type}
+      src={src}
+      className="w-full"
+      label={label}
+    />
+  );
+};
+
+export const CCTA = function ({ type, href, label, className }: IControl) {
+  return (
+    <Button
+      controlType={type}
+      className="w-full justify-self-start self-center col-span-1 col-start-1 md:col-span-2 col-start-3"
+      href={href}
+    >
+      {label}
+    </Button>
+  );
+};
+
+const CNoControlContent = function () {
+  return <Typography>No controls loaded. Refresh.</Typography>;
+};
+
+export const HControls = function ({ controls }: INavControlsGenerator) {
+  console.log({ controls });
+  if (!(Object.values(controls)?.length > 0)) return <CNoControlContent />;
+
+  const generateControl = ({ control }) => {
+    if (control?.type === ENavControlVariant.BREADCRUMB) {
+      return <CBreadcrumb label={control?.label} />;
+    }
+
+    if (control?.type === ENavControlVariant.AUDIO_PLAYER) {
+      return <CAudioPlayer label={control?.label} src={control?.src} />;
+    }
+
+    if (control?.type === ENavControlVariant.CTA) {
+      return <CCTA label={control?.label} href={control?.href} />;
+    }
+    return <CNoControlContent />;
+  };
+
+  return (
+    <Grid
+      full
+      className="grid md:justify-self-end self-center col-span-6 col-start-0 md:!col-span-3 md:!col-start-6"
+    >
+      {controls?.top.map((control) => generateControl({ control }))}
+      {controls?.center.map((control) => generateControl({ control }))}
+      {controls?.bottom.map((control) => generateControl({ control }))}
+    </Grid>
+  );
+};
 
 export const HNav = function ({
   id = 'molecule__Nav',
@@ -334,7 +419,7 @@ export const HNav = function ({
                   image={profile?.image}
                 />
                 <Typography className="m-a2">
-                  @{profile?.name}@:dpip.cc
+                  @{profile?.name}:@dpip.cc
                 </Typography>
               </div>
               <div className="justify-self-center self-center col-span-2 col-start-2 md:!col-span-2 md:!col-start-4">
@@ -344,21 +429,7 @@ export const HNav = function ({
                   </span>
                 </Link>
               </div>
-              <Grid
-                full
-                className="grid md:justify-self-end self-center col-span-6 col-start-0 md:!col-span-3 md:!col-start-6"
-              >
-                <Typography className="justify-self-start self-center col-span-1 col-start-0 md:col-span-2 col-start-0">
-                  {breadcrumb}
-                </Typography>
-                <AudioPlayer className="w-full" />
-                <Button
-                  className="w-full justify-self-start self-center col-span-1 col-start-1 md:col-span-2 col-start-3"
-                  href="/join"
-                >
-                  {NavLocale[locale].view}
-                </Button>
-              </Grid>
+              <HControls controls={controls} />
             </Grid>
           </div>
         </Grid>
