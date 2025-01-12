@@ -597,7 +597,7 @@ export const HNav = function ({
           <div className={toolsStyles}>
             <Grid
               variant={EGridVariant.DEFAULT}
-              bleed={EBleedVariant.ZERO}
+              bleed={EBleedVariant.HORIZONTAL}
               gradient={EGradientVariant.SOFT}
               className="grid !p-a2 !px-a3 auto-rows-fr"
             >
@@ -616,7 +616,7 @@ export const HNav = function ({
                   @{profile?.displayName || profile?.handle || 'dear'}:@dpip.cc
                 </Typography>
               </div>
-              <div className="justify-self-center self-center col-span-2 col-start-4 md:!col-span-2 md:!col-start-4">
+              <div className="justify-self-center self-center col-span-3 col-start-4 md:!col-span-2 md:!col-start-4">
                 <Link href="/">
                   <span style={{ display: 'flex', height: 120, width: 100 }}>
                     <Logo theme={theme} />
