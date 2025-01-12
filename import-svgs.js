@@ -29,6 +29,11 @@ const map = {
 		input: 'src/atoms/05_SystemIcon/assets/svgs',
 		output: 'src/atoms/05_SystemIcon/assets/components'
 	},
+	branded: {
+		name: 'BrandedIcon',
+		input: 'src/atoms/05_SystemIcon/assets/svgs-branded',
+		output: 'src/atoms/05_SystemIcon/assets/components-branded'
+	},
 	// brandedIcons: undefined,
 };
 
@@ -41,25 +46,38 @@ Object.values(map).filter(e => e).forEach(({ input, output, name }, index, arr) 
 	    const nextIndex = [];
 	    const nextEnum = [];
 
+
 	    files.forEach((file) => {
 	        if (path.extname(file) === '.svg') {
 	            const svgContent = fs.readFileSync(path.join(input, file), 'utf8');
+	            const branded = name === "BrandedIcon";
+
+	            let newSvgContent;
+
+	            if (!branded) {
+	            			const widthRegex = /width="[^"]+"/g;
+										const heightRegex = /height="[^"]+"/g;
+										const fillRegex = /fill="[^"]+"/g;
+										const strokeRegex = /stroke="[^"]+"/g;
+										const propsRegex =  /([a-z])-([a-z])="[^"]+"/g
+
+										const _newSvgContent = svgContent.replace(widthRegex, "width={width}").replace(heightRegex, "height={height}").replace(fillRegex, "fill={color}").replace(strokeRegex, "stroke={color}");
+										newSvgContent = convertHyphenatedAttributesToCamelCase(_newSvgContent);
+					    } else {
+					    	newSvgContent = convertHyphenatedAttributesToCamelCase(svgContent);
+					    }
 
 
-							const widthRegex = /width="[^"]+"/g;
-							const heightRegex = /height="[^"]+"/g;
-							const fillRegex = /fill="[^"]+"/g;
-							const strokeRegex = /stroke="[^"]+"/g;
-							const propsRegex =  /([a-z])-([a-z])="[^"]+"/g
 
-							const _newSvgContent = svgContent.replace(widthRegex, "width={width}").replace(heightRegex, "height={height}").replace(fillRegex, "fill={color}").replace(strokeRegex, "stroke={color}");
-							const newSvgContent = convertHyphenatedAttributesToCamelCase(_newSvgContent)
 
 	            const componentName = hyphenToTitleCase(path.basename(file, '.svg'));
-	            const iconName = path.basename(file, '.svg')
+	            const iconName = path.basename(file, '.svg');
+
+
 	            const componentContent = `
-	            /* eslint no-tabs:0, no-unused-vars:0, no-shadow:0, @typescript-eslint/no-explicit-any:0, no-shadow-restricted-names:0, max-len:0 */
+	            /* eslint no-tabs:0, no-unused-vars:0, no-shadow:0, @typescript-eslint/no-explicit-any:0, @typescript-eslint/no-unused-vars:0, react/no-unknown-property:0, react/style-prop-object:0, no-shadow-restricted-names:0, max-len:0 */
 	            // PLEASE DON'T EDIT THIS FILE MANUALLY, AS IT IS AUTOMATICALLY CREATED BY A SCRIPT.
+	            // @icons/${name}/${iconName}
 							import React from 'react';
 
 							interface ${componentName}Props {
@@ -71,13 +89,13 @@ Object.values(map).filter(e => e).forEach(({ input, output, name }, index, arr) 
 							type TComponent = React.FC<${componentName}Props & React.SVGProps<SVGSVGElement>>
 
 							const ${componentName}: TComponent = function ({ color = 'black', width = 24, height = 24, ...props }: ${componentName}Props) {
-								return (
+								return (${!branded ? `
 							    <svg xmlns="http://www.w3.org/2000/svg" width={width} height={height} {...props}>
 							        <g fill={color}>
 							            ${newSvgContent}
 							        </g>
 							    </svg>
-								)
+							  ` : `${newSvgContent}`})
 							};
 
 							export default ${componentName};

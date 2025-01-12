@@ -2,14 +2,22 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import Example from './Example.tsx';
 import { EIconSize } from '../SystemIcon';
-import { ESystemIcon } from '../assets/index.ts';
+import { ESystemIcon, EBrandedIcon } from '../assets/index.ts';
 
 const meta: Meta<typeof Example> = {
   title: 'Atoms/05-SystemIcon',
   component: Example,
   argTypes: {
     icon: {
-      options: Object.values(ESystemIcon),
+      options: [...Object.keys(EBrandedIcon), ...Object.keys(ESystemIcon)],
+      control: { type: 'select' },
+    },
+    brandedIcon: {
+      options: Object.keys(EBrandedIcon),
+      control: { type: 'select' },
+    },
+    collecitons: {
+      options: ['system', 'branded'],
       control: { type: 'select' },
     },
     theme: {

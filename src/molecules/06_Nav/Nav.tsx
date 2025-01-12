@@ -7,7 +7,10 @@ import React, { useRef, useState, useEffect, useMemo } from 'react';
 import { Button, ButtonVariant, EButtonTheme } from '../../atoms/01_Button';
 import { Typography } from '../../atoms/02_Typography';
 import { Link } from '../../atoms/03_Link';
-import { SystemIcon, ESystemIcon } from '../../atoms/06_SystemIcon';
+import { Logo } from '../../atoms/04_Logo';
+import { SystemIcon, ESystemIcon } from '../../atoms/05_SystemIcon';
+import { Image } from '../../atoms/08_Image';
+import { Grid, EGridVariant, EBleedVariant } from '../../atoms/10_Grid';
 import { DreamPipColors } from '../../../dist/esm/tailwind.config.ts';
 
 export const NavLocale = {
@@ -98,6 +101,8 @@ export interface INav {
   id?: string;
   className?: string;
   locale?: string;
+  breadcrumb?: string;
+  prefix?: string;
   fetchNewData?: () => void;
   theme?: 'light' | 'dark';
 }
@@ -106,26 +111,118 @@ export const HNav = function ({
   id = 'molecule__Nav',
   className = '',
   locale,
+  breadcrumb = 'whereami',
+  prefix,
   fetchNewData,
   theme = 'light',
 }: INav) {
-  const gridSx = [
+  const [open, setOpen] = useState(false);
+
+  const navSx = [
     {
-      [`class04
-        flex
-        col-span-full col-start-0
-        content-center
-        items-center
-        align-center
-        justify-center
+      [`class01
+        sticky
+        top-a0
+        z-50
         `]: true,
     },
   ];
 
-  const gridStyles = `${clsx(gridSx)} ${className}`;
+  const navStyles = `${clsx(navSx)} ${className}`;
+
+  const appSx = [
+    {
+      [`class02
+        mr-a2
+        relative
+        block
+        h-a4
+        w-a8
+        col-span-1
+        `]: true,
+    },
+  ];
+  const appStyles = `${clsx(appSx)}`;
+
+  const toolsSx = [
+    {
+      [`class03
+        h-min-a10
+        dark:bg-primary-dark2
+        bg-primary-light
+        justify-between
+        `]: true,
+    },
+  ];
+  const toolsStyles = `${clsx(toolsSx)}`;
+
   return (
     <div id={id} className="relative">
-      This is a Nav.
+      <nav className={navStyles}>
+        <Grid
+          variant={EGridVariant.DEFAULT}
+          bleed={EBleedVariant.ZERO}
+          className="grid bg-primary-dark place-items-center items-center"
+        >
+          <a
+            className={appStyles}
+            href="https://play.google.com/store/apps/details?id=com.angeloreale.purizumobile"
+            aria-label="Download on App Store."
+          >
+            <SystemIcon icon={ESystemIcon.googleplay} />
+          </a>
+          <a
+            className={appStyles}
+            href="https://apps.apple.com/us/app/purizu/id1639022876"
+            aria-label="Download on Google Play."
+          >
+            <SystemIcon icon={ESystemIcon.apps} />
+          </a>
+        </Grid>
+        <div className="relative">
+          <div className={toolsStyles}>
+            <Grid variant={EGridVariant.DEFAULT} bleed={EBleedVariant.ZERO}>
+              <div className="justify-self-start self-center col-span-2 col-start-0 md:!col-span-1 md:!col-start-0">
+                <Button
+                  icon={ESystemIcon.apps}
+                  onClick={() => {
+                    setOpen(true);
+                  }}
+                  edge="end"
+                  color="inherit"
+                  aria-label="menu"
+                />
+              </div>
+              <div className="justify-self-center self-center col-span-2 col-start-2 md:!col-span-2 md:!col-start-4">
+                <Link href="/">
+                  <span style={{ display: 'flex', height: 120, width: 100 }}>
+                    <Logo theme={theme} />
+                  </span>
+                </Link>
+              </div>
+              <Grid className="grid md:justify-self-end self-center col-span-6 col-start-0 md:!col-span-3 md:!col-start-6">
+                <Typography className="justify-self-start self-center col-span-1 col-start-0 md:col-span-2 col-start-0">
+                  {breadcrumb}
+                </Typography>
+              </Grid>
+            </Grid>
+          </div>
+        </div>
+        {/* {interacted ? (
+          <Drawer
+            listItems={menuItems}
+            classes={{
+              drawer: classes.drawer,
+              listwrapper: classes.listwrapper,
+              link: classes.link,
+            }}
+            open={isMenuOpen}
+            onClose={() => setIsMenuOpen(false)}
+            onOpen={() => setIsMenuOpen(true)}
+          />
+        ) : undefined}
+        */}
+      </nav>
     </div>
   );
 };
