@@ -42,6 +42,7 @@ const karunaNara = '#f7bfa5';
 const pinkDive = '#C476CB';
 const pinkSurf = '#F4AFFF';
 const pinkSand = '#FFE5FC';
+const pinkCloud = '#F8EEFF';
 const pinkFacade = '#FACEFB';
 
 const functionOne = '#c4abef';
@@ -114,6 +115,16 @@ export const DreamPipColors = {
       st7: navyWise,
     },
     dark: {
+      st0,
+      st1,
+      st2,
+      st3,
+      st4,
+      st5,
+      st6,
+      st7: pinkCloud,
+    },
+    darker: {
       st0,
       st1,
       st2,
