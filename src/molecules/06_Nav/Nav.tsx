@@ -601,7 +601,7 @@ export const HNav = function ({
               gradient={EGradientVariant.SOFT}
               className="grid !p-a2 !px-a3 auto-rows-fr"
             >
-              <div className="justify-self-start self-center col-span-2 col-start-0 md:!col-span-1 md:!col-start-0">
+              <div className="justify-self-start self-center col-span-3 col-start-1 md:!col-span-1 md:!col-start-0">
                 <Button
                   icon={ESystemIcon.apps}
                   onClick={() => {
@@ -612,11 +612,11 @@ export const HNav = function ({
                   aria-label="menu"
                   image={profile?.image}
                 />
-                <Typography className="m-a2">
+                <Typography className="hidden md:flex m-a2">
                   @{profile?.displayName || profile?.handle || 'dear'}:@dpip.cc
                 </Typography>
               </div>
-              <div className="justify-self-center self-center col-span-2 col-start-2 md:!col-span-2 md:!col-start-4">
+              <div className="justify-self-center self-center col-span-2 col-start-4 md:!col-span-2 md:!col-start-4">
                 <Link href="/">
                   <span style={{ display: 'flex', height: 120, width: 100 }}>
                     <Logo theme={theme} />
@@ -628,6 +628,9 @@ export const HNav = function ({
                 controls={controls}
                 onRefresh={fetchNewData}
               />
+              <Typography className="flex md:hidden m-a2">
+                @{profile?.displayName || profile?.handle || 'dear'}:@dpip.cc
+              </Typography>
             </Grid>
           </div>
         </Grid>
