@@ -167,7 +167,6 @@ export const HNav = function ({
         dark:bg-primary-dark2
         bg-primary-light
         justify-between
-        px-a2
         `]: true,
     },
   ];
@@ -179,7 +178,7 @@ export const HNav = function ({
         <Grid
           variant={EGridVariant.DEFAULT}
           bleed={EBleedVariant.ZERO}
-          className="grid min-h-a9 !bg-primary-dark dark:!bg-primary-green px-a2"
+          className="grid min-h-a9 !bg-primary-dark dark:!bg-primary-soft"
         >
           <a
             className={`${appStyles} flex w-full h-full justify-center items-center md:col-start-4 md:col-span-1 col-span-3 col-start-0"`}
@@ -212,6 +211,7 @@ export const HNav = function ({
               variant={EGridVariant.DEFAULT}
               bleed={EBleedVariant.ZERO}
               gradient={EGradientVariant.SOFT}
+              className="grid !p-a2 !px-a3"
             >
               <div className="justify-self-start self-center col-span-2 col-start-0 md:!col-span-1 md:!col-start-0">
                 <Button
