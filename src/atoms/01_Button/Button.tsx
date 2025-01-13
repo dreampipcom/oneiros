@@ -110,7 +110,7 @@ export const HButton = function ({
 
 
         bg-primary-light
-        hover:bg-primary-contrast
+        hover:bg-primary-passionSoft
 
         dark:bg-primary-contrast
         dark:hover:bg-primary-passionSoft
@@ -141,10 +141,10 @@ export const HButton = function ({
         dark:text-body-light
 
         bg-secondary-light
-        hover:bg-primary-light
+        hover:bg-primary-passionSoft
 
-        dark:bg-primary-light
-        dark:hover:bg-secondary-light
+        dark:bg-body-dark
+        dark:hover:bg-primary-passionSoft
       `]: variant === ButtonVariant.FILLED,
       [`
         class4
@@ -154,56 +154,59 @@ export const HButton = function ({
         hover:bg-soft-bg
 
         dark:!border-transparent
-        dark:text-secondary-soft 
+        dark:text-primary-soft
 
-        dark:hover:!border-soft-bg
-        dark:hover:bg-secondary-dark
+        dark:hover:!border-primary-light
+        dark:hover:bg-transparent
       `]: variant === ButtonVariant.OUTLINE,
     },
     buttonTheme === EButtonTheme.PASSION && {
       [`
         class3
-        text-body-light
+        text-primary-passion
         dark:text-body-passion
 
         bg-primary-passionSoft
         hover:bg-primary-passionLight
 
+        dark:!border-primary-passionSoft
         dark:bg-primary-passionSoft
         dark:hover:bg-primary-passion
-        dark:text-body-dark
+        dark:text-primary-dark
         dark:hover:text-body-dark
       `]: variant === ButtonVariant.FILLED,
       [`
         class4
+        
         text-body-passion 
+        hover:text-primary-passion
+        dark:text-primary-passionSoft
+        dark:hover:text-body-passion
 
-        border-primary-passion
-        hover:border-primary-dark 
+        dark:hover:bg-primary-passionSoft 
         hover:bg-primary-passionSoft
-        hover:text-primary-light
+        
+        border-primary-passion
+        hover:border-primary-passion
 
         dark:border-primary-passionSoft
-        dark:text-primary-passionSoft
-
         dark:hover:border-primary-passionSoft 
-        dark:hover:bg-primary-passionSoft 
-        dark:hover:text-body-passion
+
       `]: variant === ButtonVariant.OUTLINE,
     },
     buttonTheme === EButtonTheme.PASSION_SELECTED && {
       [`
         class3
-        text-body-dark
+        text-body-light
         hover:text-body-light
 
-        bg-primary-dark2
-        hover:bg-primary-passionLight
+        bg-primary-passionLight
+        hover:bg-transparent
 
-        dark:bg-primary-dark
-        dark:hover:bg-primary-passion
+        dark:bg-primary-passion
+        dark:hover:bg-transparent
         dark:text-body-dark
-        dark:hover:text-body-light
+        dark:hover:text-body-dark
       `]: variant === ButtonVariant.FILLED,
       [`
         class4
@@ -216,11 +219,11 @@ export const HButton = function ({
 
         hover:border-primary-passion 
         hover:bg-transparent
-        hover:text-body-light
+        hover:text-primary-passion
 
-        dark:border-secondary-dark 
-        dark:text-body-dark
-        dark:bg-primary-dark
+        dark:border-primary-passion 
+        dark:text-primary-passion
+        dark:bg-primary-passionSoft
 
         dark:hover:border-primary-passion 
         dark:hover:bg-transparent 
