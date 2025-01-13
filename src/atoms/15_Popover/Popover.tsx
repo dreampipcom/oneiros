@@ -12,7 +12,7 @@ export enum EPopoverVariant {
 
 export interface IPopover {
   className?: string;
-  anchor?: unknown;
+  anchor?: Element;
   theme?: 'light' | 'dark';
   children: ChildrenType;
   variant?: EPopoverVariant;
@@ -51,12 +51,11 @@ export const HPopover = function ({
     },
   ];
   const boxStyles = `${clsx(boxSx)} ${className}`;
-  console.log({ anchor });
+  console.log({ theme, anchor });
 
   return (
     <Popover
       onClose={onClose}
-      theme={theme}
       open={open}
       id={id}
       className={boxStyles}

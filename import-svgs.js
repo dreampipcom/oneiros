@@ -19,21 +19,21 @@ function convertHyphenatedAttributesToCamelCase(input) {
 }
 
 const map = {
-	// logo: {
-	// 	name: 'Logo',
-	// 	input: 'src/atoms/04_Logo/assets/svgs',
-	// 	output: 'src/atoms/04_Logo/assets/components'
-	// },
+	logo: {
+		name: 'Logo',
+		input: 'src/atoms/04_Logo/assets/svgs',
+		output: 'src/atoms/04_Logo/assets/components'
+	},
 	// systemIcons: {
 	// 	name: 'SystemIcon',
 	// 	input: 'src/atoms/05_SystemIcon/assets/svgs',
 	// 	output: 'src/atoms/05_SystemIcon/assets/components'
 	// },
-	branded: {
-		name: 'BrandedIcon',
-		input: 'src/atoms/05_SystemIcon/assets/svgs-branded',
-		output: 'src/atoms/05_SystemIcon/assets/components-branded'
-	},
+	// branded: {
+	// 	name: 'BrandedIcon',
+	// 	input: 'src/atoms/05_SystemIcon/assets/svgs-branded',
+	// 	output: 'src/atoms/05_SystemIcon/assets/components-branded'
+	// },
 	// brandedIcons: undefined,
 };
 
@@ -64,7 +64,8 @@ Object.values(map).filter(e => e).forEach(({ input, output, name }, index, arr) 
 										const _newSvgContent = svgContent.replace(widthRegex, "width={width}").replace(heightRegex, "height={height}").replace(fillRegex, "fill={color}").replace(strokeRegex, "stroke={color}");
 										newSvgContent = convertHyphenatedAttributesToCamelCase(_newSvgContent);
 					    } else {
-					    	newSvgContent = convertHyphenatedAttributesToCamelCase(svgContent);
+					    	const dataNameRegex = /data\-name="[^"]+"/g;
+					    	newSvgContent = convertHyphenatedAttributesToCamelCase(svgContent.replace("class=", "className=").replace(dataNameRegex, ""));
 					    }
 
 
@@ -95,7 +96,7 @@ Object.values(map).filter(e => e).forEach(({ input, output, name }, index, arr) 
 							            ${newSvgContent}
 							        </g>
 							    </svg>
-							  ` : `${newSvgContent}`})
+							  ` : `<div {...props}> ${newSvgContent}</div>`})
 							};
 
 							export default ${componentName};

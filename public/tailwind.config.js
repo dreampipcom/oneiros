@@ -36,6 +36,7 @@ var karunaNara = '#f7bfa5';
 var pinkDive = '#C476CB';
 var pinkSurf = '#F4AFFF';
 var pinkSand = '#FFE5FC';
+var pinkCloud = '#F8EEFF';
 var pinkFacade = '#FACEFB';
 var functionOne = '#c4abef';
 var functionTwo = '#c4acf1';
@@ -94,6 +95,16 @@ exports.DreamPipColors = {
             st7: navyWise,
         },
         dark: {
+            st0: st0,
+            st1: st1,
+            st2: st2,
+            st3: st3,
+            st4: st4,
+            st5: st5,
+            st6: st6,
+            st7: pinkCloud,
+        },
+        darker: {
             st0: st0,
             st1: st1,
             st2: st2,
@@ -181,8 +192,8 @@ exports.DreamPipColors = {
         passion: passion,
     },
     inverse: {
-        light: '#F2F2F2',
-        dark: '#353535',
+        light: slyPink,
+        dark: dark1,
     },
     neutral: {
         light: n200,
@@ -199,7 +210,11 @@ exports.default = {
         'col-span-6',
         'col-start-1',
         'md:col-span-4',
+        'md:col-start-1',
+        'md:col-start-2',
         'md:col-start-3',
+        'md:col-start-4',
+        'md:col-start-5',
         'overflow-scroll',
     ],
     theme: {

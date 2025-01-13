@@ -3,7 +3,7 @@
 import { useMemo } from 'react';
 import clsx from 'clsx';
 import { DreamPipColors } from '../../../dist/esm/tailwind.config.ts';
-import Icons, { ESystemIcon, SystemIcons, BrandedIcons } from './assets';
+import { ESystemIcon, SystemIcons, BrandedIcons } from './assets';
 
 type Theme = 'light' | 'dark';
 
@@ -33,7 +33,7 @@ export interface ISystemIcon {
   className?: string;
   color?: EIconColor;
   collection?: EIconCollection;
-  icon?: Icons;
+  icon?: string;
   theme?: Theme;
   size?: EIconSize;
   id?: string;
