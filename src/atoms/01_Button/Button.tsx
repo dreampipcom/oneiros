@@ -122,8 +122,8 @@ export const HButton = function ({
         text-primary-dark 
 
         hover:border-secondary-light
-        hover:text-secondary-light
-        hover:bg-transparent
+
+        hover:bg-soft-bg
 
         dark:border-secondary-dark 
         dark:text-secondary-dark 
