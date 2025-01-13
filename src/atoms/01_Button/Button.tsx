@@ -100,7 +100,6 @@ export const HButton = function ({
         true,
       'rounded-md w-full px-a3 py-b1': !!children,
       'rounded-md px-0 py-0 min-h-b5 max-w-b5 min-w-b5 max-h-b5': !children,
-      [`bg-[url('${image}')]`]: !!image,
     },
     buttonTheme === EButtonTheme.PRIMARY && {
       [`
