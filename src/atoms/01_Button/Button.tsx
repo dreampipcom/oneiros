@@ -142,11 +142,9 @@ export const HButton = function ({
 
         bg-secondary-light
         hover:bg-primary-light
+
         dark:bg-primary-light
         dark:hover:bg-secondary-light
-
-        dark:bg-secondary-dark 
-        dark:hover:bg-primary-light
       `]: variant === ButtonVariant.FILLED,
       [`
         class4
