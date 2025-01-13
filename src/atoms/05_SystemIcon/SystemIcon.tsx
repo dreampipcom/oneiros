@@ -3,7 +3,7 @@
 import { useMemo } from 'react';
 import clsx from 'clsx';
 import { DreamPipColors } from '../../../tailwind.config.ts';
-import { EIcon, SystemIcons, BrandedIcons } from './assets';
+import Icons, { EIcon } from './assets';
 
 type Theme = 'light' | 'dark';
 
@@ -49,9 +49,7 @@ export const HSystemIcon = function ({
   id = 'atom__link',
 }: ISystemIcon) {
   const transposeIcon =
-    collection === EIconCollection.SYSTEM
-      ? SystemIcons[icon]
-      : BrandedIcons[icon];
+    collection === EIconCollection.SYSTEM ? Icons[icon] : Icons[icon];
 
   const sx = [
     {
