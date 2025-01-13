@@ -432,7 +432,6 @@ const PNoSpotContent = function ({ className, onRefresh }: IControl) {
 };
 
 export const HSpot = function ({ spots, className }: INavSpotGenerator) {
-  console.log({ spots });
   const allDismissed = spots.every(
     (spot) => spot.status !== ESpotStatus.ACTIVE,
   );
@@ -472,7 +471,6 @@ export const HSpot = function ({ spots, className }: INavSpotGenerator) {
 
   const generateSpotMessage = ({ message, columnClasses }) => {
     const classes = columnClasses.pop();
-    if (message?.type === 'lorem') console.log('ipsum');
     return [
       <Link
         truncate
@@ -501,13 +499,11 @@ export const HSpot = function ({ spots, className }: INavSpotGenerator) {
         );
 
         const getVariantClasses = ({ variant, column }) => {
-          console.log({ variant, column });
           let classes = '';
           if (variant === ESpotVariant.IMAGE) {
             return classes;
           }
           if (variant === ESpotVariant.THREE_CENTER_141424_STACK) {
-            console.log({ math: (column + 1) % 3 });
             if ((column + 1) % 3 === 0) {
               classes +=
                 ' justify-start col-start-0 col-span-full md:col-span-3';
@@ -526,13 +522,10 @@ export const HSpot = function ({ spots, className }: INavSpotGenerator) {
             variant: spot.variant,
             column: index,
           });
-          console.log({ classes });
           return classes;
         });
 
         columnClasses.reverse();
-
-        console.log({ columnClasses });
 
         const batchedColumns = spot.badges
           ?.map((badge) =>

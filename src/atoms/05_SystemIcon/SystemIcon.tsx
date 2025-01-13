@@ -48,7 +48,6 @@ export const HSystemIcon = function ({
   size = EIconSize.MEDIUM,
   id = 'atom__link',
 }: ISystemIcon) {
-  console.log({ icon });
   const transposeIcon =
     collection === EIconCollection.SYSTEM
       ? SystemIcons[icon]

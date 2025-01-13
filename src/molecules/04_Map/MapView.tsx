@@ -488,8 +488,6 @@ export const HMapView = function ({
     },
   };
 
-  console.log({ DreamPipColors });
-
   const unclusteredPointLayer = useMemo(
     () => ({
       id: 'point',

@@ -50,8 +50,7 @@ export const HPopover = function ({
         `]: variant === EPopoverVariant.NO_BADGE,
     },
   ];
-  const boxStyles = `${clsx(boxSx)} ${className}`;
-  console.log({ theme, anchor });
+  const boxStyles = `${clsx(boxSx)} ${className} theme-${theme}`;
 
   return (
     <div id={id}>
