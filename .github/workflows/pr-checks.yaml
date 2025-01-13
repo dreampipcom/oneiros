@@ -27,6 +27,9 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: oneiros::pr_checks::build::Fix linters
+        run: npm run ci:format
+
       - name: oneiros::pr_checks::build::Build
         run: npm run build
         env:
