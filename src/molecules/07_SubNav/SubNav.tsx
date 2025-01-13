@@ -7,7 +7,7 @@ import React, { useRef, useState, useEffect, useMemo } from 'react';
 import { Button, ButtonVariant, EButtonTheme } from '../../atoms/01_Button';
 import { Typography } from '../../atoms/02_Typography';
 import { Link } from '../../atoms/03_Link';
-import { SystemIcon, ESystemIcon } from '../../atoms/07_SystemIcon';
+import { SystemIcon, EIcon } from '../../atoms/07_SystemIcon';
 import { DreamPipColors } from '../../../tailwind.config.ts';
 
 export const SubNavLocale = {

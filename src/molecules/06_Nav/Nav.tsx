@@ -12,7 +12,7 @@ import { Link } from '../../atoms/03_Link';
 import { Logo } from '../../atoms/04_Logo';
 import {
   SystemIcon,
-  ESystemIcon,
+  EIcon,
   EBrandedIcon,
   EIconCollection,
 } from '../../atoms/05_SystemIcon';
@@ -391,7 +391,7 @@ const CNoControlContent = function ({ className, onRefresh }: IControl) {
   return (
     <Grid full className={className}>
       <Typography>No controls loaded.</Typography>
-      <Button onClick={onRefresh} icon={ESystemIcon['rotate-clockwise']} />
+      <Button onClick={onRefresh} icon={EIcon['rotate-clockwise']} />
     </Grid>
   );
 };
@@ -431,7 +431,7 @@ const PNoSpotContent = function ({ className, onRefresh }: IControl) {
   return (
     <Grid full className={className}>
       <Typography>No spot loaded.</Typography>
-      <Button onClick={onRefresh} icon={ESystemIcon['rotate-clockwise']} />
+      <Button onClick={onRefresh} icon={EIcon['rotate-clockwise']} />
     </Grid>
   );
 };
@@ -638,7 +638,7 @@ export const HNav = function ({
                 {!hideMenu ? (
                   <div className="block" ref={anchor}>
                     <Button
-                      icon={ESystemIcon.apps}
+                      icon={EIcon.apps}
                       onClick={() => {
                         setOpen(true);
                       }}

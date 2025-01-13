@@ -11,7 +11,7 @@ import FormControl from '@mui/material/FormControl';
 import { Typography, TypographyVariant } from '../02_Typography';
 import {
   SystemIcon as Icon,
-  ESystemIcon,
+  EIcon,
   EIconSize,
   EIconColor,
 } from '../05_SystemIcon';
@@ -40,7 +40,7 @@ export interface ITextInputExtraProps {
 export interface ITextInput extends ITextInputExtraProps {
   className?: string;
   label: string;
-  icon?: ESystemIcon;
+  icon?: EIcon;
   placeholder?: string;
   onChange?: (e?: any) => void;
   theme?: string;

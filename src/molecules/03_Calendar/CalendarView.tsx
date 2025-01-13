@@ -10,7 +10,7 @@ import { Box, Modal } from '@mui/material';
 
 import { Button } from '../../atoms/01_Button';
 import { Typography } from '../../atoms/02_Typography';
-import { ESystemIcon } from '../../atoms/05_SystemIcon';
+import { EIcon } from '../../atoms/05_SystemIcon';
 
 export const DEFAULT_DICTIONARY: any = {
   default: {
@@ -830,19 +830,19 @@ export const HCalendarView = function ({
         <Button
           className="m-a1"
           theme={theme}
-          icon={ESystemIcon['arrow-left']}
+          icon={EIcon['arrow-left']}
           onClick={handlePreviousClick}
         />
         <Button
           className="m-a1"
           theme={theme}
-          icon={ESystemIcon.calendar}
+          icon={EIcon.calendar}
           onClick={handleTodayClick}
         />
         <Button
           className="m-a1"
           theme={theme}
-          icon={ESystemIcon['arrow-right']}
+          icon={EIcon['arrow-right']}
           onClick={handleNextClick}
         />
       </div>

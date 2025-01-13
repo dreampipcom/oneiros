@@ -9,7 +9,7 @@ import React, { useRef, useState, useEffect, useMemo } from 'react';
 import { Button, ButtonVariant, EButtonTheme } from '../../atoms/01_Button';
 import { Typography } from '../../atoms/02_Typography';
 import { Link } from '../../atoms/03_Link';
-import { SystemIcon, ESystemIcon } from '../../atoms/05_SystemIcon';
+import { SystemIcon, EIcon } from '../../atoms/05_SystemIcon';
 import { DreamPipColors } from '../../../tailwind.config.ts';
 
 import 'mapbox-gl';
@@ -390,7 +390,7 @@ const Popup = function ({
           onClick={() => {
             onClose();
           }}
-          icon={ESystemIcon.close}
+          icon={EIcon.close}
           size="small"
           theme={theme}
           sx={{ padding: '4px', width: '32px', height: '32px' }}
@@ -412,7 +412,7 @@ const Popup = function ({
       <div>
         <Button
           theme={theme}
-          icon={ESystemIcon.agenda}
+          icon={EIcon.agenda}
           variant={ButtonVariant.FILLED}
           buttonTheme={EButtonTheme.PRIMARY}
           onClick={async () => {

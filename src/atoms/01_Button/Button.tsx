@@ -8,7 +8,7 @@ import { Image, EImageVariant } from '../08_Image';
 
 import {
   SystemIcon as Icon,
-  ESystemIcon,
+  EIcon,
   EIconSize,
   EIconColor,
 } from '../05_SystemIcon';
@@ -42,7 +42,7 @@ export interface IButton {
   href?: string;
   host?: string;
   rel?: string;
-  icon?: ESystemIcon;
+  icon?: EIcon;
   iconPosition?: EButtonIconPosition;
   type?: string;
   id?: string;

@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import Example from './Example.tsx';
 import { EDropdownVariant } from '../Dropdown';
 
-import { ESystemIcon } from '../../05_SystemIcon';
+import { EIcon } from '../../05_SystemIcon';
 
 const meta: Meta<typeof Example> = {
   title: 'Atoms/07-Dropdown',
@@ -14,7 +14,7 @@ const meta: Meta<typeof Example> = {
       control: { type: 'radio' },
     },
     icon: {
-      options: Object.values(ESystemIcon),
+      options: Object.values(EIcon),
       control: { type: 'select' },
     },
   },
@@ -36,6 +36,6 @@ type Story = StoryObj<typeof Example>;
 export const Outlined: Story = {
   args: {
     variant: EDropdownVariant.OUTLINED,
-    icon: ESystemIcon.account,
+    icon: EIcon.account,
   },
 };

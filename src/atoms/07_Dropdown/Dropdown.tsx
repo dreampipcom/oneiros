@@ -12,7 +12,7 @@ import FormControl from '@mui/material/FormControl';
 import { Typography, TypographyVariant } from '../02_Typography';
 import {
   SystemIcon as Icon,
-  ESystemIcon,
+  EIcon,
   EIconSize,
   EIconColor,
 } from '../05_SystemIcon';
@@ -45,7 +45,7 @@ export interface IDropdown {
   theme?: 'light' | 'dark';
   value?: string;
   options: IOption[];
-  icon?: ESystemIcon;
+  icon?: EIcon;
   onSelect?: (e?: string | number) => void;
   variant?: EDropdownVariant;
   name?: string;
@@ -73,7 +73,7 @@ const IconComponent = function ({ theme }: any) {
     <Icon
       className={chevronStyles}
       theme={theme}
-      icon={ESystemIcon['chevron-down']}
+      icon={EIcon['chevron-down']}
       color={EIconColor.BW}
       size={EIconSize.SMALL}
     />

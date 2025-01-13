@@ -8,7 +8,7 @@ import Grid, {
   EGridVariant,
   EGradientVariant,
 } from '../../atoms/10_Grid/Grid.tsx';
-import { ESystemIcon } from '../../atoms/05_SystemIcon';
+import { EIcon } from '../../atoms/05_SystemIcon';
 import Button, { EButtonTheme } from '../../atoms/01_Button/Button.tsx';
 import Link from '../../atoms/03_Link/Link.tsx';
 import PriceTag, {
@@ -117,7 +117,7 @@ export const HCard = function ({
               buttonTheme={
                 selected ? EButtonTheme.PASSION_SELECTED : EButtonTheme.PASSION
               }
-              icon={selected ? ESystemIcon.heart : ESystemIcon['heart-broken']}
+              icon={selected ? EIcon.heart : EIcon['heart-broken']}
               className="absolute right-a1 sm:top-a1 top-a2"
             />
           ) : undefined}
@@ -146,9 +146,7 @@ export const HCard = function ({
                     ? EButtonTheme.PASSION_SELECTED
                     : EButtonTheme.PASSION
                 }
-                icon={
-                  selected ? ESystemIcon.heart : ESystemIcon['heart-broken']
-                }
+                icon={selected ? EIcon.heart : EIcon['heart-broken']}
                 className="col-start-0 col-span-2"
               />
             ) : undefined}

@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import Example from './Example.tsx';
 import { ETextInputVariant } from '../TextInput';
 
-import { ESystemIcon } from '../../05_SystemIcon';
+import { EIcon } from '../../05_SystemIcon';
 
 const meta: Meta<typeof Example> = {
   title: 'Atoms/09-TextInput',
@@ -14,7 +14,7 @@ const meta: Meta<typeof Example> = {
       control: { type: 'radio' },
     },
     icon: {
-      options: Object.values(ESystemIcon),
+      options: Object.values(EIcon),
       control: { type: 'select' },
     },
     theme: {
@@ -40,6 +40,6 @@ type Story = StoryObj<typeof Example>;
 export const Outlined: Story = {
   args: {
     variant: ETextInputVariant.OUTLINED,
-    icon: ESystemIcon.account,
+    icon: EIcon.account,
   },
 };

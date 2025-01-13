@@ -5,5 +5,5 @@ export {
   EIconColor,
   EIconCollection,
 } from './SystemIcon';
-export { ESystemIcon, EBrandedIcon } from './assets/index.ts';
+export { EIcon, ESystemIcon, EBrandedIcon } from './assets/index.ts';
 export const systemIconName = 'systemIcon';

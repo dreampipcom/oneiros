@@ -5,7 +5,7 @@ import { Fragment, useRef, useState, useEffect } from 'react';
 
 import { Button, ButtonVariant, EButtonTheme } from '../../atoms/01_Button';
 import { Typography } from '../../atoms/02_Typography';
-import { ESystemIcon } from '../../atoms/05_SystemIcon';
+import { EIcon } from '../../atoms/05_SystemIcon';
 
 export const DEFAULT_TRACKS = [
   {
@@ -131,7 +131,7 @@ export const HAudioPlayer = function ({
         <Button
           className="w-full"
           theme={theme}
-          icon={status === 'playing' ? ESystemIcon.stop : ESystemIcon.play}
+          icon={status === 'playing' ? EIcon.stop : EIcon.play}
           variant={ButtonVariant.FILLED}
           buttonTheme={EButtonTheme.PRIMARY}
           onClick={handlePlay}

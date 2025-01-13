@@ -1,10 +1,10 @@
 // @atoms/05_SystemIcon/__test__/Example.tsx
 import React, { FC } from 'react';
 import SystemIcon, { SystemIconProps } from '../SystemIcon.tsx';
-import { ESystemIcon } from '../assets';
+import { EIcon } from '../assets';
 
 const Example: FC<SystemIconProps> = function ({
-  icon = ESystemIcon.account,
+  icon = EIcon.account,
   collection,
   theme,
   size,
