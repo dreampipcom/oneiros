@@ -10,12 +10,7 @@ import { Button, ButtonVariant, EButtonTheme } from '../../atoms/01_Button';
 import { Typography } from '../../atoms/02_Typography';
 import { Link } from '../../atoms/03_Link';
 import { Logo } from '../../atoms/04_Logo';
-import {
-  SystemIcon,
-  EIcon,
-  EBrandedIcon,
-  EIconCollection,
-} from '../../atoms/05_SystemIcon';
+import { SystemIcon, EIcon, EIconCollection } from '../../atoms/05_SystemIcon';
 import { Image } from '../../atoms/08_Image';
 import {
   Grid,
@@ -161,14 +156,14 @@ export const DEFAULT_PROMO = {
   badges: [
     {
       type: ESpotBadgeVariant.BRANDED_ICON,
-      icon: EBrandedIcon.googleplay,
+      icon: EIcon.googleplay,
       href: 'https://apps.apple.com/us/app/purizu/id1639022876',
       target: '_blank',
       alt: 'Download on Google Play.',
     },
     {
       type: ESpotBadgeVariant.BRANDED_ICON,
-      icon: EBrandedIcon.appstore,
+      icon: EIcon.appstore,
       href: '',
       target: '_blank',
       alt: 'Download on App Store.',
@@ -196,7 +191,7 @@ export const DEFAULT_PROMOS = [DEFAULT_PROMO];
 
 interface IBadge {
   type?: ESpotBadgeVariant;
-  icon?: EBrandedIcon;
+  icon?: EIcon;
   href?: string;
   target?: string;
   alt?: string;
