@@ -121,12 +121,12 @@ export const HButton = function ({
         border-primary-dark 
         text-primary-dark 
 
-        hover:border-secondary-light
+        hover:border-secondary-dark
 
         hover:bg-soft-bg
 
-        dark:border-secondary-dark 
-        dark:text-secondary-dark 
+        dark:border-primary-soft 
+        dark:text-primary-soft 
 
         dark:hover:border-secondary-dark 
         dark:hover:bg-primary-soft
@@ -151,14 +151,13 @@ export const HButton = function ({
         !border-transparent
         text-primary-dark 
 
-        hover:border-none
         hover:bg-soft-bg
 
-        dark:!border-secondary-soft 
-        dark:text-body-light 
+        dark:!border-transparent
+        dark:text-secondary-soft 
 
-        dark:hover:border-secondary-dark 
-        dark:hover:bg-primary-dark
+        dark:hover:!border-soft-bg
+        dark:hover:bg-secondary-dark
       `]: variant === ButtonVariant.OUTLINE,
     },
     buttonTheme === EButtonTheme.PASSION && {
@@ -182,10 +181,10 @@ export const HButton = function ({
         border-primary-passion
         hover:border-primary-dark 
         hover:bg-primary-passionSoft
-        hover:text-body-light
+        hover:text-primary-light
 
         dark:border-primary-passionSoft
-        dark:text-body-passion
+        dark:text-primary-passionSoft
 
         dark:hover:border-primary-passionSoft 
         dark:hover:bg-primary-passionSoft 
@@ -214,15 +213,17 @@ export const HButton = function ({
 
         bg-primary-passionSoft
         border-primary-passion
+
         hover:border-primary-passion 
         hover:bg-transparent
         hover:text-body-light
 
         dark:border-secondary-dark 
-        dark:text-body-passion
+        dark:text-body-dark
+        dark:bg-primary-dark
 
-        dark:hover:border-primary-passionSoft 
-        dark:hover:bg-primary-passionSoft 
+        dark:hover:border-primary-passion 
+        dark:hover:bg-transparent 
         dark:hover:text-body-passion
       `]: variant === ButtonVariant.OUTLINE,
     },
