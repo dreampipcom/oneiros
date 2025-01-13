@@ -2,7 +2,7 @@
 // @atoms/SystemIcon.tsx
 import { useMemo } from 'react';
 import clsx from 'clsx';
-import { DreamPipColors } from '../../../dist/esm/tailwind.config.ts';
+import { DreamPipColors } from '../../../tailwind.config.ts';
 import { ESystemIcon, SystemIcons, BrandedIcons } from './assets';
 
 type Theme = 'light' | 'dark';

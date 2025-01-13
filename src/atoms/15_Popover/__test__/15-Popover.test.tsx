@@ -7,7 +7,7 @@ import Popover from '../Popover';
 describe('Popover component', () => {
   it('Popover should render correctly', () => {
     const result = render(
-      <Popover id="test-review" href="https://dreampip.com" />,
+      <Popover open id="test-review" href="https://dreampip.com" />,
     );
     const component = result.container.querySelector('#test-review');
     expect(component).toBeInTheDocument();
