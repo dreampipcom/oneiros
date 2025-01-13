@@ -54,20 +54,21 @@ export const HPopover = function ({
   console.log({ theme, anchor });
 
   return (
-    <Popover
-      onClose={onClose}
-      open={open}
-      id={id}
-      className={boxStyles}
-      anchorEl={anchor}
-      anchorOrigin={{
-        vertical: 'bottom',
-        horizontal: 'left',
-      }}
-      transformOrigin={{ vertical: 'top', horizontal: 'left' }}
-    >
-      {children}
-    </Popover>
+    <div id={id}>
+      <Popover
+        onClose={onClose}
+        open={open}
+        className={boxStyles}
+        anchorEl={anchor}
+        anchorOrigin={{
+          vertical: 'bottom',
+          horizontal: 'left',
+        }}
+        transformOrigin={{ vertical: 'top', horizontal: 'left' }}
+      >
+        {children}
+      </Popover>
+    </div>
   );
 };
 
