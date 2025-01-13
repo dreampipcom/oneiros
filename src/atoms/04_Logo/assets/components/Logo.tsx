@@ -1,5 +1,6 @@
-/* eslint no-tabs:0, no-unused-vars:0, no-shadow:0, @typescript-eslint/no-explicit-any:0, no-shadow-restricted-names:0, max-len:0 */
+/* eslint no-tabs:0, no-unused-vars:0, no-shadow:0, @typescript-eslint/no-explicit-any:0, @typescript-eslint/no-unused-vars:0, react/no-unknown-property:0, react/style-prop-object:0, no-shadow-restricted-names:0, max-len:0 */
 // PLEASE DON'T EDIT THIS FILE MANUALLY, AS IT IS AUTOMATICALLY CREATED BY A SCRIPT.
+// @icons/Logo/logo
 import React from 'react';
 
 interface LogoProps {
@@ -31,7 +32,6 @@ const Logo: TComponent = function ({
           x="0px"
           y="0px"
           viewBox="0 0 1080 1080"
-          xmlSpace="preserve"
         >
           <g>
             <g>

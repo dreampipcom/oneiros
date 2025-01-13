@@ -1,0 +1,36 @@
+import { Canvas, Meta } from "@storybook/blocks";
+import Example from "./Example.tsx";
+import * as Popover from "./15-Popover.stories";
+
+<Meta of={Popover} title="Popover" />
+
+# Popover
+
+Popover component with different props.
+
+#### Example
+
+<Canvas of={Popover.Default} />
+
+## Usage
+
+```ts
+import {Popover} from "@dreampipcom/oneiros";
+
+const Example = () => {
+  return (
+      <Popover
+        variant={EPopoverVariant.DEFAULT}
+      >
+        4.5/5
+      </Popover>
+  );
+};
+
+export default Example;
+```
+
+#### Arguments
+
+- **children** - A string that represents the text contents of the Popover.
+- **variant** - A Popover variant option (w/o Badge).

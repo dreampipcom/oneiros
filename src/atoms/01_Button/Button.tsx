@@ -4,10 +4,11 @@ import type { ReactNode as ChildrenType } from 'react';
 import clsx from 'clsx';
 import Button from '@mui/material/Button';
 import { Typography, TypographyVariant } from '../02_Typography';
+import { Image, EImageVariant } from '../08_Image';
 
 import {
   SystemIcon as Icon,
-  ESystemIcon,
+  EIcon,
   EIconSize,
   EIconColor,
 } from '../05_SystemIcon';
@@ -35,12 +36,13 @@ export interface IButton {
   variant?: ButtonVariant;
   theme?: 'light' | 'dark';
   buttonTheme?: EButtonTheme;
+  image?: string;
   onClick?: () => void;
   target?: string;
   href?: string;
   host?: string;
   rel?: string;
-  icon?: ESystemIcon;
+  icon?: EIcon;
   iconPosition?: EButtonIconPosition;
   type?: string;
   id?: string;
@@ -51,6 +53,7 @@ export const HButton = function ({
   className,
   variant = ButtonVariant.FILLED,
   buttonTheme = EButtonTheme.PRIMARY,
+  image = '',
   theme = 'light',
   href = '',
   host = 'www.dreampip.com',
@@ -93,9 +96,11 @@ export const HButton = function ({
 
   const sx = [
     {
-      'relative normal-case shadow-none hover:shadow-none': true,
+      'relative normal-case shadow-none hover:shadow-none overflow-hidden':
+        true,
       'rounded-md w-full px-a3 py-b1': !!children,
       'rounded-md px-0 py-0 min-h-b5 max-w-b5 min-w-b5 max-h-b5': !children,
+      [`bg-[url('${image}')]`]: !!image,
     },
     buttonTheme === EButtonTheme.PRIMARY && {
       [`
@@ -105,10 +110,10 @@ export const HButton = function ({
 
 
         bg-primary-light
-        hover:bg-primary-contrast
+        hover:bg-primary-passionSoft
 
         dark:bg-primary-contrast
-        dark:hover:bg-primary-light
+        dark:hover:bg-primary-passionSoft
         
       `]: variant === ButtonVariant.FILLED,
       [`
@@ -116,12 +121,12 @@ export const HButton = function ({
         border-primary-dark 
         text-primary-dark 
 
-        hover:border-secondary-light
-        hover:text-secondary-light
-        hover:bg-transparent
+        hover:border-secondary-dark
 
-        dark:border-secondary-dark 
-        dark:text-secondary-dark 
+        hover:bg-soft-bg
+
+        dark:border-primary-soft 
+        dark:text-primary-soft 
 
         dark:hover:border-secondary-dark 
         dark:hover:bg-primary-soft
@@ -136,39 +141,70 @@ export const HButton = function ({
         dark:text-body-light
 
         bg-secondary-light
-        hover:bg-primary-light
-        dark:bg-primary-light
-        dark:hover:bg-secondary-light
+        hover:bg-primary-passionSoft
 
-        dark:bg-secondary-dark 
-        dark:hover:bg-primary-light
+        dark:bg-body-dark
+        dark:hover:bg-primary-passionSoft
       `]: variant === ButtonVariant.FILLED,
       [`
         class4
         !border-transparent
         text-primary-dark 
 
-        hover:border-none
         hover:bg-soft-bg
 
-        dark:!border-secondary-soft 
-        dark:text-body-light 
+        dark:!border-transparent
+        dark:text-primary-soft
 
-        dark:hover:border-secondary-dark 
-        dark:hover:bg-primary-dark
+        dark:hover:!border-primary-light
+        dark:hover:bg-transparent
       `]: variant === ButtonVariant.OUTLINE,
     },
     buttonTheme === EButtonTheme.PASSION && {
       [`
         class3
-        text-body-light
+        text-primary-passion
         dark:text-body-passion
 
         bg-primary-passionSoft
         hover:bg-primary-passionLight
 
+        dark:!border-primary-passionSoft
         dark:bg-primary-passionSoft
         dark:hover:bg-primary-passion
+        dark:text-primary-dark
+        dark:hover:text-body-dark
+      `]: variant === ButtonVariant.FILLED,
+      [`
+        class4
+        
+        text-body-passion 
+        hover:text-primary-passion
+        dark:text-primary-passionSoft
+        dark:hover:text-body-passion
+
+        dark:hover:bg-primary-passionSoft 
+        hover:bg-primary-passionSoft
+        
+        border-primary-passion
+        hover:border-primary-passion
+
+        dark:border-primary-passionSoft
+        dark:hover:border-primary-passionSoft 
+
+      `]: variant === ButtonVariant.OUTLINE,
+    },
+    buttonTheme === EButtonTheme.PASSION_SELECTED && {
+      [`
+        class3
+        text-body-light
+        hover:text-body-light
+
+        bg-primary-passionLight
+        hover:bg-transparent
+
+        dark:bg-primary-passion
+        dark:hover:bg-transparent
         dark:text-body-dark
         dark:hover:text-body-dark
       `]: variant === ButtonVariant.FILLED,
@@ -176,50 +212,21 @@ export const HButton = function ({
         class4
         text-body-passion 
 
-        border-primary-passion
-        hover:border-primary-dark 
-        hover:bg-primary-passionSoft
-        hover:text-body-light
-
-        dark:border-primary-passionSoft
-        dark:text-body-passion
-
-        dark:hover:border-primary-passionSoft 
-        dark:hover:bg-primary-passionSoft 
-        dark:hover:text-body-passion
-      `]: variant === ButtonVariant.OUTLINE,
-    },
-    buttonTheme === EButtonTheme.PASSION_SELECTED && {
-      [`
-        class3
-        text-body-dark
-        hover:text-body-light
-
-        bg-primary-dark2
-        hover:bg-primary-passionLight
-
-        dark:bg-primary-dark
-        dark:hover:bg-primary-passion
-        dark:text-body-dark
-        dark:hover:text-body-light
-      `]: variant === ButtonVariant.FILLED,
-      [`
-        class4
-        text-body-passion 
-
         hover:bg-primary-passionSoft
 
         bg-primary-passionSoft
         border-primary-passion
+
         hover:border-primary-passion 
         hover:bg-transparent
-        hover:text-body-light
+        hover:text-primary-passion
 
-        dark:border-secondary-dark 
-        dark:text-body-passion
+        dark:border-primary-passion 
+        dark:text-primary-passion
+        dark:bg-primary-passionSoft
 
-        dark:hover:border-primary-passionSoft 
-        dark:hover:bg-primary-passionSoft 
+        dark:hover:border-primary-passion 
+        dark:hover:bg-transparent 
         dark:hover:text-body-passion
       `]: variant === ButtonVariant.OUTLINE,
     },
@@ -270,6 +277,13 @@ export const HButton = function ({
       onClick={onClick}
       type={type}
     >
+      {image ? (
+        <Image
+          className="absolute opacity-30"
+          variant={EImageVariant.ONE_PER_ONE}
+          src={image}
+        />
+      ) : undefined}
       {icon && iconPosition === EButtonIconPosition.START ? (
         <Icon
           icon={icon}

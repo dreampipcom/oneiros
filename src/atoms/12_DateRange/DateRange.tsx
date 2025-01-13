@@ -14,7 +14,7 @@ import { SingleInputDateRangeField } from '@mui/x-date-pickers-pro/SingleInputDa
 import Box from '@mui/material/Box';
 import FormControl from '@mui/material/FormControl';
 
-import { ESystemIcon } from '../05_SystemIcon';
+import { EIcon } from '../05_SystemIcon';
 import { TextInput } from '../09_TextInput';
 
 const DATE_PLACEHOLDER = 'DD/MM/YYYY';
@@ -42,7 +42,7 @@ export interface IDateRange {
 export const HDateRange = function ({
   className,
   theme = 'light',
-  icon = ESystemIcon.calendar,
+  icon = EIcon.calendar,
   disablePast = true,
   label = 'Pick your dates',
   onSelect = () => {},

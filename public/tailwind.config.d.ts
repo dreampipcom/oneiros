@@ -21,6 +21,16 @@ export declare const DreamPipColors: {
       st6: string;
       st7: string;
     };
+    darker: {
+      st0: string;
+      st1: string;
+      st2: string;
+      st3: string;
+      st4: string;
+      st5: string;
+      st6: string;
+      st7: string;
+    };
   };
   card: {
     white: string;
@@ -126,6 +136,16 @@ declare const _default: {
           st7: string;
         };
         dark: {
+          st0: string;
+          st1: string;
+          st2: string;
+          st3: string;
+          st4: string;
+          st5: string;
+          st6: string;
+          st7: string;
+        };
+        darker: {
           st0: string;
           st1: string;
           st2: string;

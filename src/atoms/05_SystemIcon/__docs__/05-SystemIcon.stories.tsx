@@ -1,15 +1,19 @@
 // @atoms/05_SystemIcon/__test__/05-SystemIcon.stories.tsx
 import type { Meta, StoryObj } from '@storybook/react';
 import Example from './Example.tsx';
-import { EIconSize } from '../SystemIcon';
-import { ESystemIcon } from '../assets/index.ts';
+import { EIconSize, EIconCollection } from '../SystemIcon';
+import { EIcon, EBrandedIcon } from '../assets/index.ts';
 
 const meta: Meta<typeof Example> = {
   title: 'Atoms/05-SystemIcon',
   component: Example,
   argTypes: {
     icon: {
-      options: Object.values(ESystemIcon),
+      options: [...Object.values(EBrandedIcon), ...Object.values(EIcon)],
+      control: { type: 'select' },
+    },
+    collection: {
+      options: Object.values(EIconCollection),
       control: { type: 'select' },
     },
     theme: {

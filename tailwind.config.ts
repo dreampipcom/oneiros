@@ -42,6 +42,7 @@ const karunaNara = '#f7bfa5';
 const pinkDive = '#C476CB';
 const pinkSurf = '#F4AFFF';
 const pinkSand = '#FFE5FC';
+const pinkCloud = '#F8EEFF';
 const pinkFacade = '#FACEFB';
 
 const functionOne = '#c4abef';
@@ -114,6 +115,16 @@ export const DreamPipColors = {
       st7: navyWise,
     },
     dark: {
+      st0,
+      st1,
+      st2,
+      st3,
+      st4,
+      st5,
+      st6,
+      st7: pinkCloud,
+    },
+    darker: {
       st0,
       st1,
       st2,
@@ -201,7 +212,7 @@ export const DreamPipColors = {
     passion,
   },
   inverse: {
-    light: white,
+    light: slyPink,
     dark: dark1,
   },
   neutral: {
@@ -220,7 +231,11 @@ export default {
     'col-span-6',
     'col-start-1',
     'md:col-span-4',
+    'md:col-start-1',
+    'md:col-start-2',
     'md:col-start-3',
+    'md:col-start-4',
+    'md:col-start-5',
     'overflow-scroll',
   ],
   theme: {

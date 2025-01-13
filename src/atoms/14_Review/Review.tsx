@@ -9,7 +9,7 @@ import { Typography, TypographyVariant } from '../02_Typography';
 
 import {
   SystemIcon as Icon,
-  ESystemIcon,
+  EIcon,
   EIconSize,
   EIconColor,
 } from '../05_SystemIcon';
@@ -87,7 +87,7 @@ export const HReview = function ({
     <Box className={boxStyles}>
       <Icon
         className="mr-a1"
-        icon={ESystemIcon.poll}
+        icon={EIcon.poll}
         size={EIconSize.SMALL}
         color={iconColorVariantMap[theme]}
         theme={theme}

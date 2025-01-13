@@ -1,0 +1,37 @@
+import { Canvas, Meta } from "@storybook/blocks";
+import Example from "./Example.tsx";
+import * as Nav from "./06-Nav.stories.tsx";
+
+<Meta of={Nav} title="Nav" />
+
+# Nav
+
+Nav component with different props.
+
+#### Example
+
+<Canvas of={Nav.Default} />
+
+## Usage
+
+```ts
+import { Nav } from "@dreampipcom/oneiros";
+
+
+const App = () => {
+  return (
+      <Nav 
+        tracks={DEFAULT_TRACKS}
+      />
+  );
+};
+
+export default Example;
+```
+
+#### Arguments
+
+- **tracks** — An array of Tracks props, where each index represents a Card in the grid.
+- **onPlayTrack** — A function to run when the play button is clicked.
+- **nativeControls** — A boolean to determine whether the native browser player should display.
+- **prompt** — A string to show by the side of the player.

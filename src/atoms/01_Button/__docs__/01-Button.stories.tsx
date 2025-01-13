@@ -7,7 +7,7 @@ import {
   EButtonIconPosition,
 } from '../Button.tsx';
 
-import { ESystemIcon } from '../../05_SystemIcon';
+import { EIcon } from '../../05_SystemIcon';
 
 const meta: Meta<typeof Example> = {
   title: 'Atoms/01-Button',
@@ -21,7 +21,7 @@ const meta: Meta<typeof Example> = {
       control: { type: 'radio' },
     },
     icon: {
-      options: Object.values(ESystemIcon),
+      options: Object.keys(EIcon),
       control: { type: 'select' },
     },
     iconPosition: {
@@ -68,7 +68,7 @@ export const Outline: Story = {
 export const IconButton: Story = {
   args: {
     text: '',
-    icon: ESystemIcon.account,
+    icon: EIcon.account,
     variant: ButtonVariant.FILLED,
     buttonTheme: EButtonTheme.PRIMARY,
   },

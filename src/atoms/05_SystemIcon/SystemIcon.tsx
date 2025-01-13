@@ -3,9 +3,14 @@
 import { useMemo } from 'react';
 import clsx from 'clsx';
 import { DreamPipColors } from '../../../tailwind.config.ts';
-import * as Icons from './assets';
+import Icons, { EIcon } from './assets';
 
 type Theme = 'light' | 'dark';
+
+export enum EIconCollection {
+  SYSTEM = 'system',
+  BRANDED = 'branded',
+}
 
 export enum EIconSize {
   SMALL = 'small',
@@ -27,7 +32,8 @@ export enum EIconColor {
 export interface ISystemIcon {
   className?: string;
   color?: EIconColor;
-  icon?: Icons.ESystemIcon;
+  collection?: EIconCollection;
+  icon?: EIcon;
   theme?: Theme;
   size?: EIconSize;
   id?: string;
@@ -36,11 +42,15 @@ export interface ISystemIcon {
 export const HSystemIcon = function ({
   className,
   color = EIconColor.PRIMARY,
-  icon = Icons.ESystemIcon.account,
+  icon = EIcon.account,
+  collection = EIconCollection.SYSTEM,
   theme = 'light',
   size = EIconSize.MEDIUM,
   id = 'atom__link',
 }: ISystemIcon) {
+  const transposeIcon =
+    collection === EIconCollection.SYSTEM ? Icons[icon] : Icons[icon];
+
   const sx = [
     {
       [`
@@ -88,7 +98,12 @@ export const HSystemIcon = function ({
     },
   };
 
-  const IconComponent = useMemo(() => Icons[icon], [icon, theme]);
+  const IconComponent = useMemo(
+    () => transposeIcon,
+    [icon, theme, transposeIcon, collection],
+  );
+
+  if (!transposeIcon) return <>Icon not found.</>;
 
   return (
     <IconComponent

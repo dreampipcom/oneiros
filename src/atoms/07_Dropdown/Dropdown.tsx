@@ -12,7 +12,7 @@ import FormControl from '@mui/material/FormControl';
 import { Typography, TypographyVariant } from '../02_Typography';
 import {
   SystemIcon as Icon,
-  ESystemIcon,
+  EIcon,
   EIconSize,
   EIconColor,
 } from '../05_SystemIcon';
@@ -43,8 +43,9 @@ export interface IDropdown {
   className?: string;
   label: string;
   theme?: 'light' | 'dark';
+  value?: string;
   options: IOption[];
-  icon?: ESystemIcon;
+  icon?: EIcon;
   onSelect?: (e?: string | number) => void;
   variant?: EDropdownVariant;
   name?: string;
@@ -72,7 +73,7 @@ const IconComponent = function ({ theme }: any) {
     <Icon
       className={chevronStyles}
       theme={theme}
-      icon={ESystemIcon['chevron-down']}
+      icon={EIcon['chevron-down']}
       color={EIconColor.BW}
       size={EIconSize.SMALL}
     />
@@ -93,12 +94,13 @@ export const HDropdown = function ({
   label = 'Label',
   options = DEFAULT_OPTIONS,
   icon,
+  value = '',
   variant = EDropdownVariant.OUTLINED,
   onSelect = () => {},
   name = '',
   id = 'atom__dropdown',
 }: IDropdown) {
-  const [value, setValue] = useState('');
+  const [_value, setValue] = useState(value);
 
   const boxSx = [
     {
@@ -135,7 +137,7 @@ export const HDropdown = function ({
         dark:[&_fieldset]:!border-primary-soft
         dark:[&.Mui-focused_fieldset]:!border-primary-dark
         `]: true,
-      '[&_fieldset_legend]:!w-0': !value,
+      '[&_fieldset_legend]:!w-0': !_value,
     },
   ];
   const selectStyles = clsx(selectSx);
@@ -228,10 +230,10 @@ export const HDropdown = function ({
           id={id}
           name={name}
           className={selectStyles}
-          value={value}
+          value={_value}
           onChange={(e) => {
             setValue(e.target.value);
-            onSelect(value);
+            onSelect(_value);
           }}
           variant={variant}
           labelId={`${id}---label`}

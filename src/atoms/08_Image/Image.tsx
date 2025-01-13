@@ -126,7 +126,7 @@ export const HImage = function ({
         `]: objectFit === 'scale-down',
     },
   ];
-  const imgStyles = clsx(imgSx);
+  const imgStyles = `${clsx(imgSx)}`;
 
   return (
     <Box component="figure" className={wrapperStyles}>
