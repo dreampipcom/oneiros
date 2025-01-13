@@ -33,7 +33,7 @@ export interface ISystemIcon {
   className?: string;
   color?: EIconColor;
   collection?: EIconCollection;
-  icon?: string;
+  icon?: EIcon;
   theme?: Theme;
   size?: EIconSize;
   id?: string;
