@@ -184,7 +184,10 @@ export const DEFAULT_PROMO = {
     //   type: ESpotMessageType.OFFER,
     // },
   ],
-  image: 'https://www.dreampip.com/og-image.png',
+  // image: {
+  //   mobile: 'https://www.dreampip.com/og-image.png',
+  //   desktop: 'https://i.giphy.com/26DNfl7IrX8b40klW.webp',
+  // },
   variant: ESpotVariant.TWO_CENTER_ALWAYS,
   status: ESpotStatus.ACTIVE,
 };
@@ -344,9 +347,17 @@ export interface INavProfile {
   symbols?: unknown;
 }
 
+export interface ISpotImage {
+  mobile: string;
+  desktop?: string;
+}
+
 export interface ISpot {
   badges?: IBadge[];
   messages?: IMessage[];
+  image?: ISpotImage;
+  status?: ESpotStatus;
+  variant?: ESpotVariant;
 }
 
 export interface INavSpotGenerator {
@@ -511,91 +522,95 @@ export const HSpot = function ({ spots, className }: INavSpotGenerator) {
     ];
   };
 
+  const parsedSpots = spots?.map((spot) => {
+    const totalColumns = spots.reduce(
+      (counter, spot) => spot.badges.length + spot.messages.length,
+      0,
+    );
+
+    const getVariantClasses = ({ variant, column }) => {
+      let classes = '';
+      if (variant === ESpotVariant.IMAGE) {
+        return classes;
+      }
+      if (variant === ESpotVariant.THREE_CENTER_141424_STACK) {
+        if ((column + 1) % 3 === 0) {
+          classes += ' justify-start col-start-1 col-span-full md:col-span-3';
+        } else {
+          classes += ` justify-center col-start-${column + 1 + 2 * column} col-span-3 md:col-span-1`;
+        }
+        classes += ` w-full flex  align-center justify-self-center self-center md:col-start-${column + 3}`;
+      }
+
+      if (variant === ESpotVariant.TWO_CENTER_STACK) {
+        if (column % 2 === 0) {
+          classes +=
+            ' justify-start col-start-1 col-span-full md:col-span-2 md:col-start-3';
+        } else {
+          classes += ' col-start-1 col-span-full md:col-span-2 md:col-start-5';
+        }
+        classes +=
+          ' w-full flex align-center justify-center justify-self-center self-center';
+      }
+
+      if (variant === ESpotVariant.TWO_CENTER_ALWAYS) {
+        if (column % 2 === 0) {
+          classes += ' justify-start col-start-1 md:col-start-3';
+        } else {
+          classes += ' col-start-4 md:col-start-5';
+        }
+        classes +=
+          ' w-full flex align-center justify-center justify-self-center self-center col-span-3 md:col-span-2';
+        return classes;
+      }
+    };
+
+    const columnBuffers = [];
+    times(totalColumns, () => columnBuffers.push(''));
+    const columnClasses = columnBuffers.map((column, index) => {
+      const classes = getVariantClasses({
+        variant: spot.variant,
+        column: index,
+      });
+      return classes;
+    });
+
+    columnClasses.reverse();
+
+    const batchedColumns = spot.badges
+      ?.map((badge) =>
+        generateSpotBadge({
+          badge,
+          columnClasses,
+        }),
+      )
+      .concat(
+        spot.messages?.map((message) =>
+          generateSpotMessage({
+            message,
+            columnClasses,
+          }),
+        ),
+      );
+
+    return batchedColumns;
+  });
+
   return (
-    <Grid
-      variant={EGridVariant.DEFAULT}
-      bleed={EBleedVariant.HORIZONTAL}
-      background={{
-        mobile: 'https://www.dreampip.com/og-image.png',
-        desktop: 'https://i.giphy.com/26DNfl7IrX8b40klW.webp',
-      }}
-      className={`${className} grid auto-rows-fr`}
-    >
-      {spots?.map((spot) => {
-        const totalColumns = spots.reduce(
-          (counter, spot) => spot.badges.length + spot.messages.length,
-          0,
-        );
-
-        const getVariantClasses = ({ variant, column }) => {
-          let classes = '';
-          if (variant === ESpotVariant.IMAGE) {
-            return classes;
-          }
-          if (variant === ESpotVariant.THREE_CENTER_141424_STACK) {
-            if ((column + 1) % 3 === 0) {
-              classes +=
-                ' justify-start col-start-1 col-span-full md:col-span-3';
-            } else {
-              classes += ` justify-center col-start-${column + 1 + 2 * column} col-span-3 md:col-span-1`;
-            }
-            classes += ` w-full flex  align-center justify-self-center self-center md:col-start-${column + 3}`;
-          }
-
-          if (variant === ESpotVariant.TWO_CENTER_STACK) {
-            if (column % 2 === 0) {
-              classes +=
-                ' justify-start col-start-1 col-span-full md:col-span-2 md:col-start-3';
-            } else {
-              classes +=
-                ' col-start-1 col-span-full md:col-span-2 md:col-start-5';
-            }
-            classes +=
-              ' w-full flex align-center justify-center justify-self-center self-center';
-          }
-
-          if (variant === ESpotVariant.TWO_CENTER_ALWAYS) {
-            if (column % 2 === 0) {
-              classes += ' justify-start col-start-1 md:col-start-3';
-            } else {
-              classes += ' col-start-4 md:col-start-5';
-            }
-            classes +=
-              ' w-full flex align-center justify-center justify-self-center self-center col-span-3 md:col-span-2';
-            return classes;
-          }
-        };
-
-        const columnBuffers = [];
-        times(totalColumns, () => columnBuffers.push(''));
-        const columnClasses = columnBuffers.map((column, index) => {
-          const classes = getVariantClasses({
-            variant: spot.variant,
-            column: index,
-          });
-          return classes;
-        });
-
-        columnClasses.reverse();
-
-        const batchedColumns = spot.badges
-          ?.map((badge) =>
-            generateSpotBadge({
-              badge,
-              columnClasses,
-            }),
-          )
-          .concat(
-            spot.messages?.map((message) =>
-              generateSpotMessage({
-                message,
-                columnClasses,
-              }),
-            ),
-          );
-
-        return batchedColumns;
-      })}
+    <Grid full bleed={EBleedVariant.ZERO}>
+      {spots.map((spot, i) => (
+        <Grid
+          variant={EGridVariant.DEFAULT}
+          bleed={EBleedVariant.HORIZONTAL}
+          background={{
+            mobile: spot?.image?.mobile,
+            desktop: spot?.image?.desktop,
+          }}
+          className={`${className} grid auto-rows-fr`}
+        >
+          {parsedSpots[i]}
+        </Grid>
+      ))}
     </Grid>
   );
 };
