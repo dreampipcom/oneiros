@@ -19,7 +19,7 @@ import {
   EGradientVariant,
 } from '../../atoms/10_Grid';
 import { Popover } from '../../atoms/15_Popover';
-import { DreamPipColors } from '../../../tailwind.config.ts';
+import { DreamPipColors } from '../../../dist/esm/tailwind.config.ts';
 
 export enum ENavControlVariant {
   BREADCRUMB,
@@ -57,6 +57,7 @@ export enum ESpotVariant {
 
 export enum ENavItemVariant {
   LINK = 'link',
+  BUTTON = 'button',
   OTHER = 'other',
 }
 
@@ -243,29 +244,38 @@ export const DEFAULT_CONTROLS = {
 const DEFAULT_L1_NAV_ITEMS = [
   {
     name: 'Home',
-    type: 'link',
-    value: 'https://www.dreampip.com',
+    id: 'home1',
+    title: 'Home',
+    type: ENavItemVariant.LINK,
+    href: 'https://www.dreampip.com',
     target: '_blank',
     l2: [],
   },
   {
     name: 'Home',
-    type: 'link',
-    value: 'https://www.dreampip.com',
+    id: 'home2',
+    title: 'Home',
+    type: ENavItemVariant.LINK,
+    href: 'https://www.dreampip.com',
     target: '_blank',
     l2: [],
   },
   {
     name: 'Home',
-    type: 'link',
-    value: 'https://www.dreampip.com',
+    id: 'home3',
+    title: 'Home',
+    type: ENavItemVariant.LINK,
+    href: 'https://www.dreampip.com',
     target: '_blank',
     l2: [],
   },
   {
     name: 'Home',
-    type: 'link',
-    value: 'https://www.dreampip.com',
+    id: 'home4',
+    title: 'Home',
+    type: ENavItemVariant.BUTTON,
+    icon: EIcon.account,
+    href: 'https://www.dreampip.com',
     target: '_blank',
     l2: [],
   },
@@ -299,6 +309,11 @@ export interface INavControlsGenerator {
 export interface INavMenuItems {
   name?: string;
   type?: ENavItemVariant;
+  id?: string;
+  href?: string;
+  target?: string;
+  l2?: INavMenuItems[];
+  icon?: EIcon;
 }
 
 export interface INavMenu {
@@ -567,6 +582,7 @@ export const HNav = function ({
   theme = 'light',
 }: INav) {
   const [open, setOpen] = useState(false);
+  const [anchorEl, setAnchorEl] = useState(null);
   const anchor = useRef(null);
 
   const navSx = [
@@ -624,10 +640,11 @@ export const HNav = function ({
             >
               <div className="justify-self-start self-center col-span-3 col-start-1 md:!col-span-2 md:!col-start-1">
                 {!hideMenu ? (
-                  <div className="block" ref={anchor}>
+                  <div className="block relative" ref={anchor}>
                     <Button
                       icon={EIcon.apps}
                       onClick={() => {
+                        setAnchorEl(anchor.current);
                         setOpen(true);
                       }}
                       edge="end"
@@ -636,8 +653,28 @@ export const HNav = function ({
                       image={profile?.image}
                     />
                     {open ? (
-                      <Popover anchor={anchor} onClose={() => setOpen(false)}>
-                        Hello.
+                      <Popover
+                        float
+                        anchor={anchorEl}
+                        onClose={() => setOpen(false)}
+                      >
+                        {menu?.items?.map((item) => {
+                          if (item?.type === ENavItemVariant.BUTTON) {
+                            return (
+                              <Button
+                                buttonTheme="secondary"
+                                className="m-a1"
+                                href={item?.href}
+                                icon={item?.icon}
+                              />
+                            );
+                          }
+                          return (
+                            <Link className="m-a1" inverse href={item?.href}>
+                              {item?.title}
+                            </Link>
+                          );
+                        })}
                       </Popover>
                     ) : undefined}
                   </div>
