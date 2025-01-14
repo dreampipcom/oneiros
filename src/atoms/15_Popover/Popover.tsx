@@ -70,7 +70,6 @@ export const HPopover = function ({
     },
   ];
   const boxStyles = `${clsx(boxSx)} ${className} theme-${theme}`;
-  console.log({ anchor });
   return (
     <div id={id} className={wrapperStyles}>
       <Popover
