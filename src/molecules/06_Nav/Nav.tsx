@@ -9,7 +9,7 @@ import { AudioPlayer } from '../02_AudioPlayer';
 import { Button, ButtonVariant, EButtonTheme } from '../../atoms/01_Button';
 import { Typography } from '../../atoms/02_Typography';
 import { Link } from '../../atoms/03_Link';
-import { Logo } from '../../atoms/04_Logo';
+import { Logo, ELogoSize } from '../../atoms/04_Logo';
 import { SystemIcon, EIcon, EIconCollection } from '../../atoms/05_SystemIcon';
 import { Image } from '../../atoms/08_Image';
 import {
@@ -19,7 +19,7 @@ import {
   EGradientVariant,
 } from '../../atoms/10_Grid';
 import { Popover } from '../../atoms/15_Popover';
-import { DreamPipColors } from '../../../tailwind.config.ts';
+import { DreamPipColors } from '../../../dist/esm/tailwind.config.ts';
 
 export enum ENavControlVariant {
   BREADCRUMB,
@@ -184,10 +184,10 @@ export const DEFAULT_PROMO = {
     //   type: ESpotMessageType.OFFER,
     // },
   ],
-  // image: {
-  //   mobile: 'https://www.dreampip.com/og-image.png',
-  //   desktop: 'https://i.giphy.com/26DNfl7IrX8b40klW.webp',
-  // },
+  image: {
+    mobile: 'https://www.dreampip.com/og-image.png',
+    desktop: 'https://i.giphy.com/26DNfl7IrX8b40klW.webp',
+  },
   variant: ESpotVariant.TWO_CENTER_ALWAYS,
   status: ESpotStatus.ACTIVE,
 };
@@ -677,17 +677,13 @@ export const HNav = function ({
             className="grid min-h-a9 !bg-primary-dark dark:!bg-primary-soft"
           />
         ) : undefined}
-        <Grid
-          full
-          variant={EGridVariant.DEFAULT}
-          bleed={EBleedVariant.RESPONSIVE}
-        >
+        <Grid full variant={EGridVariant.DEFAULT} bleed={EBleedVariant.ZERO}>
           <div className={toolsStyles}>
             <Grid
               variant={EGridVariant.DEFAULT}
-              bleed={EBleedVariant.HORIZONTAL}
+              bleed={EBleedVariant.DEFAULT}
               gradient={EGradientVariant.SOFT}
-              className="grid !p-a2 !px-a3 auto-rows-fr"
+              className="grid px-a2"
             >
               <div className="justify-self-start self-center col-span-3 col-start-1 md:!col-span-2 md:!col-start-1">
                 {!hideMenu ? (
@@ -737,12 +733,8 @@ export const HNav = function ({
                   </Typography>
                 ) : undefined}
               </div>
-              <div className="justify-self-center self-center col-span-3 col-start-4 md:!col-span-2 md:!col-start-4">
-                <Link href="/">
-                  <span style={{ display: 'flex', height: 120, width: 100 }}>
-                    <Logo theme={theme} />
-                  </span>
-                </Link>
+              <div className="justify-self-end md:justify-self-center self-start md:self-center col-span-3 col-start-4 md:!col-span-2 md:!col-start-4">
+                <Logo size={ELogoSize.RESPONSIVE} theme={theme} />
               </div>
               {!hideControls ? (
                 <HControls
