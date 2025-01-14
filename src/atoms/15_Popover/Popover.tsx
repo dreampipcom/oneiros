@@ -75,7 +75,6 @@ export const HPopover = function ({
     <div id={id} className={wrapperStyles}>
       <Popover
         onClose={onClose}
-        backDrop
         open={open}
         className={boxStyles}
         anchorEl={anchor}
