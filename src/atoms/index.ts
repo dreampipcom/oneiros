@@ -13,3 +13,4 @@ export * from './10_Grid';
 export * from './12_DateRange';
 export * from './13_BadgeChip';
 export * from './14_Review';
+export * from './15_Popover';
