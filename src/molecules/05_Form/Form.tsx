@@ -5,7 +5,7 @@
 import clsx from 'clsx';
 import React from 'react';
 import { Typography } from '../../atoms/02_Typography';
-import { DreamPipColors } from '../../../dist/esm/tailwind.config.ts';
+import { DreamPipColors } from '../../../tailwind.config.ts';
 
 const DEFAULT_FIELDS = [];
 
