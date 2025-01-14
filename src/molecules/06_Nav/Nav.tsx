@@ -50,6 +50,7 @@ export enum ESpotMessageType {
 
 export enum ESpotVariant {
   TWO_CENTER_STACK = 'two-center-stack',
+  TWO_CENTER_ALWAYS = 'two-center-always',
   THREE_CENTER_141424_STACK = 'three-center-stack',
   ONE_ROW_ELLIPSIS = 'one-row-ellipsis',
   IMAGE = 'image',
@@ -158,33 +159,33 @@ export const DEFAULT_PROMO = {
     {
       type: ESpotBadgeVariant.BRANDED_ICON,
       icon: EIcon.googleplay,
-      href: 'https://apps.apple.com/us/app/purizu/id1639022876',
+      href: 'https://play.google.com/store/apps/details?id=com.angeloreale.purizumobile',
       target: '_blank',
       alt: 'Download on Google Play.',
     },
     {
       type: ESpotBadgeVariant.BRANDED_ICON,
       icon: EIcon.appstore,
-      href: '',
+      href: 'https://apps.apple.com/us/app/purizu/id1639022876',
       target: '_blank',
       alt: 'Download on App Store.',
     },
   ],
   messages: [
-    {
-      cap: '50% off!',
-      start: new Date(),
-      end: new Date(),
-      badges: [],
-      content: "Don't miss this opportunity to.",
-      href: '',
-      target: '_blank',
-      alt: 'Offer spot accessible',
-      type: ESpotMessageType.OFFER,
-    },
+    // {
+    //   cap: '50% off!',
+    //   start: new Date(),
+    //   end: new Date(),
+    //   badges: [],
+    //   content: "Don't miss this opportunity to.",
+    //   href: '',
+    //   target: '_blank',
+    //   alt: 'Offer spot accessible',
+    //   type: ESpotMessageType.OFFER,
+    // },
   ],
   image: 'https://www.dreampip.com/og-image.png',
-  variant: ESpotVariant.THREE_CENTER_141424_STACK,
+  variant: ESpotVariant.TWO_CENTER_ALWAYS,
   status: ESpotStatus.ACTIVE,
 };
 
@@ -534,13 +535,35 @@ export const HSpot = function ({ spots, className }: INavSpotGenerator) {
           if (variant === ESpotVariant.THREE_CENTER_141424_STACK) {
             if ((column + 1) % 3 === 0) {
               classes +=
-                ' justify-start col-start-0 col-span-full md:col-span-3';
+                ' justify-start col-start-1 col-span-full md:col-span-3';
             } else {
               classes += ` justify-center col-start-${column + 1 + 2 * column} col-span-3 md:col-span-1`;
             }
             classes += ` w-full flex  align-center justify-self-center self-center md:col-start-${column + 3}`;
           }
-          return classes;
+
+          if (variant === ESpotVariant.TWO_CENTER_STACK) {
+            if (column % 2 === 0) {
+              classes +=
+                ' justify-start col-start-1 col-span-full md:col-span-2 md:col-start-3';
+            } else {
+              classes +=
+                ' col-start-1 col-span-full md:col-span-2 md:col-start-5';
+            }
+            classes +=
+              ' w-full flex align-center justify-center justify-self-center self-center';
+          }
+
+          if (variant === ESpotVariant.TWO_CENTER_ALWAYS) {
+            if (column % 2 === 0) {
+              classes += ' justify-start col-start-1 md:col-start-3';
+            } else {
+              classes += ' col-start-4 md:col-start-5';
+            }
+            classes +=
+              ' w-full flex align-center justify-center justify-self-center self-center col-span-3 md:col-span-2';
+            return classes;
+          }
         };
 
         const columnBuffers = [];
@@ -581,7 +604,7 @@ export const HNav = function ({
   id = 'molecule__Nav',
   className = '',
   locale = 'en',
-  profile = DEFAULT_PROFILE,
+  profile,
   breadcrumb = 'whereami',
   menu = DEFAULT_MENU,
   controls = DEFAULT_CONTROLS,
