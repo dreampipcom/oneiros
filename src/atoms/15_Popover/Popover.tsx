@@ -54,7 +54,7 @@ export const HPopover = function ({
         items-center
         `]: true,
       [`
-        [&>.MuiPaper-elevation]:p-a3
+        [&>.MuiPaper-elevation]:p-a1
         [&>.MuiPaper-elevation]:md:p-a8
         [&>.MuiPaper-elevation]:bg-primary-light
         [&>.MuiPaper-elevation]:dark:bg-secondary-light

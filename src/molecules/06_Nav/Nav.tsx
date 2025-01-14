@@ -641,7 +641,7 @@ export const HNav = function ({
       [`class01
         sticky
         top-a0
-        z-50
+        z-999
         `]: true,
     },
   ];
