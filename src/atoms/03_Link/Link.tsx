@@ -19,6 +19,7 @@ export interface ILink {
   title?: string;
   download?: boolean;
   truncate?: boolean;
+  inverse?: boolean;
   onClick?: () => void;
   target?: string;
   host?: string;
@@ -50,6 +51,7 @@ export const HLink = function ({
   rel = 'noopener',
   title = undefined,
   download = false,
+  inverse = false,
   truncate = undefined,
   id = 'atom__link',
   onClick = () => {},
@@ -140,6 +142,10 @@ export const HLink = function ({
       [`
         !no-underline
         `]: !!faux,
+      [`
+        dark:text-body-light 
+        text-body-dark
+        `]: !!inverse,
     },
   ];
   const styles = `${clsx(sx)} ${className}`;

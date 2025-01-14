@@ -14,6 +14,7 @@ export interface IPopover {
   className?: string;
   anchor?: Element;
   theme?: 'light' | 'dark';
+  float?: boolean;
   children: ChildrenType;
   variant?: EPopoverVariant;
   onClose?: () => void;
@@ -27,10 +28,23 @@ export const HPopover = function ({
   open = true,
   onClose = () => {},
   theme = 'light',
+  float = false,
   anchor = undefined,
   variant = EPopoverVariant.DEFAULT,
   id = 'atom__review',
 }: IPopover) {
+  const wrapperSx = [
+    {
+      [`
+        class1
+        `]: true,
+      [`
+        absolute
+        `]: !!float,
+    },
+  ];
+  const wrapperStyles = `${clsx(wrapperSx)}`;
+
   const boxSx = [
     {
       [`
@@ -40,8 +54,13 @@ export const HPopover = function ({
         items-center
         `]: true,
       [`
-        [&>.MuiPaper-elevation]:bg-primary-dark2
-        [&>.MuiPaper-elevation]:dark:bg-primary-soft
+        [&>.MuiPaper-elevation]:p-a3
+        [&>.MuiPaper-elevation]:md:p-a8
+        [&>.MuiPaper-elevation]:bg-primary-light
+        [&>.MuiPaper-elevation]:dark:bg-secondary-light
+        [&>.MuiModal-backdrop]:bg-primary-passionSoft
+        [&>.MuiModal-backdrop]:dark:bg-primary-dark2
+        [&>.MuiModal-backdrop]:!opacity-40
         rounded-md
         `]: variant === EPopoverVariant.DEFAULT,
       [`
@@ -51,19 +70,17 @@ export const HPopover = function ({
     },
   ];
   const boxStyles = `${clsx(boxSx)} ${className} theme-${theme}`;
-
   return (
-    <div id={id}>
+    <div id={id} className={wrapperStyles}>
       <Popover
         onClose={onClose}
         open={open}
         className={boxStyles}
         anchorEl={anchor}
         anchorOrigin={{
-          vertical: 'bottom',
+          vertical: 'top',
           horizontal: 'left',
         }}
-        transformOrigin={{ vertical: 'top', horizontal: 'left' }}
       >
         {children}
       </Popover>
