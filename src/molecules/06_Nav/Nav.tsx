@@ -19,7 +19,7 @@ import {
   EGradientVariant,
 } from '../../atoms/10_Grid';
 import { Popover } from '../../atoms/15_Popover';
-import { DreamPipColors } from '../../../tailwind.config.ts';
+import { DreamPipColors } from '../../../dist/esm/tailwind.config.ts';
 
 export enum ENavControlVariant {
   BREADCRUMB,
@@ -215,101 +215,6 @@ interface IMessage {
   type?: ESpotMessageType;
 }
 
-export const DEFAULT_PROFILE = {
-  displayName: 'Lorinha',
-  handle: 'loretta',
-  email: 'Lorenzetti@Lorenzus.zu',
-  image:
-    'https://avatars.steamstatic.com/776da1334bdeef44dd70be72d6892847c1e7cd0b_full.jpg',
-};
-
-export const DEFAULT_CONTROLS = {
-  top: [
-    {
-      type: ENavControlVariant.BREADCRUMB,
-      label: NavLocale.default.home,
-    },
-  ],
-  center: [
-    {
-      type: ENavControlVariant.BUTTON,
-      icon: EIcon['music-note'],
-      href: '/episodes',
-    },
-    {
-      type: ENavControlVariant.BUTTON,
-      icon: EIcon.calendar,
-      href: '/agenda',
-    },
-    {
-      type: ENavControlVariant.BUTTON,
-      icon: EIcon.login,
-      href: '/join',
-    },
-  ],
-  bottom: [
-    {
-      type: ENavControlVariant.AUDIO_PLAYER,
-      mods: '$flip',
-      label: 'Rotations portal live',
-      src: 'https://www.dremapip.com/api/nexus/audio',
-    },
-  ],
-};
-
-export const MOBILE_MENU_CONTROLS = {
-  top: [
-    {
-      type: ENavControlVariant.BUTTON,
-      icon: EIcon.apps,
-      image: '$userProfile',
-      ariaLabel: 'menu',
-    },
-    {
-      type: ENavControlVariant.BUTTON,
-      icon: EIcon.login,
-      href: '/join',
-    },
-    {
-      type: ENavControlVariant.BUTTON,
-      icon: EIcon['music-note'],
-      href: '/episodes',
-    },
-  ],
-  center: [
-    {
-      type: ENavControlVariant.AUDIO_PLAYER,
-      label: 'Rotations portal live',
-      src: 'https://www.dremapip.com/api/nexus/audio',
-    },
-  ],
-  bottom: [],
-};
-
-export const MOBILE_PRESUB_CONTROLS = {
-  top: [],
-  center: [],
-  bottom: [
-    {
-      type: ENavControlVariant.BREADCRUMB,
-      label: NavLocale.default.home,
-    },
-  ],
-};
-
-export const DESKTOP_MENU_CONTROLS = {
-  top: [
-    {
-      type: ENavControlVariant.BUTTON,
-      icon: EIcon.apps,
-      image: '$userProfile',
-      ariaLabel: 'menu',
-    },
-  ],
-  center: [],
-  bottom: [],
-};
-
 const DEFAULT_L1_NAV_ITEMS = [
   {
     name: 'Home',
@@ -415,18 +320,6 @@ const AUTHENTICATED_L1_NAV_ITEMS = [
     l2: [],
   },
 ];
-
-export const DEFAULT_MENU = {
-  items: DEFAULT_L1_NAV_ITEMS,
-  controls: MOBILE_MENU_CONTROLS,
-  controlsDesktop: DESKTOP_MENU_CONTROLS,
-  presub: MOBILE_PRESUB_CONTROLS,
-};
-
-export const AUTHENTICATED_MENU = {
-  items: AUTHENTICATED_L1_NAV_ITEMS,
-  controls: MOBILE_MENU_CONTROLS,
-};
 
 export interface INavMenuItems {
   name?: string;
@@ -742,7 +635,7 @@ export const HControls = function ({
   const handleClick = (e, { control }) => {
     if (control?.onClick) control.onClick(e);
     setAnchorEl(anchor.current);
-    setOpen(true);
+    if (control?.mods?.includes('$popover')) setOpen(true);
   };
 
   if (!(Object.values(controls)?.length > 0)) return <CNoControlContent />;
@@ -845,6 +738,7 @@ export interface INav {
   hideMenu?: boolean;
   hideProfile?: boolean;
   hideBg?: boolean;
+  onThemeChange?: () => void;
   fetchNewData?: () => void;
   theme?: 'light' | 'dark';
 }
@@ -855,18 +749,133 @@ export const HNav = function ({
   locale = 'en',
   profile,
   breadcrumb = 'whereami',
-  menu = DEFAULT_MENU,
-  controls = DEFAULT_CONTROLS,
+  menu,
+  controls,
   spots = DEFAULT_PROMOS,
   hideSpots,
   hideControls,
   hideMenu,
   hideProfile,
-  hideBg = false,
+  hideBg = true,
   prefix,
+  onThemeChange = () => {},
   fetchNewData,
   theme = 'light',
 }: INav) {
+  const DEFAULT_CONTROLS = {
+    top: [
+      {
+        type: ENavControlVariant.BREADCRUMB,
+        label: NavLocale.default.home,
+      },
+    ],
+    center: [
+      {
+        type: ENavControlVariant.BUTTON,
+        icon: EIcon.login,
+        href: '/join',
+      },
+      {
+        type: ENavControlVariant.BUTTON,
+        icon: EIcon['music-note'],
+        href: '/episodes',
+      },
+      {
+        type: ENavControlVariant.BUTTON,
+        icon: EIcon.lightbulb,
+        onClick: onThemeChange,
+      },
+    ],
+    bottom: [
+      {
+        type: ENavControlVariant.AUDIO_PLAYER,
+        mods: '$flip',
+        label: 'Rotations portal live',
+        src: 'https://www.dremapip.com/api/nexus/audio',
+      },
+    ],
+  };
+
+  const DEFAULT_PROFILE = {
+    displayName: 'Lorinha',
+    handle: 'loretta',
+    email: 'Lorenzetti@Lorenzus.zu',
+    image:
+      'https://avatars.steamstatic.com/776da1334bdeef44dd70be72d6892847c1e7cd0b_full.jpg',
+  };
+
+  const MOBILE_MENU_CONTROLS = {
+    top: [
+      {
+        type: ENavControlVariant.BUTTON,
+        icon: EIcon.apps,
+        image: '$userProfile',
+        mods: '$popover',
+        ariaLabel: 'menu',
+      },
+      {
+        type: ENavControlVariant.BUTTON,
+        icon: EIcon.login,
+        href: '/join',
+      },
+      {
+        type: ENavControlVariant.BUTTON,
+        icon: EIcon['music-note'],
+        href: '/episodes',
+      },
+    ],
+    center: [
+      {
+        type: ENavControlVariant.AUDIO_PLAYER,
+        label: 'Rotations portal live',
+        src: 'https://www.dremapip.com/api/nexus/audio',
+      },
+    ],
+    bottom: [],
+  };
+
+  const MOBILE_PRESUB_CONTROLS = {
+    top: [],
+    center: [],
+    bottom: [
+      {
+        type: ENavControlVariant.BREADCRUMB,
+        label: NavLocale.default.home,
+      },
+    ],
+  };
+
+  const DESKTOP_MENU_CONTROLS = {
+    top: [
+      {
+        type: ENavControlVariant.BUTTON,
+        icon: EIcon.apps,
+        image: '$userProfile',
+        ariaLabel: 'menu',
+      },
+    ],
+    center: [],
+    bottom: [],
+  };
+
+  const DEFAULT_MENU = {
+    items: DEFAULT_L1_NAV_ITEMS,
+    controls: MOBILE_MENU_CONTROLS,
+    controlsDesktop: DESKTOP_MENU_CONTROLS,
+    presub: MOBILE_PRESUB_CONTROLS,
+  };
+
+  const AUTHENTICATED_MENU = {
+    items: AUTHENTICATED_L1_NAV_ITEMS,
+    controls: MOBILE_MENU_CONTROLS,
+  };
+
+  /* user not logged, so no DEFAULT */
+  const castProfile = profile;
+
+  const castMenu = menu || DEFAULT_MENU;
+  const castControls = controls || DEFAULT_CONTROLS;
+
   const [anchorEl, setAnchorEl] = useState(null);
   const anchor = useRef(null);
 
@@ -921,7 +930,7 @@ export const HNav = function ({
         <Grid
           full
           variant={EGridVariant.DEFAULT}
-          gradient={EGradientVariant.SOFT}
+          gradient={hideBg ? undefined : EGradientVariant.SOFT}
         >
           <div className={toolsStyles}>
             <Grid
@@ -936,17 +945,18 @@ export const HNav = function ({
                       <div>
                         <HControls
                           className="md:hidden grid md:justify-self-start self-end col-span-6 col-start-1 md:!col-span-3 md:!col-start-6"
-                          items={menu.items}
-                          controls={menu.controls}
+                          items={castMenu.items}
+                          controls={castMenu.controls}
                           profile={hideProfile ? undefined : profile}
                           onRefresh={fetchNewData}
                         />
                         <HControls
                           className="hidden md:grid md:justify-self-start self-end col-span-6 col-start-1 md:!col-span-3 md:!col-start-6"
-                          items={menu.items}
+                          items={castMenu.items}
                           profile={hideProfile ? undefined : profile}
-                          controls={menu.controlsDesktop}
+                          controls={castMenu.controlsDesktop}
                           onRefresh={fetchNewData}
+                          onThemeChange={onThemeChange}
                         />
                       </div>
                     ) : undefined}
@@ -967,15 +977,16 @@ export const HNav = function ({
                   <div>
                     <HControls
                       className="hidden md:grid"
-                      controls={controls}
+                      controls={castControls}
                       profile={hideProfile ? undefined : profile}
                       onRefresh={fetchNewData}
                     />
                     <HControls
                       className="md:hidden grid"
-                      controls={menu.presub}
+                      controls={castMenu.presub}
                       profile={hideProfile ? undefined : profile}
                       onRefresh={fetchNewData}
+                      onThemeChange={onThemeChange}
                     />
                   </div>
                 ) : undefined}
