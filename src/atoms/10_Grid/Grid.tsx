@@ -172,14 +172,7 @@ export const HGrid = function ({
 
   const mappedChildren = Children.map(children, (child: any) => {
     if (!child) return undefined;
-    return (
-      <Box
-        component="article"
-        className={`${child?.props?.className || `grid ${variant === EGridVariant.DEFAULT ? 'grid-cols-8' : ''}`}`}
-      >
-        {child}
-      </Box>
-    );
+    return child;
   });
 
   return (

@@ -259,6 +259,11 @@ export const MOBILE_MENU_CONTROLS = {
       icon: EIcon.login,
       href: '/join',
     },
+    {
+      type: ENavControlVariant.BUTTON,
+      icon: EIcon['music-note'],
+      href: '/episodes',
+    },
   ],
   center: [
     {
@@ -633,7 +638,7 @@ export const HControls = function ({
   return (
     <Grid
       variant={EGridVariant.THREE_COLUMNS}
-      className={`${className} w-full auto-rows-fr auto-cols-fr`}
+      className={`${className} grid gap-b1 md:gap-b1 w-full auto-rows-fr auto-cols-fr`}
     >
       {controls?.top.map((control) =>
         generateControl({ control, open, anchor, anchorEl }),
@@ -866,7 +871,7 @@ export const HNav = function ({
               gradient={EGradientVariant.SOFT}
               className="grid px-a2"
             >
-              <div className="justify-self-start self-center col-span-3 col-start-1 md:!col-span-2 md:!col-start-1">
+              <div className="justify-self-start self-center col-span-4 col-start-1 md:!col-span-2 md:!col-start-1">
                 {!hideMenu ? (
                   <div className="flex" ref={anchor}>
                     {!hideControls ? (
@@ -894,7 +899,7 @@ export const HNav = function ({
                   </Typography>
                 ) : undefined}
               </div>
-              <div className="animate-pulse justify-self-end md:justify-self-center self-start md:self-center col-span-3 col-start-4 md:!col-span-2 md:!col-start-4">
+              <div className="animate-pulse justify-self-end md:justify-self-center self-start md:self-center col-span-3 col-start-5 md:!col-span-2 md:!col-start-4">
                 <Logo size={ELogoSize.RESPONSIVE} theme={theme} />
               </div>
               {!hideControls ? (
