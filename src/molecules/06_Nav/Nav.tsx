@@ -186,7 +186,7 @@ export const DEFAULT_PROMO = {
     // },
   ],
   image: {
-    mobile: 'https://www.dreampip.com/og-image.png',
+    mobile: '',
     desktop: 'https://i.giphy.com/26DNfl7IrX8b40klW.webp',
   },
   variant: ESpotVariant.TWO_CENTER_ALWAYS,
