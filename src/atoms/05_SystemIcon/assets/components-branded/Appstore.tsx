@@ -23,7 +23,6 @@ const Appstore: TComponent = function ({
       <svg
         id="livetype"
         xmlns="http://www.w3.org/2000/svg"
-        className="h-a7 p-a1"
         width="119.66407"
         height="40"
         viewBox="0 0 119.66407 40"

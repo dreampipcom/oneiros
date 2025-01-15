@@ -22,14 +22,14 @@ const Googleplay: TComponent = function ({
       {' '}
       <svg
         xmlns="http://www.w3.org/2000/svg"
-        className="h-a7"
+        height="40"
         version="1.1"
-        viewBox="0 0 155 60"
+        viewBox="10 10 135 40"
       >
         <g>
           <g id="artwork">
             <g>
-              <rect className="cls-5" width="155" height="60" />
+              <rect className="cls-5" width="135" height="40" />
               <rect x="10" y="10" width="135" height="40" rx="5" ry="5" />
               <path
                 className="cls-2"
