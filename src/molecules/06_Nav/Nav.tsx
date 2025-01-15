@@ -589,18 +589,18 @@ export const CCTA = function ({ type, href, label, className }: IControl) {
 
 export const CButton = function ({
   type,
+  className,
   onClick,
   icon,
   href,
   label,
   image,
   ariaLabel,
-  className,
 }: IControl) {
   return (
     <Button
       controlType={type}
-      className="w-full justify-self-start self-center col-span-full col-start-1"
+      className={className}
       onClick={onClick}
       ariaLabel={ariaLabel}
       image={image}
@@ -662,6 +662,10 @@ export const HControls = function ({
     if (control?.type === ENavControlVariant.BUTTON) {
       const image =
         control?.image === '$userProfile' ? profile?.image : control?.image;
+      const skip = control?.mods?.includes('$skip');
+
+      const buttonClasses = `w-full justify-self-start self-center col-span-full ${!skip ? 'col-start-1' : ''} `;
+      if (skip) return;
       return (
         <div ref={anchor}>
           <CButton
@@ -708,14 +712,16 @@ export const HControls = function ({
     <Grid
       bleed={EBleedVariant.ZERO}
       variant={EGridVariant.THREE_COLUMNS}
-      className={`${className} grid gap-b1 md:gap-b1 w-full auto-rows-fr auto-cols-fr`}
+      className={`${className} md:rtl-grid gap-b1 md:gap-b1 w-full auto-rows-fr auto-cols-fr`}
     >
       {controls?.top.map((control) =>
         generateControl({ control, profile, open, anchor, anchorEl }),
       )}
-      {controls?.center.map((control) =>
-        generateControl({ control, profile, open, anchor, anchorEl }),
-      )}
+      {controls?.center
+        .map((control) =>
+          generateControl({ control, profile, open, anchor, anchorEl }),
+        )
+        .filter((e) => e)}
       {controls?.bottom.map((control) =>
         generateControl({ control, profile, open, anchor, anchorEl }),
       )}
@@ -738,6 +744,7 @@ export interface INav {
   hideMenu?: boolean;
   hideProfile?: boolean;
   hideBg?: boolean;
+  hideTheme?: boolean;
   onThemeChange?: () => void;
   fetchNewData?: () => void;
   theme?: 'light' | 'dark';
@@ -756,6 +763,7 @@ export const HNav = function ({
   hideControls,
   hideMenu,
   hideProfile,
+  hideTheme = false,
   hideBg = false,
   prefix,
   onThemeChange = () => {},
@@ -772,8 +780,9 @@ export const HNav = function ({
     center: [
       {
         type: ENavControlVariant.BUTTON,
-        icon: EIcon.login,
-        href: '/join',
+        icon: EIcon.lightbulb,
+        mods: hideTheme ? '$skip' : '',
+        onClick: onThemeChange,
       },
       {
         type: ENavControlVariant.BUTTON,
@@ -782,14 +791,14 @@ export const HNav = function ({
       },
       {
         type: ENavControlVariant.BUTTON,
-        icon: EIcon.lightbulb,
-        onClick: onThemeChange,
+        icon: EIcon.login,
+        href: '/join',
       },
     ],
     bottom: [
       {
         type: ENavControlVariant.AUDIO_PLAYER,
-        mods: '$flip',
+        mods: '',
         label: 'Rotations portal live',
         src: 'https://www.dremapip.com/api/nexus/audio',
       },
@@ -829,6 +838,7 @@ export const HNav = function ({
         type: ENavControlVariant.AUDIO_PLAYER,
         label: 'Rotations portal live',
         src: 'https://www.dremapip.com/api/nexus/audio',
+        mods: '$flip',
       },
     ],
     bottom: [],

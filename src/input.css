@@ -50,4 +50,8 @@
   .fill-a6 {
     fill: #a6a6a6;
   }
+
+  .rtl-grid {
+    direction: rtl;
+  }
 }
