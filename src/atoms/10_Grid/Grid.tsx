@@ -9,6 +9,8 @@ import Box from '@mui/material/Box';
 export enum EGridVariant {
   DEFAULT = '8',
   ONE_COLUMN = '1',
+  TWO_COLUMNS = '2',
+  THREE_COLUMNS = '3',
   TWELVE_COLUMNS = '12',
   SIX_COLUMNS = '6',
 }
@@ -128,6 +130,15 @@ export const HGrid = function ({
           grid-cols-1
           md:grid-cols-1
           `]: coercedVariant === EGridVariant.ONE_COLUMN,
+      [`
+          grid-cols-2
+          md:grid-cols-2
+          `]: coercedVariant === EGridVariant.TWO_COLUMNS,
+      [`
+          grid-cols-3
+          md:grid-cols-3
+          gap-a4
+          `]: coercedVariant === EGridVariant.THREE_COLUMNS,
       [`
           grid-cols-12
           md:grid-cols-12

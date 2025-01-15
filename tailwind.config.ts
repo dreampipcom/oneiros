@@ -332,6 +332,22 @@ export default {
       tv: '4 / 3',
       cinema: '16 / 9',
     },
+    extend: {
+      keyframes: {
+        ltr: {
+          '0%': { transform: 'translateX(-50%)' },
+          '100%': { transform: 'translateX(0)' },
+        },
+        rtl: {
+          '0%': { transform: 'translateX(0)' },
+          '100%': { transform: 'translateX(-50%)' },
+        },
+      },
+      animation: {
+        lprompter: 'ltr linear 12.5s infinite',
+        rprompter: 'rtl linear 12.5s infinite',
+      },
+    },
   },
   plugins: [],
   corePlugins: {

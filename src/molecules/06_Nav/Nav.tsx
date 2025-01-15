@@ -631,7 +631,10 @@ export const HControls = function ({
   };
 
   return (
-    <Grid full className={`${className} w-full auto-rows-fr auto-cols-fr`}>
+    <Grid
+      variant={EGridVariant.THREE_COLUMNS}
+      className={`${className} w-full auto-rows-fr auto-cols-fr`}
+    >
       {controls?.top.map((control) =>
         generateControl({ control, open, anchor, anchorEl }),
       )}
@@ -891,7 +894,7 @@ export const HNav = function ({
                   </Typography>
                 ) : undefined}
               </div>
-              <div className="justify-self-end md:justify-self-center self-start md:self-center col-span-3 col-start-4 md:!col-span-2 md:!col-start-4">
+              <div className="animate-pulse justify-self-end md:justify-self-center self-start md:self-center col-span-3 col-start-4 md:!col-span-2 md:!col-start-4">
                 <Logo size={ELogoSize.RESPONSIVE} theme={theme} />
               </div>
               {!hideControls ? (

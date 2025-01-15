@@ -162,7 +162,10 @@ export const HAudioPlayer = function ({
           ))}
         </audio>
       </div>
-      <Typography className="basis-full ml-a2 col-span-4 col-start-1" truncate>
+      <Typography
+        className="animate-lprompter basis-full ml-a2 col-span-4 col-start-1"
+        truncate
+      >
         {title}
       </Typography>
     </div>
