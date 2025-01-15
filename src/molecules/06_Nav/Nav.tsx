@@ -232,16 +232,27 @@ export const DEFAULT_CONTROLS = {
   ],
   center: [
     {
-      type: ENavControlVariant.AUDIO_PLAYER,
-      label: 'Rotations portal live',
-      src: 'https://www.dremapip.com/api/nexus/audio',
+      type: ENavControlVariant.BUTTON,
+      icon: EIcon['music-note'],
+      href: '/episodes',
+    },
+    {
+      type: ENavControlVariant.BUTTON,
+      icon: EIcon.calendar,
+      href: '/agenda',
+    },
+    {
+      type: ENavControlVariant.BUTTON,
+      icon: EIcon.login,
+      href: '/join',
     },
   ],
   bottom: [
     {
-      type: ENavControlVariant.CTA,
-      label: NavLocale.default.view,
-      href: '/join',
+      type: ENavControlVariant.AUDIO_PLAYER,
+      mods: '$flip',
+      label: 'Rotations portal live',
+      src: 'https://www.dremapip.com/api/nexus/audio',
     },
   ],
 };
@@ -291,7 +302,7 @@ export const DESKTOP_MENU_CONTROLS = {
     {
       type: ENavControlVariant.BUTTON,
       icon: EIcon.apps,
-      image: '',
+      image: '$userProfile',
       ariaLabel: 'menu',
     },
   ],
@@ -436,6 +447,7 @@ export interface IControl {
   image?: string;
   className?: string;
   ariaLabel?: string;
+  mods?: string;
   onRefresh?: () => void;
   onClick?: () => void;
 }
@@ -502,180 +514,6 @@ export interface INav {
   fetchNewData?: () => void;
   theme?: 'light' | 'dark';
 }
-
-export const CBreadcrumb = function ({ type, label, className }: IControl) {
-  return (
-    <Typography
-      controlType={type}
-      className="justify-self-start self-center col-span-1 col-start-0 md:col-span-2 col-start-0"
-    >
-      {label}
-    </Typography>
-  );
-};
-
-export const CAudioPlayer = function ({
-  type,
-  src,
-  label,
-  className,
-}: IControl) {
-  return (
-    <AudioPlayer
-      controlType={type}
-      src={src}
-      className="w-full"
-      label={label}
-    />
-  );
-};
-
-export const CCTA = function ({ type, href, label, className }: IControl) {
-  return (
-    <Button
-      controlType={type}
-      className="w-full justify-self-start self-center col-span-full col-start-1"
-      href={href}
-    >
-      {label}
-    </Button>
-  );
-};
-
-export const CButton = function ({
-  type,
-  onClick,
-  icon,
-  href,
-  label,
-  image,
-  ariaLabel,
-  className,
-}: IControl) {
-  return (
-    <Button
-      controlType={type}
-      className="w-full justify-self-start self-center col-span-full col-start-1"
-      onClick={onClick}
-      ariaLabel={ariaLabel}
-      image={image}
-      icon={icon}
-      href={href}
-    >
-      {label}
-    </Button>
-  );
-};
-
-const CNoControlContent = function ({ className, onRefresh }: IControl) {
-  return (
-    <Grid full className={className}>
-      <Typography>No controls loaded.</Typography>
-      <Button onClick={onRefresh} icon={EIcon['rotate-clockwise']} />
-    </Grid>
-  );
-};
-
-export const HControls = function ({
-  controls,
-  profile,
-  items,
-  onRefresh,
-  className,
-}: INavControlsGenerator) {
-  const anchor = useRef(null);
-  const [anchorEl, setAnchorEl] = useState(null);
-  const [open, setOpen] = useState(false);
-
-  const handleClick = (e, { control }) => {
-    console.log('CLICOU ESS', { anchor, open, control });
-    if (control?.onClick) control.onClick(e);
-    setAnchorEl(anchor.current);
-    setOpen(true);
-  };
-
-  useEffect(() => {
-    console.log('has', { open });
-  }, [open]);
-
-  if (!(Object.values(controls)?.length > 0)) return <CNoControlContent />;
-
-  const generateControl = ({ control, open, anchor, anchorEl, profile }) => {
-    console.log({ profile });
-    if (control?.type === ENavControlVariant.BREADCRUMB) {
-      return <CBreadcrumb label={control?.label} />;
-    }
-
-    if (control?.type === ENavControlVariant.AUDIO_PLAYER) {
-      return <CAudioPlayer label={control?.label} src={control?.src} />;
-    }
-
-    if (control?.type === ENavControlVariant.CTA) {
-      return <CCTA label={control?.label} href={control?.href} />;
-    }
-
-    if (control?.type === ENavControlVariant.BUTTON) {
-      const image =
-        control?.image === '$userProfile' ? profile?.image : control?.image;
-      return (
-        <div ref={anchor}>
-          <CButton
-            onClick={(e) => {
-              handleClick(e, { control });
-            }}
-            image={image}
-            icon={control?.icon}
-            label={control?.label}
-            href={control?.href}
-          />
-          {open ? (
-            <Popover float anchor={anchorEl} onClose={() => setOpen(false)}>
-              <Typography inherit className="flex md:hidden m-a2">
-                @{profile?.displayName || profile?.handle || 'dear'}
-                :@dpip.cc
-              </Typography>
-              {items?.map((item) => {
-                if (item?.type === ENavItemVariant.BUTTON) {
-                  return (
-                    <Button
-                      buttonTheme="secondary"
-                      className="m-a1"
-                      href={item?.href}
-                      icon={item?.icon}
-                    />
-                  );
-                }
-                return (
-                  <Link className="m-a1" inverse href={item?.href}>
-                    {item?.title}
-                  </Link>
-                );
-              })}
-            </Popover>
-          ) : undefined}
-        </div>
-      );
-    }
-    return <CNoControlContent onRefresh={onRefresh} />;
-  };
-
-  return (
-    <Grid
-      variant={EGridVariant.THREE_COLUMNS}
-      className={`${className} grid gap-b1 md:gap-b1 w-full auto-rows-fr auto-cols-fr`}
-    >
-      {controls?.top.map((control) =>
-        generateControl({ control, profile, open, anchor, anchorEl }),
-      )}
-      {controls?.center.map((control) =>
-        generateControl({ control, profile, open, anchor, anchorEl }),
-      )}
-      {controls?.bottom.map((control) =>
-        generateControl({ control, profile, open, anchor, anchorEl }),
-      )}
-    </Grid>
-  );
-};
 
 const PNoSpotContent = function ({ className, onRefresh }: IControl) {
   return (
@@ -830,6 +668,191 @@ export const HSpot = function ({ spots, className }: INavSpotGenerator) {
   );
 };
 
+export const CBreadcrumb = function ({ type, label, className }: IControl) {
+  return (
+    <Typography
+      truncate
+      controlType={type}
+      className="justify-self-start self-center md:min-w-full md:!text-right col-span-full col-start-0 md:col-span-full col-start-0"
+    >
+      {label}
+    </Typography>
+  );
+};
+
+export const CAudioPlayer = function ({
+  type,
+  mods,
+  src,
+  label,
+  className,
+}: IControl) {
+  const flip = mods?.includes('$flip');
+
+  return (
+    <AudioPlayer
+      controlType={type}
+      src={src}
+      flip={flip}
+      className="w-full"
+      label={label}
+    />
+  );
+};
+
+export const CCTA = function ({ type, href, label, className }: IControl) {
+  return (
+    <Button
+      controlType={type}
+      className="w-full justify-self-start self-center col-span-full col-start-1"
+      href={href}
+    >
+      {label}
+    </Button>
+  );
+};
+
+export const CButton = function ({
+  type,
+  onClick,
+  icon,
+  href,
+  label,
+  image,
+  ariaLabel,
+  className,
+}: IControl) {
+  return (
+    <Button
+      controlType={type}
+      className="w-full justify-self-start self-center col-span-full col-start-1"
+      onClick={onClick}
+      ariaLabel={ariaLabel}
+      image={image}
+      icon={icon}
+      href={href}
+    >
+      {label}
+    </Button>
+  );
+};
+
+const CNoControlContent = function ({ className, onRefresh }: IControl) {
+  return (
+    <Grid full className={className}>
+      <Typography>No controls loaded.</Typography>
+      <Button onClick={onRefresh} icon={EIcon['rotate-clockwise']} />
+    </Grid>
+  );
+};
+
+export const HControls = function ({
+  controls,
+  profile,
+  items,
+  onRefresh,
+  className,
+}: INavControlsGenerator) {
+  const anchor = useRef(null);
+  const [anchorEl, setAnchorEl] = useState(null);
+  const [open, setOpen] = useState(false);
+
+  const handleClick = (e, { control }) => {
+    console.log('CLICOU ESS', { anchor, open, control });
+    if (control?.onClick) control.onClick(e);
+    setAnchorEl(anchor.current);
+    setOpen(true);
+  };
+
+  useEffect(() => {
+    console.log('has', { open });
+  }, [open]);
+
+  if (!(Object.values(controls)?.length > 0)) return <CNoControlContent />;
+
+  const generateControl = ({ control, open, anchor, anchorEl, profile }) => {
+    console.log({ profile, control });
+    if (control?.type === ENavControlVariant.BREADCRUMB) {
+      return <CBreadcrumb label={control?.label} />;
+    }
+
+    if (control?.type === ENavControlVariant.AUDIO_PLAYER) {
+      return (
+        <CAudioPlayer
+          label={control?.label}
+          src={control?.src}
+          mods={control?.mods}
+        />
+      );
+    }
+
+    if (control?.type === ENavControlVariant.CTA) {
+      return <CCTA label={control?.label} href={control?.href} />;
+    }
+
+    if (control?.type === ENavControlVariant.BUTTON) {
+      const image =
+        control?.image === '$userProfile' ? profile?.image : control?.image;
+      return (
+        <div ref={anchor}>
+          <CButton
+            onClick={(e) => {
+              handleClick(e, { control });
+            }}
+            image={image}
+            icon={control?.icon}
+            label={control?.label}
+            href={control?.href}
+          />
+          {open ? (
+            <Popover float anchor={anchorEl} onClose={() => setOpen(false)}>
+              <Typography inherit className="flex md:hidden m-a2">
+                @{profile?.displayName || profile?.handle || 'dear'}
+                :@dpip.cc
+              </Typography>
+              {items?.map((item) => {
+                if (item?.type === ENavItemVariant.BUTTON) {
+                  return (
+                    <Button
+                      buttonTheme="secondary"
+                      className="m-a1"
+                      href={item?.href}
+                      icon={item?.icon}
+                    />
+                  );
+                }
+                return (
+                  <Link className="m-a1" inverse href={item?.href}>
+                    {item?.title}
+                  </Link>
+                );
+              })}
+            </Popover>
+          ) : undefined}
+        </div>
+      );
+    }
+    return <CNoControlContent onRefresh={onRefresh} />;
+  };
+
+  return (
+    <Grid
+      variant={EGridVariant.THREE_COLUMNS}
+      className={`${className} grid gap-b1 md:gap-b1 w-full auto-rows-fr auto-cols-fr`}
+    >
+      {controls?.top.map((control) =>
+        generateControl({ control, profile, open, anchor, anchorEl }),
+      )}
+      {controls?.center.map((control) =>
+        generateControl({ control, profile, open, anchor, anchorEl }),
+      )}
+      {controls?.bottom.map((control) =>
+        generateControl({ control, profile, open, anchor, anchorEl }),
+      )}
+    </Grid>
+  );
+};
+
 export const HNav = function ({
   id = 'molecule__Nav',
   className = '',
@@ -932,7 +955,7 @@ export const HNav = function ({
               <div className="animate-pulse justify-self-end md:justify-self-center self-start md:self-center col-span-3 col-start-5 md:!col-span-2 md:!col-start-4">
                 <Logo size={ELogoSize.RESPONSIVE} theme={theme} />
               </div>
-              <div className="row-start-2 col-span-6 col-start-1 md:!col-span-3 md:!col-start-6  md:justify-self-start self-end">
+              <div className="col-span-6 col-start-1 md:col-span-2 md:col-start-7  md:justify-self-end self-end">
                 {!hideControls ? (
                   <div>
                     <HControls
