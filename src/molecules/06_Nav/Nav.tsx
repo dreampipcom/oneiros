@@ -798,7 +798,7 @@ export const HNav = function ({
     bottom: [
       {
         type: ENavControlVariant.AUDIO_PLAYER,
-        mods: '',
+        mods: '$flip',
         label: 'Rotations portal live',
         src: 'https://www.dremapip.com/api/nexus/audio',
       },

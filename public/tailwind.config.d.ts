@@ -359,20 +359,23 @@ declare const _default: {
         rtl: {
           '0%': {
             transform: string;
+            opacity: string;
           };
           '49%': {
             transform: string;
+            opacity: string;
           };
-          '50%': {
+          '98%': {
             transform: string;
             opacity: string;
           };
-          '51%': {
+          '99%': {
             transform: string;
             opacity: string;
           };
           '100%': {
             transform: string;
+            opacity: string;
           };
         };
         fadeOut: {

@@ -115,10 +115,10 @@ export const HAudioPlayer = function ({
     {
       [`class03
         overflow-hidden relative w-full h-full
-        order-[-1]
+        order-3
         `]: true,
       [`        
-        order-4
+        !order-1
       `]: !!flip,
     },
   ];
