@@ -16,6 +16,7 @@ const inc06a = base * 6; // 48
 const inc07a = base * 7; // 56
 const inc08a = base * 8; // 64
 const inc09a = base * 9; // 72
+const inc10a = base * 10; // 80
 
 const inc00b = base * 0.25; // 4
 const inc01b = base * 1.5; // 12
@@ -295,6 +296,7 @@ export default {
       a7: `${inc07a}px`,
       a8: `${inc08a}px`,
       a9: `${inc09a}px`,
+      a10: `${inc10a}px`,
       b0: `${inc00b}px`,
       b1: `${inc01b}px`,
       b2: `${inc02b}px`,
@@ -315,6 +317,7 @@ export default {
       a7: `${inc07a}px`,
       a8: `${inc08a}px`,
       a9: `${inc09a}px`,
+      a10: `${inc10a}px`,
       b0: `${inc00b}px`,
       b1: `${inc01b}px`,
       b2: `${inc02b}px`,
@@ -328,6 +331,36 @@ export default {
       blog: '3 / 2',
       tv: '4 / 3',
       cinema: '16 / 9',
+    },
+    extend: {
+      keyframes: {
+        ltr: {
+          '0%': { transform: 'translateX(-100%)', opacity: '0%' },
+          '49%': { transform: 'translateX(-50%)', opacity: '100%' },
+          '98%': { transform: 'translateX(0%)', opacity: '0%' },
+          '99%': { transform: 'translateX(-50%)', opacity: '0%' },
+          '100%': { transform: 'translateX(-100%)', opacity: '0%' },
+        },
+        rtl: {
+          '0%': { transform: 'translateX(0)' },
+          '49%': { transform: 'translateX(-100%)' },
+          '50%': { transform: 'translateX(100%)', opacity: '0%' },
+          '51%': { transform: 'translateX(100%)', opacity: '100%' },
+          '100%': { transform: 'translateX(0%)' },
+        },
+        fadeOut: {
+          '100%': { opacity: '100%' },
+          '0%': { opacity: '0%' },
+        },
+        fadeIn: {
+          '0%': { opacity: '0%' },
+          '100%': { opacity: '100%' },
+        },
+      },
+      animation: {
+        lprompter: 'ltr linear 12s infinite',
+        rprompter: 'rtl linear 12s infinite',
+      },
     },
   },
   plugins: [],
