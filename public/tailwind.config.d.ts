@@ -296,6 +296,7 @@ declare const _default: {
       a7: string;
       a8: string;
       a9: string;
+      a10: string;
       b0: string;
       b1: string;
       b2: string;
@@ -316,6 +317,7 @@ declare const _default: {
       a7: string;
       a8: string;
       a9: string;
+      a10: string;
       b0: string;
       b1: string;
       b2: string;
@@ -329,6 +331,71 @@ declare const _default: {
       blog: string;
       tv: string;
       cinema: string;
+    };
+    extend: {
+      keyframes: {
+        ltr: {
+          '0%': {
+            transform: string;
+            opacity: string;
+          };
+          '49%': {
+            transform: string;
+            opacity: string;
+          };
+          '98%': {
+            transform: string;
+            opacity: string;
+          };
+          '99%': {
+            transform: string;
+            opacity: string;
+          };
+          '100%': {
+            transform: string;
+            opacity: string;
+          };
+        };
+        rtl: {
+          '0%': {
+            transform: string;
+          };
+          '49%': {
+            transform: string;
+          };
+          '50%': {
+            transform: string;
+            opacity: string;
+          };
+          '51%': {
+            transform: string;
+            opacity: string;
+          };
+          '100%': {
+            transform: string;
+          };
+        };
+        fadeOut: {
+          '100%': {
+            opacity: string;
+          };
+          '0%': {
+            opacity: string;
+          };
+        };
+        fadeIn: {
+          '0%': {
+            opacity: string;
+          };
+          '100%': {
+            opacity: string;
+          };
+        };
+      };
+      animation: {
+        lprompter: string;
+        rprompter: string;
+      };
     };
   };
   plugins: any[];
