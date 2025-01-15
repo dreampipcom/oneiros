@@ -26,6 +26,7 @@ export enum EBleedVariant {
 export enum EGradientVariant {
   NONE = 'none',
   SOFT = 'soft',
+  BLUNT = 'blunt',
   WHITE = 'white',
 }
 
@@ -77,8 +78,17 @@ export const HGrid = function ({
         bg-transparent
         `]: !!gradient,
       [`
-          bg-gradient-to-r from-gradient-soft-light-from to-gradient-soft-light-to dark:from-gradient-soft-dark-from dark:from-gradient-soft-dark-to
-        `]: gradient === EGradientVariant.SOFT,
+          class02
+          bg-gradient-to-r 
+          from-gradient-soft-light-from 
+          to-gradient-soft-light-to 
+          dark:from-gradient-soft-dark-from
+          dark:to-gradient-soft-dark-to
+          `]: gradient === EGradientVariant.SOFT,
+      [`
+          class03
+
+        `]: gradient === EGradientVariant.BLUNT,
       [`
           bg-gradient-to-r from-card-white to-card-soft dark:from-card-dark dark:from-card-foggy
         `]: gradient === EGradientVariant.WHITE,

@@ -93,6 +93,12 @@ const dark2 = purpleHaze;
 const light1 = royalWhite;
 const light2 = slyPink;
 
+const darkTrans1 = dark2 + 'aa';
+const darkTrans2 = dark1 + 'cc';
+
+const lightTrans1 = light1 + 'cc';
+const lightTrans2 = light2 + 'cc';
+
 const passion = pinkDive;
 const passionLight = pinkSurf;
 const passionSoft = pinkSand;
@@ -186,12 +192,12 @@ export const DreamPipColors = {
   gradient: {
     soft: {
       light: {
-        from: bgLight,
-        to: light1,
+        from: lightTrans1,
+        to: lightTrans2,
       },
       dark: {
-        from: dark1,
-        to: dark2,
+        from: darkTrans1,
+        to: darkTrans2,
       },
     },
   },
@@ -342,11 +348,11 @@ export default {
           '100%': { transform: 'translateX(-100%)', opacity: '0%' },
         },
         rtl: {
-          '0%': { transform: 'translateX(0)' },
-          '49%': { transform: 'translateX(-100%)' },
-          '50%': { transform: 'translateX(100%)', opacity: '0%' },
-          '51%': { transform: 'translateX(100%)', opacity: '100%' },
-          '100%': { transform: 'translateX(0%)' },
+          '0%': { transform: 'translateX(0%)', opacity: '0%' },
+          '49%': { transform: 'translateX(-50%)', opacity: '100%' },
+          '98%': { transform: 'translateX(-100%)', opacity: '0%' },
+          '99%': { transform: 'translateX(-50%)', opacity: '0%' },
+          '100%': { transform: 'translateX(0%)', opacity: '0%' },
         },
         fadeOut: {
           '100%': { opacity: '100%' },

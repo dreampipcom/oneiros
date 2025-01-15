@@ -98,10 +98,14 @@ export const HAudioPlayer = function ({
         col-start-1
         `]: true,
       [`        
-        animate-lprompter
+        animate-rprompter
         min-w-[800px]
-        text-right
+        text-left
       `]: !hideAnimation,
+      [`        
+        text-right
+        animate-lprompter
+      `]: !!flip,
     },
   ];
 
@@ -114,7 +118,7 @@ export const HAudioPlayer = function ({
         order-3
         `]: true,
       [`        
-        order-[-1]
+        !order-1
       `]: !!flip,
     },
   ];

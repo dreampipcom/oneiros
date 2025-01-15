@@ -798,7 +798,7 @@ export const HNav = function ({
     bottom: [
       {
         type: ENavControlVariant.AUDIO_PLAYER,
-        mods: '',
+        mods: '$flip',
         label: 'Rotations portal live',
         src: 'https://www.dremapip.com/api/nexus/audio',
       },
@@ -894,8 +894,8 @@ export const HNav = function ({
     {
       [`class01
         sticky
-        top-a0
-        z-999
+        top-0
+        z-[999]
         `]: true,
     },
   ];
@@ -930,15 +930,17 @@ export const HNav = function ({
   const toolsStyles = `${clsx(toolsSx)}`;
 
   return (
-    <div id={id}>
+    <>
+      {!hideSpots ? (
+        <HSpot
+          id={`${id}__spot`}
+          spots={spots}
+          className="grid min-h-a9 !bg-primary-dark dark:!bg-primary-soft"
+        />
+      ) : undefined}
       <nav className={navStyles}>
-        {!hideSpots ? (
-          <HSpot
-            spots={spots}
-            className="grid min-h-a9 !bg-primary-dark dark:!bg-primary-soft"
-          />
-        ) : undefined}
         <Grid
+          id={id}
           full
           variant={EGridVariant.DEFAULT}
           gradient={hideBg ? undefined : EGradientVariant.SOFT}
@@ -1005,22 +1007,8 @@ export const HNav = function ({
             </Grid>
           </div>
         </Grid>
-        {/* {interacted ? (
-          <Drawer
-            listItems={menuItems}
-            classes={{
-              drawer: classes.drawer,
-              listwrapper: classes.listwrapper,
-              link: classes.link,
-            }}
-            open={isMenuOpen}
-            onClose={() => setIsMenuOpen(false)}
-            onOpen={() => setIsMenuOpen(true)}
-          />
-        ) : undefined}
-        */}
       </nav>
-    </div>
+    </>
   );
 };
 

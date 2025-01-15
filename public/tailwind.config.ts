@@ -16,6 +16,7 @@ const inc06a = base * 6; // 48
 const inc07a = base * 7; // 56
 const inc08a = base * 8; // 64
 const inc09a = base * 9; // 72
+const inc10a = base * 10; // 80
 
 const inc00b = base * 0.25; // 4
 const inc01b = base * 1.5; // 12
@@ -91,6 +92,12 @@ const dark1 = navyWise;
 const dark2 = purpleHaze;
 const light1 = royalWhite;
 const light2 = slyPink;
+
+const darkTrans1 = dark1 + 'cc';
+const darkTrans2 = dark2 + 'aa';
+
+const lightTrans1 = light1 + 'cc';
+const lightTrans2 = light2 + 'aa';
 
 const passion = pinkDive;
 const passionLight = pinkSurf;
@@ -185,12 +192,12 @@ export const DreamPipColors = {
   gradient: {
     soft: {
       light: {
-        from: bgLight,
-        to: light1,
+        from: lightTrans1,
+        to: lightTrans2,
       },
       dark: {
-        from: dark1,
-        to: dark2,
+        from: darkTrans1,
+        to: darkTrans2,
       },
     },
   },
@@ -295,6 +302,7 @@ export default {
       a7: `${inc07a}px`,
       a8: `${inc08a}px`,
       a9: `${inc09a}px`,
+      a10: `${inc10a}px`,
       b0: `${inc00b}px`,
       b1: `${inc01b}px`,
       b2: `${inc02b}px`,
@@ -315,6 +323,7 @@ export default {
       a7: `${inc07a}px`,
       a8: `${inc08a}px`,
       a9: `${inc09a}px`,
+      a10: `${inc10a}px`,
       b0: `${inc00b}px`,
       b1: `${inc01b}px`,
       b2: `${inc02b}px`,
@@ -328,6 +337,36 @@ export default {
       blog: '3 / 2',
       tv: '4 / 3',
       cinema: '16 / 9',
+    },
+    extend: {
+      keyframes: {
+        ltr: {
+          '0%': { transform: 'translateX(-100%)', opacity: '0%' },
+          '49%': { transform: 'translateX(-50%)', opacity: '100%' },
+          '98%': { transform: 'translateX(0%)', opacity: '0%' },
+          '99%': { transform: 'translateX(-50%)', opacity: '0%' },
+          '100%': { transform: 'translateX(-100%)', opacity: '0%' },
+        },
+        rtl: {
+          '0%': { transform: 'translateX(0%)', opacity: '0%' },
+          '49%': { transform: 'translateX(-50%)', opacity: '100%' },
+          '98%': { transform: 'translateX(-100%)', opacity: '0%' },
+          '99%': { transform: 'translateX(-50%)', opacity: '0%' },
+          '100%': { transform: 'translateX(0%)', opacity: '0%' },
+        },
+        fadeOut: {
+          '100%': { opacity: '100%' },
+          '0%': { opacity: '0%' },
+        },
+        fadeIn: {
+          '0%': { opacity: '0%' },
+          '100%': { opacity: '100%' },
+        },
+      },
+      animation: {
+        lprompter: 'ltr linear 12s infinite',
+        rprompter: 'rtl linear 12s infinite',
+      },
     },
   },
   plugins: [],

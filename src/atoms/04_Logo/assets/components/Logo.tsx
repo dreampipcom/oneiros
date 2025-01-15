@@ -5,13 +5,25 @@ import React from 'react';
 
 interface LogoProps {
   color?: string;
+  width?: number | string;
+  height?: number | string;
 }
 
 type TComponent = React.FC<LogoProps & React.SVGProps<SVGSVGElement>>;
 
-const Logo: TComponent = function ({ color = 'black', ...props }: LogoProps) {
+const Logo: TComponent = function ({
+  color = 'black',
+  width = 24,
+  height = 24,
+  ...props
+}: LogoProps) {
   return (
-    <svg xmlns="http://www.w3.org/2000/svg" {...props}>
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width={width}
+      height={height}
+      {...props}
+    >
       <g fill={color}>
         <svg
           version="1.1"
