@@ -685,69 +685,59 @@ export const HNav = function ({
               gradient={EGradientVariant.SOFT}
               className="grid px-a2"
             >
-              <div className="justify-self-start self-center col-span-3 col-start-1 md:!col-span-2 md:!col-start-1">
-                {!hideMenu ? (
-                  <div className="block relative" ref={anchor}>
-                    <Button
-                      icon={EIcon.apps}
-                      onClick={() => {
-                        setAnchorEl(anchor.current);
-                        setOpen(true);
-                      }}
-                      edge="end"
-                      color="inherit"
-                      aria-label="menu"
-                      image={profile?.image}
-                    />
-                    {open ? (
-                      <Popover
-                        float
-                        anchor={anchorEl}
-                        onClose={() => setOpen(false)}
-                      >
-                        {menu?.items?.map((item) => {
-                          if (item?.type === ENavItemVariant.BUTTON) {
-                            return (
-                              <Button
-                                buttonTheme="secondary"
-                                className="m-a1"
-                                href={item?.href}
-                                icon={item?.icon}
-                              />
-                            );
-                          }
-                          return (
-                            <Link className="m-a1" inverse href={item?.href}>
-                              {item?.title}
-                            </Link>
-                          );
-                        })}
-                      </Popover>
-                    ) : undefined}
-                  </div>
-                ) : undefined}
-                {!hideProfile ? (
-                  <Typography className="hidden md:flex m-a2">
-                    @{profile?.displayName || profile?.handle || 'dear'}
-                    :@dpip.cc
-                  </Typography>
-                ) : undefined}
+              <div className="max-w-[1280px]">
+                <div className="justify-self-start self-start col-span-4 col-start-1 md:!col-span-2 md:!col-start-1">
+                  {!hideMenu ? (
+                    <div className="flex" ref={anchor}>
+                      {!hideControls ? (
+                        <div>
+                          <HControls
+                            className="md:hidden grid md:justify-self-start self-end col-span-6 col-start-1 md:!col-span-3 md:!col-start-6"
+                            items={menu.items}
+                            controls={menu.controls}
+                            profile={hideProfile ? undefined : profile}
+                            onRefresh={fetchNewData}
+                          />
+                          <HControls
+                            className="hidden md:grid md:justify-self-start self-end col-span-6 col-start-1 md:!col-span-3 md:!col-start-6"
+                            items={menu.items}
+                            profile={hideProfile ? undefined : profile}
+                            controls={menu.controlsDesktop}
+                            onRefresh={fetchNewData}
+                          />
+                        </div>
+                      ) : undefined}
+                    </div>
+                  ) : undefined}
+                  {!hideProfile ? (
+                    <Typography className="hidden md:flex m-a2">
+                      @{profile?.displayName || profile?.handle || 'dear'}
+                      :@dpip.cc
+                    </Typography>
+                  ) : undefined}
+                </div>
+                <div className="animate-pulse justify-self-end md:justify-self-center self-start md:self-center col-span-3 col-start-5 md:!col-span-2 md:!col-start-4">
+                  <Logo size={ELogoSize.RESPONSIVE} theme={theme} />
+                </div>
+                <div className="col-span-6 col-start-1 md:col-span-2 md:col-start-7  md:justify-self-end self-end md:self-start">
+                  {!hideControls ? (
+                    <div>
+                      <HControls
+                        className="hidden md:grid"
+                        controls={controls}
+                        profile={hideProfile ? undefined : profile}
+                        onRefresh={fetchNewData}
+                      />
+                      <HControls
+                        className="md:hidden grid"
+                        controls={menu.presub}
+                        profile={hideProfile ? undefined : profile}
+                        onRefresh={fetchNewData}
+                      />
+                    </div>
+                  ) : undefined}
+                </div>
               </div>
-              <div className="justify-self-end md:justify-self-center self-start md:self-center col-span-3 col-start-4 md:!col-span-2 md:!col-start-4">
-                <Logo size={ELogoSize.RESPONSIVE} theme={theme} />
-              </div>
-              {!hideControls ? (
-                <HControls
-                  className="grid md:justify-self-start self-end col-span-6 col-start-1 md:!col-span-3 md:!col-start-6"
-                  controls={controls}
-                  onRefresh={fetchNewData}
-                />
-              ) : undefined}
-              {!hideProfile ? (
-                <Typography className="flex md:hidden m-a2">
-                  @{profile?.displayName || profile?.handle || 'dear'}:@dpip.cc
-                </Typography>
-              ) : undefined}
             </Grid>
           </div>
         </Grid>
