@@ -335,26 +335,26 @@ export default {
     extend: {
       keyframes: {
         ltr: {
-          '0%': { transform: 'translateX(-100%)', opacity: 0 },
-          '49%': { transform: 'translateX(-50%)', opacity: 1 },
-          '98%': { transform: 'translateX(0%)', opacity: 0 },
-          '99%': { transform: 'translateX(-50%)', opacity: 0 },
-          '100%': { transform: 'translateX(-100%)', opacity: 0 },
+          '0%': { transform: 'translateX(-100%)', opacity: '0%' },
+          '49%': { transform: 'translateX(-50%)', opacity: '100%' },
+          '98%': { transform: 'translateX(0%)', opacity: '0%' },
+          '99%': { transform: 'translateX(-50%)', opacity: '0%' },
+          '100%': { transform: 'translateX(-100%)', opacity: '0%' },
         },
         rtl: {
           '0%': { transform: 'translateX(0)' },
           '49%': { transform: 'translateX(-100%)' },
-          '50%': { transform: 'translateX(100%)', opacity: 0 },
-          '51%': { transform: 'translateX(100%)', opacity: 1 },
+          '50%': { transform: 'translateX(100%)', opacity: '0%' },
+          '51%': { transform: 'translateX(100%)', opacity: '100%' },
           '100%': { transform: 'translateX(0%)' },
         },
         fadeOut: {
-          '100%': { opacity: 1 },
-          '0%': { opacity: 0 },
+          '100%': { opacity: '100%' },
+          '0%': { opacity: '0%' },
         },
         fadeIn: {
-          '0%': { opacity: 0 },
-          '100%': { opacity: 1 },
+          '0%': { opacity: '0%' },
+          '100%': { opacity: '100%' },
         },
       },
       animation: {
