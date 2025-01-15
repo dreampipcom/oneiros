@@ -837,6 +837,7 @@ export const HControls = function ({
 
   return (
     <Grid
+      bleed={EBleedVariant.ZERO}
       variant={EGridVariant.THREE_COLUMNS}
       className={`${className} grid gap-b1 md:gap-b1 w-full auto-rows-fr auto-cols-fr`}
     >
@@ -896,10 +897,11 @@ export const HNav = function ({
   const toolsSx = [
     {
       [`class03
-        h-min-a10
+        min-h-a10
         dark:bg-primary-dark2
         bg-primary-light
         justify-between
+        max-w-[1280px]
         `]: true,
     },
   ];
@@ -914,7 +916,7 @@ export const HNav = function ({
             className="grid min-h-a9 !bg-primary-dark dark:!bg-primary-soft"
           />
         ) : undefined}
-        <Grid full variant={EGridVariant.DEFAULT} bleed={EBleedVariant.ZERO}>
+        <Grid full variant={EGridVariant.DEFAULT}>
           <div className={toolsStyles}>
             <Grid
               variant={EGridVariant.DEFAULT}
@@ -922,7 +924,7 @@ export const HNav = function ({
               gradient={EGradientVariant.SOFT}
               className="grid px-a2"
             >
-              <div className="justify-self-start self-center col-span-4 col-start-1 md:!col-span-2 md:!col-start-1">
+              <div className="justify-self-start self-start col-span-4 col-start-1 md:!col-span-2 md:!col-start-1">
                 {!hideMenu ? (
                   <div className="flex" ref={anchor}>
                     {!hideControls ? (
@@ -955,7 +957,7 @@ export const HNav = function ({
               <div className="animate-pulse justify-self-end md:justify-self-center self-start md:self-center col-span-3 col-start-5 md:!col-span-2 md:!col-start-4">
                 <Logo size={ELogoSize.RESPONSIVE} theme={theme} />
               </div>
-              <div className="col-span-6 col-start-1 md:col-span-2 md:col-start-7  md:justify-self-end self-end">
+              <div className="col-span-6 col-start-1 md:col-span-2 md:col-start-7  md:justify-self-end self-end md:self-start">
                 {!hideControls ? (
                   <div>
                     <HControls
