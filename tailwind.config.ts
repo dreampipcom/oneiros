@@ -192,12 +192,12 @@ export const DreamPipColors = {
   gradient: {
     soft: {
       light: {
-        from: bgLight,
-        to: light1,
+        from: lightTrans1,
+        to: lightTrans2,
       },
       dark: {
-        from: dark1,
-        to: dark2,
+        from: darkTrans1,
+        to: darkTrans2,
       },
     },
   },
