@@ -9,6 +9,8 @@ import Box from '@mui/material/Box';
 export enum EGridVariant {
   DEFAULT = '8',
   ONE_COLUMN = '1',
+  TWO_COLUMNS = '2',
+  THREE_COLUMNS = '3',
   TWELVE_COLUMNS = '12',
   SIX_COLUMNS = '6',
 }
@@ -18,6 +20,7 @@ export enum EBleedVariant {
   RESPONSIVE = 'responsive',
   VERTICAL = 'vertical',
   HORIZONTAL = 'horizontal',
+  CONTENT_WRAP = 'content-wrap',
 }
 
 export enum EGradientVariant {
@@ -108,6 +111,10 @@ export const HGrid = function ({
           px-a2
           md:px-a6
         `]: coercedBleed === EBleedVariant.HORIZONTAL,
+      [`
+          p-a2
+          md:p-a8
+      `]: coercedBleed === EBleedVariant.CONTENT_WRAP,
     },
   ];
 
@@ -123,6 +130,15 @@ export const HGrid = function ({
           grid-cols-1
           md:grid-cols-1
           `]: coercedVariant === EGridVariant.ONE_COLUMN,
+      [`
+          grid-cols-2
+          md:grid-cols-2
+          `]: coercedVariant === EGridVariant.TWO_COLUMNS,
+      [`
+          grid-cols-3
+          md:grid-cols-3
+          gap-a4
+          `]: coercedVariant === EGridVariant.THREE_COLUMNS,
       [`
           grid-cols-12
           md:grid-cols-12
@@ -156,14 +172,7 @@ export const HGrid = function ({
 
   const mappedChildren = Children.map(children, (child: any) => {
     if (!child) return undefined;
-    return (
-      <Box
-        component="article"
-        className={`${child?.props?.className || `grid ${variant === EGridVariant.DEFAULT ? 'grid-cols-8' : ''}`}`}
-      >
-        {child}
-      </Box>
-    );
+    return child;
   });
 
   return (

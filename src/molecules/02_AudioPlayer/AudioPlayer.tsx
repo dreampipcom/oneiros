@@ -1,4 +1,4 @@
-/* eslint jsx-a11y/media-has-caption:0, no-nested-ternary:0, no-unused-vars:0, max-len:0, no-shadow:0, @typescript-eslint/no-explicit-any:0, object-curly-newline:0 */
+/* eslint react/jsx-one-expression-per-line:0, jsx-a11y/media-has-caption:0, no-nested-ternary:0, no-unused-vars:0, max-len:0, no-shadow:0, @typescript-eslint/no-explicit-any:0, object-curly-newline:0 */
 // @atoms/AudioPlayer.tsx
 import clsx from 'clsx';
 import { Fragment, useRef, useState, useEffect } from 'react';
@@ -51,6 +51,8 @@ export interface IAudioPlayer {
   onPlayTrack?: () => void;
   nativeControls?: boolean;
   autoPlay?: boolean;
+  hideAnimation?: boolean;
+  flip?: boolean;
   prompt?: string;
   theme?: 'light' | 'dark';
 }
@@ -62,6 +64,8 @@ export const HAudioPlayer = function ({
   onPlayTrack = () => {},
   nativeControls = false,
   autoPlay = false,
+  flip = false,
+  hideAnimation = false,
   prompt = 'Rotation portals',
   theme = 'light',
 }: IAudioPlayer) {
@@ -78,11 +82,44 @@ export const HAudioPlayer = function ({
         align-center
         justify-center
         basis-full
+        overflow-hidden
         `]: true,
     },
   ];
 
   const gridStyles = `${clsx(gridSx)} ${className}`;
+
+  const promptSx = [
+    {
+      [`class02
+        basis-full 
+        ml-a2 
+        col-span-4 
+        col-start-1
+        `]: true,
+      [`        
+        animate-lprompter
+        min-w-[800px]
+        text-right
+      `]: !hideAnimation,
+    },
+  ];
+
+  const promptStyles = `${clsx(promptSx)}`;
+
+  const promptWrapperSx = [
+    {
+      [`class03
+        overflow-hidden relative w-full h-full
+        order-3
+        `]: true,
+      [`        
+        order-[-1]
+      `]: !!flip,
+    },
+  ];
+
+  const promptWrapperStyles = `${clsx(promptWrapperSx)}`;
 
   const handlePlay = () => {
     if (!audioElement.current) return;
@@ -102,13 +139,13 @@ export const HAudioPlayer = function ({
     }
   };
 
-  const handleStatus = (status: string, options: { title?: string }) => () => {
-    setStatus(status);
-    setTitle(options?.title || prompt);
-  };
-
   useEffect(() => {
     const element = audioElement.current;
+    const handleStatus =
+      (status: string, options: { title?: string }) => () => {
+        setStatus(status);
+        setTitle(options?.title || prompt);
+      };
     if (element) {
       const handlePlay = handleStatus('playing', {
         title: element.getAttribute('data-title') || prompt,
@@ -123,11 +160,11 @@ export const HAudioPlayer = function ({
       };
     }
     return () => {};
-  }, [status]);
+  }, [status, prompt]);
 
   return (
     <div id={id} className={gridStyles}>
-      <div className="flex items-center justify-center">
+      <div className="flex items-center justify-center order-2">
         <Button
           className="w-full"
           theme={theme}
@@ -162,9 +199,13 @@ export const HAudioPlayer = function ({
           ))}
         </audio>
       </div>
-      <Typography className="basis-full ml-a2 col-span-4 col-start-1" truncate>
-        {title}
-      </Typography>
+      <div className={promptWrapperStyles}>
+        <div className="absolute left-a0 top-b1">
+          <Typography className={promptStyles} truncate>
+            {title} · {title} · {title} · {title} · {title} · {title} · {title}
+          </Typography>
+        </div>
+      </div>
     </div>
   );
 };

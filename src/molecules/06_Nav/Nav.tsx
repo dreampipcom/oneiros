@@ -25,6 +25,7 @@ export enum ENavControlVariant {
   BREADCRUMB,
   AUDIO_PLAYER,
   CTA,
+  BUTTON,
 }
 
 export enum ESpotStatus {
@@ -231,18 +232,82 @@ export const DEFAULT_CONTROLS = {
   ],
   center: [
     {
+      type: ENavControlVariant.BUTTON,
+      icon: EIcon['music-note'],
+      href: '/episodes',
+    },
+    {
+      type: ENavControlVariant.BUTTON,
+      icon: EIcon.calendar,
+      href: '/agenda',
+    },
+    {
+      type: ENavControlVariant.BUTTON,
+      icon: EIcon.login,
+      href: '/join',
+    },
+  ],
+  bottom: [
+    {
+      type: ENavControlVariant.AUDIO_PLAYER,
+      mods: '$flip',
+      label: 'Rotations portal live',
+      src: 'https://www.dremapip.com/api/nexus/audio',
+    },
+  ],
+};
+
+export const MOBILE_MENU_CONTROLS = {
+  top: [
+    {
+      type: ENavControlVariant.BUTTON,
+      icon: EIcon.apps,
+      image: '$userProfile',
+      ariaLabel: 'menu',
+    },
+    {
+      type: ENavControlVariant.BUTTON,
+      icon: EIcon.login,
+      href: '/join',
+    },
+    {
+      type: ENavControlVariant.BUTTON,
+      icon: EIcon['music-note'],
+      href: '/episodes',
+    },
+  ],
+  center: [
+    {
       type: ENavControlVariant.AUDIO_PLAYER,
       label: 'Rotations portal live',
       src: 'https://www.dremapip.com/api/nexus/audio',
     },
   ],
+  bottom: [],
+};
+
+export const MOBILE_PRESUB_CONTROLS = {
+  top: [],
+  center: [],
   bottom: [
     {
-      type: ENavControlVariant.CTA,
-      label: NavLocale.default.view,
-      href: '/join',
+      type: ENavControlVariant.BREADCRUMB,
+      label: NavLocale.default.home,
     },
   ],
+};
+
+export const DESKTOP_MENU_CONTROLS = {
+  top: [
+    {
+      type: ENavControlVariant.BUTTON,
+      icon: EIcon.apps,
+      image: '$userProfile',
+      ariaLabel: 'menu',
+    },
+  ],
+  center: [],
+  bottom: [],
 };
 
 const DEFAULT_L1_NAV_ITEMS = [
@@ -298,30 +363,70 @@ const DEFAULT_L1_NAV_ITEMS = [
   },
 ];
 
+const AUTHENTICATED_L1_NAV_ITEMS = [
+  {
+    name: 'Home',
+    id: 'home',
+    title: 'Home',
+    type: ENavItemVariant.BUTTON,
+    icon: EIcon['home-thatched'],
+    href: '/',
+    target: '_blank',
+    l2: [],
+  },
+  {
+    name: 'Join',
+    id: 'join',
+    title: 'join',
+    type: ENavItemVariant.BUTTON,
+    icon: EIcon.login,
+    href: '/join',
+    target: '_blank',
+    l2: [],
+  },
+  {
+    name: 'Episodes',
+    id: 'episodes',
+    title: 'Episodes',
+    type: ENavItemVariant.BUTTON,
+    icon: EIcon['music-note'],
+    href: '/episodes',
+    target: '_blank',
+    l2: [],
+  },
+  {
+    name: 'Agenda',
+    id: 'agenda',
+    title: 'agenda',
+    type: ENavItemVariant.BUTTON,
+    icon: EIcon.calendar,
+    href: '/agenda',
+    target: '_blank',
+    l2: [],
+  },
+  {
+    name: 'About',
+    id: 'about',
+    title: 'about',
+    type: ENavItemVariant.BUTTON,
+    icon: EIcon['alert-circle'],
+    href: '/who',
+    target: '_blank',
+    l2: [],
+  },
+];
+
 export const DEFAULT_MENU = {
   items: DEFAULT_L1_NAV_ITEMS,
+  controls: MOBILE_MENU_CONTROLS,
+  controlsDesktop: DESKTOP_MENU_CONTROLS,
+  presub: MOBILE_PRESUB_CONTROLS,
 };
 
-export interface IControl {
-  type: ENavControlVariant;
-  label?: string;
-  src?: string;
-  href?: string;
-  className?: string;
-  onRefresh?: () => void;
-}
-
-export interface INavControls {
-  top?: IControl[];
-  center?: IControl[];
-  bottom?: IControl[];
-}
-
-export interface INavControlsGenerator {
-  controls?: INavControls;
-  className?: string;
-  onRefresh?: () => void;
-}
+export const AUTHENTICATED_MENU = {
+  items: AUTHENTICATED_L1_NAV_ITEMS,
+  controls: MOBILE_MENU_CONTROLS,
+};
 
 export interface INavMenuItems {
   name?: string;
@@ -333,8 +438,18 @@ export interface INavMenuItems {
   icon?: EIcon;
 }
 
-export interface INavMenu {
-  items?: INavMenuItems[];
+export interface IControl {
+  type: ENavControlVariant;
+  label?: string;
+  src?: string;
+  href?: string;
+  icon?: string;
+  image?: string;
+  className?: string;
+  ariaLabel?: string;
+  mods?: string;
+  onRefresh?: () => void;
+  onClick?: () => void;
 }
 
 export interface INavProfile {
@@ -345,6 +460,23 @@ export interface INavProfile {
   awards?: unknown;
   ticks?: unknown;
   symbols?: unknown;
+}
+
+export interface INavControls {
+  top?: IControl[];
+  center?: IControl[];
+  bottom?: IControl[];
+}
+
+export interface INavControlsGenerator {
+  controls?: INavControls;
+  items?: INavMenuItems[];
+  profile?: INavProfile;
+  className?: string;
+  onRefresh?: () => void;
+}
+export interface INavMenu {
+  items?: INavMenuItems[];
 }
 
 export interface ISpotImage {
@@ -382,85 +514,6 @@ export interface INav {
   fetchNewData?: () => void;
   theme?: 'light' | 'dark';
 }
-
-export const CBreadcrumb = function ({ type, label, className }: IControl) {
-  return (
-    <Typography
-      controlType={type}
-      className="justify-self-start self-center col-span-1 col-start-0 md:col-span-2 col-start-0"
-    >
-      {label}
-    </Typography>
-  );
-};
-
-export const CAudioPlayer = function ({
-  type,
-  src,
-  label,
-  className,
-}: IControl) {
-  return (
-    <AudioPlayer
-      controlType={type}
-      src={src}
-      className="w-full"
-      label={label}
-    />
-  );
-};
-
-export const CCTA = function ({ type, href, label, className }: IControl) {
-  return (
-    <Button
-      controlType={type}
-      className="w-full justify-self-start self-center  col-span-full col-start-1"
-      href={href}
-    >
-      {label}
-    </Button>
-  );
-};
-
-const CNoControlContent = function ({ className, onRefresh }: IControl) {
-  return (
-    <Grid full className={className}>
-      <Typography>No controls loaded.</Typography>
-      <Button onClick={onRefresh} icon={EIcon['rotate-clockwise']} />
-    </Grid>
-  );
-};
-
-export const HControls = function ({
-  controls,
-  onRefresh,
-  className,
-}: INavControlsGenerator) {
-  if (!(Object.values(controls)?.length > 0)) return <CNoControlContent />;
-
-  const generateControl = ({ control }) => {
-    if (control?.type === ENavControlVariant.BREADCRUMB) {
-      return <CBreadcrumb label={control?.label} />;
-    }
-
-    if (control?.type === ENavControlVariant.AUDIO_PLAYER) {
-      return <CAudioPlayer label={control?.label} src={control?.src} />;
-    }
-
-    if (control?.type === ENavControlVariant.CTA) {
-      return <CCTA label={control?.label} href={control?.href} />;
-    }
-    return <CNoControlContent onRefresh={onRefresh} />;
-  };
-
-  return (
-    <Grid full className={`${className} w-full auto-rows-fr auto-cols-fr`}>
-      {controls?.top.map((control) => generateControl({ control }))}
-      {controls?.center.map((control) => generateControl({ control }))}
-      {controls?.bottom.map((control) => generateControl({ control }))}
-    </Grid>
-  );
-};
 
 const PNoSpotContent = function ({ className, onRefresh }: IControl) {
   return (
@@ -539,7 +592,7 @@ export const HSpot = function ({ spots, className }: INavSpotGenerator) {
         } else {
           classes += ` justify-center col-start-${column + 1 + 2 * column} col-span-3 md:col-span-1`;
         }
-        classes += ` w-full flex  align-center justify-self-center self-center md:col-start-${column + 3}`;
+        classes += ` w-full flex align-center justify-self-center self-center md:col-start-${column + 3}`;
       }
 
       if (variant === ESpotVariant.TWO_CENTER_STACK) {
@@ -615,6 +668,186 @@ export const HSpot = function ({ spots, className }: INavSpotGenerator) {
   );
 };
 
+export const CBreadcrumb = function ({ type, label, className }: IControl) {
+  return (
+    <Typography
+      truncate
+      controlType={type}
+      className="justify-self-start self-center md:min-w-full md:!text-right col-span-full col-start-0 md:col-span-full col-start-0"
+    >
+      {label}
+    </Typography>
+  );
+};
+
+export const CAudioPlayer = function ({
+  type,
+  mods,
+  src,
+  label,
+  className,
+}: IControl) {
+  const flip = mods?.includes('$flip');
+
+  return (
+    <AudioPlayer
+      controlType={type}
+      src={src}
+      flip={flip}
+      className="w-full"
+      label={label}
+    />
+  );
+};
+
+export const CCTA = function ({ type, href, label, className }: IControl) {
+  return (
+    <Button
+      controlType={type}
+      className="w-full justify-self-start self-center col-span-full col-start-1"
+      href={href}
+    >
+      {label}
+    </Button>
+  );
+};
+
+export const CButton = function ({
+  type,
+  onClick,
+  icon,
+  href,
+  label,
+  image,
+  ariaLabel,
+  className,
+}: IControl) {
+  return (
+    <Button
+      controlType={type}
+      className="w-full justify-self-start self-center col-span-full col-start-1"
+      onClick={onClick}
+      ariaLabel={ariaLabel}
+      image={image}
+      icon={icon}
+      href={href}
+    >
+      {label}
+    </Button>
+  );
+};
+
+const CNoControlContent = function ({ className, onRefresh }: IControl) {
+  return (
+    <Grid full className={className}>
+      <Typography>No controls loaded.</Typography>
+      <Button onClick={onRefresh} icon={EIcon['rotate-clockwise']} />
+    </Grid>
+  );
+};
+
+export const HControls = function ({
+  controls,
+  profile,
+  items,
+  onRefresh,
+  className,
+}: INavControlsGenerator) {
+  const anchor = useRef(null);
+  const [anchorEl, setAnchorEl] = useState(null);
+  const [open, setOpen] = useState(false);
+
+  const handleClick = (e, { control }) => {
+    if (control?.onClick) control.onClick(e);
+    setAnchorEl(anchor.current);
+    setOpen(true);
+  };
+
+  if (!(Object.values(controls)?.length > 0)) return <CNoControlContent />;
+
+  const generateControl = ({ control, open, anchor, anchorEl, profile }) => {
+    if (control?.type === ENavControlVariant.BREADCRUMB) {
+      return <CBreadcrumb label={control?.label} />;
+    }
+
+    if (control?.type === ENavControlVariant.AUDIO_PLAYER) {
+      return (
+        <CAudioPlayer
+          label={control?.label}
+          src={control?.src}
+          mods={control?.mods}
+        />
+      );
+    }
+
+    if (control?.type === ENavControlVariant.CTA) {
+      return <CCTA label={control?.label} href={control?.href} />;
+    }
+
+    if (control?.type === ENavControlVariant.BUTTON) {
+      const image =
+        control?.image === '$userProfile' ? profile?.image : control?.image;
+      return (
+        <div ref={anchor}>
+          <CButton
+            onClick={(e) => {
+              handleClick(e, { control });
+            }}
+            image={image}
+            icon={control?.icon}
+            label={control?.label}
+            href={control?.href}
+          />
+          {open ? (
+            <Popover float anchor={anchorEl} onClose={() => setOpen(false)}>
+              <Typography inherit className="flex md:hidden m-a2">
+                @{profile?.displayName || profile?.handle || 'dear'}
+                :@dpip.cc
+              </Typography>
+              {items?.map((item) => {
+                if (item?.type === ENavItemVariant.BUTTON) {
+                  return (
+                    <Button
+                      buttonTheme="secondary"
+                      className="m-a1"
+                      href={item?.href}
+                      icon={item?.icon}
+                    />
+                  );
+                }
+                return (
+                  <Link className="m-a1" inverse href={item?.href}>
+                    {item?.title}
+                  </Link>
+                );
+              })}
+            </Popover>
+          ) : undefined}
+        </div>
+      );
+    }
+    return <CNoControlContent onRefresh={onRefresh} />;
+  };
+
+  return (
+    <Grid
+      bleed={EBleedVariant.ZERO}
+      variant={EGridVariant.THREE_COLUMNS}
+      className={`${className} grid gap-b1 md:gap-b1 w-full auto-rows-fr auto-cols-fr`}
+    >
+      {controls?.top.map((control) =>
+        generateControl({ control, profile, open, anchor, anchorEl }),
+      )}
+      {controls?.center.map((control) =>
+        generateControl({ control, profile, open, anchor, anchorEl }),
+      )}
+      {controls?.bottom.map((control) =>
+        generateControl({ control, profile, open, anchor, anchorEl }),
+      )}
+    </Grid>
+  );
+};
+
 export const HNav = function ({
   id = 'molecule__Nav',
   className = '',
@@ -632,7 +865,6 @@ export const HNav = function ({
   fetchNewData,
   theme = 'light',
 }: INav) {
-  const [open, setOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
   const anchor = useRef(null);
 
@@ -659,10 +891,11 @@ export const HNav = function ({
   const toolsSx = [
     {
       [`class03
-        h-min-a10
+        min-h-a10
         dark:bg-primary-dark2
         bg-primary-light
         justify-between
+        max-w-[1280px]
         `]: true,
     },
   ];
@@ -677,7 +910,7 @@ export const HNav = function ({
             className="grid min-h-a9 !bg-primary-dark dark:!bg-primary-soft"
           />
         ) : undefined}
-        <Grid full variant={EGridVariant.DEFAULT} bleed={EBleedVariant.ZERO}>
+        <Grid full variant={EGridVariant.DEFAULT}>
           <div className={toolsStyles}>
             <Grid
               variant={EGridVariant.DEFAULT}
