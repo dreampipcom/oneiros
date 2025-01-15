@@ -8,7 +8,7 @@ import { Button, ButtonVariant, EButtonTheme } from '../../atoms/01_Button';
 import { Typography } from '../../atoms/02_Typography';
 import { Link } from '../../atoms/03_Link';
 import { SystemIcon, EIcon } from '../../atoms/07_SystemIcon';
-import { DreamPipColors } from '../../../dist/esm/tailwind.config.ts';
+import { DreamPipColors } from '../../../tailwind.config.ts';
 
 export const SubNavLocale = {
   default: {

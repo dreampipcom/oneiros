@@ -19,7 +19,7 @@ import {
   EGradientVariant,
 } from '../../atoms/10_Grid';
 import { Popover } from '../../atoms/15_Popover';
-import { DreamPipColors } from '../../../dist/esm/tailwind.config.ts';
+import { DreamPipColors } from '../../../tailwind.config.ts';
 
 export enum ENavControlVariant {
   BREADCRUMB,
