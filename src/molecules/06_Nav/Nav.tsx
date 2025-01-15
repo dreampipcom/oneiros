@@ -497,24 +497,6 @@ export interface INavSpotGenerator {
   className?: string;
 }
 
-export interface INav {
-  id?: string;
-  className?: string;
-  locale?: string;
-  profile?: INavProfile;
-  breadcrumb?: string;
-  prefix?: string;
-  menu?: INavMenu;
-  spots?: ISpot[];
-  controls?: INavControls;
-  hideSpots?: boolean;
-  hideControls?: boolean;
-  hideMenu?: boolean;
-  hideProfile?: boolean;
-  fetchNewData?: () => void;
-  theme?: 'light' | 'dark';
-}
-
 const PNoSpotContent = function ({ className, onRefresh }: IControl) {
   return (
     <Grid full className={className}>
@@ -848,6 +830,25 @@ export const HControls = function ({
   );
 };
 
+export interface INav {
+  id?: string;
+  className?: string;
+  locale?: string;
+  profile?: INavProfile;
+  breadcrumb?: string;
+  prefix?: string;
+  menu?: INavMenu;
+  spots?: ISpot[];
+  controls?: INavControls;
+  hideSpots?: boolean;
+  hideControls?: boolean;
+  hideMenu?: boolean;
+  hideProfile?: boolean;
+  hideBg?: boolean;
+  fetchNewData?: () => void;
+  theme?: 'light' | 'dark';
+}
+
 export const HNav = function ({
   id = 'molecule__Nav',
   className = '',
@@ -861,6 +862,7 @@ export const HNav = function ({
   hideControls,
   hideMenu,
   hideProfile,
+  hideBg = false,
   prefix,
   fetchNewData,
   theme = 'light',
@@ -892,11 +894,17 @@ export const HNav = function ({
     {
       [`class03
         min-h-a10
-        dark:bg-primary-dark2
-        bg-primary-light
+        dark:bg-transparent
+        bg-transparent
         justify-between
+        m-auto
+        w-full
         max-w-[1280px]
         `]: true,
+      [`class04
+        dark:bg-primary-dark2
+        bg-primary-soft
+        `]: !!hideBg,
     },
   ];
   const toolsStyles = `${clsx(toolsSx)}`;
@@ -910,66 +918,67 @@ export const HNav = function ({
             className="grid min-h-a9 !bg-primary-dark dark:!bg-primary-soft"
           />
         ) : undefined}
-        <Grid full variant={EGridVariant.DEFAULT}>
+        <Grid
+          full
+          variant={EGridVariant.DEFAULT}
+          gradient={EGradientVariant.SOFT}
+        >
           <div className={toolsStyles}>
             <Grid
               variant={EGridVariant.DEFAULT}
               bleed={EBleedVariant.DEFAULT}
-              gradient={EGradientVariant.SOFT}
               className="grid px-a2"
             >
-              <div className="max-w-[1280px]">
-                <div className="justify-self-start self-start col-span-4 col-start-1 md:!col-span-2 md:!col-start-1">
-                  {!hideMenu ? (
-                    <div className="flex" ref={anchor}>
-                      {!hideControls ? (
-                        <div>
-                          <HControls
-                            className="md:hidden grid md:justify-self-start self-end col-span-6 col-start-1 md:!col-span-3 md:!col-start-6"
-                            items={menu.items}
-                            controls={menu.controls}
-                            profile={hideProfile ? undefined : profile}
-                            onRefresh={fetchNewData}
-                          />
-                          <HControls
-                            className="hidden md:grid md:justify-self-start self-end col-span-6 col-start-1 md:!col-span-3 md:!col-start-6"
-                            items={menu.items}
-                            profile={hideProfile ? undefined : profile}
-                            controls={menu.controlsDesktop}
-                            onRefresh={fetchNewData}
-                          />
-                        </div>
-                      ) : undefined}
-                    </div>
-                  ) : undefined}
-                  {!hideProfile ? (
-                    <Typography className="hidden md:flex m-a2">
-                      @{profile?.displayName || profile?.handle || 'dear'}
-                      :@dpip.cc
-                    </Typography>
-                  ) : undefined}
-                </div>
-                <div className="animate-pulse justify-self-end md:justify-self-center self-start md:self-center col-span-3 col-start-5 md:!col-span-2 md:!col-start-4">
-                  <Logo size={ELogoSize.RESPONSIVE} theme={theme} />
-                </div>
-                <div className="col-span-6 col-start-1 md:col-span-2 md:col-start-7  md:justify-self-end self-end md:self-start">
-                  {!hideControls ? (
-                    <div>
-                      <HControls
-                        className="hidden md:grid"
-                        controls={controls}
-                        profile={hideProfile ? undefined : profile}
-                        onRefresh={fetchNewData}
-                      />
-                      <HControls
-                        className="md:hidden grid"
-                        controls={menu.presub}
-                        profile={hideProfile ? undefined : profile}
-                        onRefresh={fetchNewData}
-                      />
-                    </div>
-                  ) : undefined}
-                </div>
+              <div className="justify-self-start self-start col-span-4 col-start-1 md:!col-span-2 md:!col-start-1">
+                {!hideMenu ? (
+                  <div className="flex" ref={anchor}>
+                    {!hideControls ? (
+                      <div>
+                        <HControls
+                          className="md:hidden grid md:justify-self-start self-end col-span-6 col-start-1 md:!col-span-3 md:!col-start-6"
+                          items={menu.items}
+                          controls={menu.controls}
+                          profile={hideProfile ? undefined : profile}
+                          onRefresh={fetchNewData}
+                        />
+                        <HControls
+                          className="hidden md:grid md:justify-self-start self-end col-span-6 col-start-1 md:!col-span-3 md:!col-start-6"
+                          items={menu.items}
+                          profile={hideProfile ? undefined : profile}
+                          controls={menu.controlsDesktop}
+                          onRefresh={fetchNewData}
+                        />
+                      </div>
+                    ) : undefined}
+                  </div>
+                ) : undefined}
+                {!hideProfile ? (
+                  <Typography className="hidden md:flex m-a2">
+                    @{profile?.displayName || profile?.handle || 'dear'}
+                    :@dpip.cc
+                  </Typography>
+                ) : undefined}
+              </div>
+              <div className="animate-pulse justify-self-end md:justify-self-center self-start md:self-center col-span-3 col-start-5 md:!col-span-2 md:!col-start-4">
+                <Logo size={ELogoSize.RESPONSIVE} theme={theme} />
+              </div>
+              <div className="col-span-6 col-start-1 md:col-span-2 md:col-start-7  md:justify-self-end self-end md:self-start">
+                {!hideControls ? (
+                  <div>
+                    <HControls
+                      className="hidden md:grid"
+                      controls={controls}
+                      profile={hideProfile ? undefined : profile}
+                      onRefresh={fetchNewData}
+                    />
+                    <HControls
+                      className="md:hidden grid"
+                      controls={menu.presub}
+                      profile={hideProfile ? undefined : profile}
+                      onRefresh={fetchNewData}
+                    />
+                  </div>
+                ) : undefined}
               </div>
             </Grid>
           </div>
