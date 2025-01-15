@@ -758,20 +758,14 @@ export const HControls = function ({
   const [open, setOpen] = useState(false);
 
   const handleClick = (e, { control }) => {
-    console.log('CLICOU ESS', { anchor, open, control });
     if (control?.onClick) control.onClick(e);
     setAnchorEl(anchor.current);
     setOpen(true);
   };
 
-  useEffect(() => {
-    console.log('has', { open });
-  }, [open]);
-
   if (!(Object.values(controls)?.length > 0)) return <CNoControlContent />;
 
   const generateControl = ({ control, open, anchor, anchorEl, profile }) => {
-    console.log({ profile, control });
     if (control?.type === ENavControlVariant.BREADCRUMB) {
       return <CBreadcrumb label={control?.label} />;
     }
@@ -858,7 +852,7 @@ export const HNav = function ({
   id = 'molecule__Nav',
   className = '',
   locale = 'en',
-  profile = DEFAULT_PROFILE,
+  profile,
   breadcrumb = 'whereami',
   menu = DEFAULT_MENU,
   controls = DEFAULT_CONTROLS,
