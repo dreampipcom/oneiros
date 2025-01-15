@@ -16,6 +16,7 @@ const inc06a = base * 6; // 48
 const inc07a = base * 7; // 56
 const inc08a = base * 8; // 64
 const inc09a = base * 9; // 72
+const inc10a = base * 10; // 80
 
 const inc00b = base * 0.25; // 4
 const inc01b = base * 1.5; // 12
@@ -295,6 +296,7 @@ export default {
       a7: `${inc07a}px`,
       a8: `${inc08a}px`,
       a9: `${inc09a}px`,
+      a10: `${inc10a}px`,
       b0: `${inc00b}px`,
       b1: `${inc01b}px`,
       b2: `${inc02b}px`,
@@ -315,6 +317,7 @@ export default {
       a7: `${inc07a}px`,
       a8: `${inc08a}px`,
       a9: `${inc09a}px`,
+      a10: `${inc10a}px`,
       b0: `${inc00b}px`,
       b1: `${inc01b}px`,
       b2: `${inc02b}px`,

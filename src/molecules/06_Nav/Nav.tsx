@@ -19,12 +19,13 @@ import {
   EGradientVariant,
 } from '../../atoms/10_Grid';
 import { Popover } from '../../atoms/15_Popover';
-import { DreamPipColors } from '../../../tailwind.config.ts';
+import { DreamPipColors } from '../../../dist/esm/tailwind.config.ts';
 
 export enum ENavControlVariant {
   BREADCRUMB,
   AUDIO_PLAYER,
   CTA,
+  BUTTON,
 }
 
 export enum ESpotStatus {
@@ -245,6 +246,43 @@ export const DEFAULT_CONTROLS = {
   ],
 };
 
+export const MOBILE_MENU_CONTROLS = {
+  top: [
+    {
+      type: ENavControlVariant.BUTTON,
+      icon: EIcon.apps,
+      image: '',
+      ariaLabel: 'menu',
+    },
+    {
+      type: ENavControlVariant.BUTTON,
+      icon: EIcon.login,
+      href: '/join',
+    },
+  ],
+  center: [
+    {
+      type: ENavControlVariant.AUDIO_PLAYER,
+      label: 'Rotations portal live',
+      src: 'https://www.dremapip.com/api/nexus/audio',
+    },
+  ],
+  bottom: [],
+};
+
+export const DESKTOP_MENU_CONTROLS = {
+  top: [
+    {
+      type: ENavControlVariant.BUTTON,
+      icon: EIcon.apps,
+      image: '',
+      ariaLabel: 'menu',
+    },
+  ],
+  center: [],
+  bottom: [],
+};
+
 const DEFAULT_L1_NAV_ITEMS = [
   {
     name: 'Home',
@@ -353,32 +391,14 @@ const AUTHENTICATED_L1_NAV_ITEMS = [
 
 export const DEFAULT_MENU = {
   items: DEFAULT_L1_NAV_ITEMS,
+  controls: MOBILE_MENU_CONTROLS,
+  controlsDesktop: DESKTOP_MENU_CONTROLS,
 };
 
 export const AUTHENTICATED_MENU = {
   items: AUTHENTICATED_L1_NAV_ITEMS,
+  controls: MOBILE_MENU_CONTROLS,
 };
-
-export interface IControl {
-  type: ENavControlVariant;
-  label?: string;
-  src?: string;
-  href?: string;
-  className?: string;
-  onRefresh?: () => void;
-}
-
-export interface INavControls {
-  top?: IControl[];
-  center?: IControl[];
-  bottom?: IControl[];
-}
-
-export interface INavControlsGenerator {
-  controls?: INavControls;
-  className?: string;
-  onRefresh?: () => void;
-}
 
 export interface INavMenuItems {
   name?: string;
@@ -390,6 +410,30 @@ export interface INavMenuItems {
   icon?: EIcon;
 }
 
+export interface IControl {
+  type: ENavControlVariant;
+  label?: string;
+  src?: string;
+  href?: string;
+  icon?: string;
+  className?: string;
+  ariaLabel?: string;
+  onRefresh?: () => void;
+  onClick?: () => void;
+}
+
+export interface INavControls {
+  top?: IControl[];
+  center?: IControl[];
+  bottom?: IControl[];
+}
+
+export interface INavControlsGenerator {
+  controls?: INavControls;
+  items?: INavMenuItems[];
+  className?: string;
+  onRefresh?: () => void;
+}
 export interface INavMenu {
   items?: INavMenuItems[];
 }
@@ -471,7 +515,30 @@ export const CCTA = function ({ type, href, label, className }: IControl) {
   return (
     <Button
       controlType={type}
-      className="w-full justify-self-start self-center  col-span-full col-start-1"
+      className="w-full justify-self-start self-center col-span-full col-start-1"
+      href={href}
+    >
+      {label}
+    </Button>
+  );
+};
+
+export const CButton = function ({
+  type,
+  onClick,
+  icon,
+  href,
+  label,
+  ariaLabel,
+  className,
+}: IControl) {
+  return (
+    <Button
+      controlType={type}
+      className="w-full justify-self-start self-center col-span-full col-start-1"
+      onClick={onClick}
+      ariaLabel={ariaLabel}
+      icon={icon}
       href={href}
     >
       {label}
@@ -490,12 +557,28 @@ const CNoControlContent = function ({ className, onRefresh }: IControl) {
 
 export const HControls = function ({
   controls,
+  items,
   onRefresh,
   className,
 }: INavControlsGenerator) {
+  const anchor = useRef(null);
+  const [anchorEl, setAnchorEl] = useState(null);
+  const [open, setOpen] = useState(false);
+
+  const handleClick = (e, { control }) => {
+    console.log('CLICOU ESS', { anchor, open, control });
+    if (control?.onClick) control.onClick(e);
+    setAnchorEl(anchor.current);
+    setOpen(true);
+  };
+
+  useEffect(() => {
+    console.log('has', { open });
+  }, [open]);
+
   if (!(Object.values(controls)?.length > 0)) return <CNoControlContent />;
 
-  const generateControl = ({ control }) => {
+  const generateControl = ({ control, open, anchor, anchorEl }) => {
     if (control?.type === ENavControlVariant.BREADCRUMB) {
       return <CBreadcrumb label={control?.label} />;
     }
@@ -507,12 +590,51 @@ export const HControls = function ({
     if (control?.type === ENavControlVariant.CTA) {
       return <CCTA label={control?.label} href={control?.href} />;
     }
+
+    if (control?.type === ENavControlVariant.BUTTON) {
+      return (
+        <div ref={anchor}>
+          <CButton
+            onClick={(e) => {
+              handleClick(e, { control });
+            }}
+            image={control?.image}
+            icon={control?.icon}
+            label={control?.label}
+            href={control?.href}
+          />
+          {open ? (
+            <Popover float anchor={anchorEl} onClose={() => setOpen(false)}>
+              {items?.map((item) => {
+                if (item?.type === ENavItemVariant.BUTTON) {
+                  return (
+                    <Button
+                      buttonTheme="secondary"
+                      className="m-a1"
+                      href={item?.href}
+                      icon={item?.icon}
+                    />
+                  );
+                }
+                return (
+                  <Link className="m-a1" inverse href={item?.href}>
+                    {item?.title}
+                  </Link>
+                );
+              })}
+            </Popover>
+          ) : undefined}
+        </div>
+      );
+    }
     return <CNoControlContent onRefresh={onRefresh} />;
   };
 
   return (
     <Grid full className={`${className} w-full auto-rows-fr auto-cols-fr`}>
-      {controls?.top.map((control) => generateControl({ control }))}
+      {controls?.top.map((control) =>
+        generateControl({ control, open, anchor, anchorEl }),
+      )}
       {controls?.center.map((control) => generateControl({ control }))}
       {controls?.bottom.map((control) => generateControl({ control }))}
     </Grid>
@@ -689,7 +811,6 @@ export const HNav = function ({
   fetchNewData,
   theme = 'light',
 }: INav) {
-  const [open, setOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
   const anchor = useRef(null);
 
@@ -744,42 +865,22 @@ export const HNav = function ({
             >
               <div className="justify-self-start self-center col-span-3 col-start-1 md:!col-span-2 md:!col-start-1">
                 {!hideMenu ? (
-                  <div className="block relative" ref={anchor}>
-                    <Button
-                      icon={EIcon.apps}
-                      onClick={() => {
-                        setAnchorEl(anchor.current);
-                        setOpen(true);
-                      }}
-                      edge="end"
-                      color="inherit"
-                      aria-label="menu"
-                      image={profile?.image}
-                    />
-                    {open ? (
-                      <Popover
-                        float
-                        anchor={anchorEl}
-                        onClose={() => setOpen(false)}
-                      >
-                        {menu?.items?.map((item) => {
-                          if (item?.type === ENavItemVariant.BUTTON) {
-                            return (
-                              <Button
-                                buttonTheme="secondary"
-                                className="m-a1"
-                                href={item?.href}
-                                icon={item?.icon}
-                              />
-                            );
-                          }
-                          return (
-                            <Link className="m-a1" inverse href={item?.href}>
-                              {item?.title}
-                            </Link>
-                          );
-                        })}
-                      </Popover>
+                  <div className="flex" ref={anchor}>
+                    {!hideControls ? (
+                      <div>
+                        <HControls
+                          className="md:hidden grid md:justify-self-start self-end col-span-6 col-start-1 md:!col-span-3 md:!col-start-6"
+                          items={menu.items}
+                          controls={menu.controls}
+                          onRefresh={fetchNewData}
+                        />
+                        <HControls
+                          className="hidden md:grid md:justify-self-start self-end col-span-6 col-start-1 md:!col-span-3 md:!col-start-6"
+                          items={menu.items}
+                          controls={menu.controlsDesktop}
+                          onRefresh={fetchNewData}
+                        />
+                      </div>
                     ) : undefined}
                   </div>
                 ) : undefined}
@@ -795,7 +896,7 @@ export const HNav = function ({
               </div>
               {!hideControls ? (
                 <HControls
-                  className="grid md:justify-self-start self-end col-span-6 col-start-1 md:!col-span-3 md:!col-start-6"
+                  className="hidden md:grid md:justify-self-start self-end col-span-6 col-start-1 md:!col-span-3 md:!col-start-6"
                   controls={controls}
                   onRefresh={fetchNewData}
                 />

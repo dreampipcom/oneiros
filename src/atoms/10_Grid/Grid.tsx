@@ -18,6 +18,7 @@ export enum EBleedVariant {
   RESPONSIVE = 'responsive',
   VERTICAL = 'vertical',
   HORIZONTAL = 'horizontal',
+  CONTENT_WRAP = 'content-wrap',
 }
 
 export enum EGradientVariant {
@@ -108,6 +109,10 @@ export const HGrid = function ({
           px-a2
           md:px-a6
         `]: coercedBleed === EBleedVariant.HORIZONTAL,
+      [`
+          p-a2
+          md:p-a8
+      `]: coercedBleed === EBleedVariant.CONTENT_WRAP,
     },
   ];
 
