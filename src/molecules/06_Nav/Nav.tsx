@@ -251,7 +251,7 @@ export const MOBILE_MENU_CONTROLS = {
     {
       type: ENavControlVariant.BUTTON,
       icon: EIcon.apps,
-      image: '',
+      image: '$userProfile',
       ariaLabel: 'menu',
     },
     {
@@ -273,6 +273,17 @@ export const MOBILE_MENU_CONTROLS = {
     },
   ],
   bottom: [],
+};
+
+export const MOBILE_PRESUB_CONTROLS = {
+  top: [],
+  center: [],
+  bottom: [
+    {
+      type: ENavControlVariant.BREADCRUMB,
+      label: NavLocale.default.home,
+    },
+  ],
 };
 
 export const DESKTOP_MENU_CONTROLS = {
@@ -398,6 +409,7 @@ export const DEFAULT_MENU = {
   items: DEFAULT_L1_NAV_ITEMS,
   controls: MOBILE_MENU_CONTROLS,
   controlsDesktop: DESKTOP_MENU_CONTROLS,
+  presub: MOBILE_PRESUB_CONTROLS,
 };
 
 export const AUTHENTICATED_MENU = {
@@ -421,10 +433,21 @@ export interface IControl {
   src?: string;
   href?: string;
   icon?: string;
+  image?: string;
   className?: string;
   ariaLabel?: string;
   onRefresh?: () => void;
   onClick?: () => void;
+}
+
+export interface INavProfile {
+  handle?: string;
+  displayName?: string;
+  image?: string;
+  badges?: IBadge[];
+  awards?: unknown;
+  ticks?: unknown;
+  symbols?: unknown;
 }
 
 export interface INavControls {
@@ -436,21 +459,12 @@ export interface INavControls {
 export interface INavControlsGenerator {
   controls?: INavControls;
   items?: INavMenuItems[];
+  profile?: INavProfile;
   className?: string;
   onRefresh?: () => void;
 }
 export interface INavMenu {
   items?: INavMenuItems[];
-}
-
-export interface INavProfile {
-  handle?: string;
-  displayName?: string;
-  image?: string;
-  badges?: IBadge[];
-  awards?: unknown;
-  ticks?: unknown;
-  symbols?: unknown;
 }
 
 export interface ISpotImage {
@@ -534,6 +548,7 @@ export const CButton = function ({
   icon,
   href,
   label,
+  image,
   ariaLabel,
   className,
 }: IControl) {
@@ -543,6 +558,7 @@ export const CButton = function ({
       className="w-full justify-self-start self-center col-span-full col-start-1"
       onClick={onClick}
       ariaLabel={ariaLabel}
+      image={image}
       icon={icon}
       href={href}
     >
@@ -562,6 +578,7 @@ const CNoControlContent = function ({ className, onRefresh }: IControl) {
 
 export const HControls = function ({
   controls,
+  profile,
   items,
   onRefresh,
   className,
@@ -583,7 +600,8 @@ export const HControls = function ({
 
   if (!(Object.values(controls)?.length > 0)) return <CNoControlContent />;
 
-  const generateControl = ({ control, open, anchor, anchorEl }) => {
+  const generateControl = ({ control, open, anchor, anchorEl, profile }) => {
+    console.log({ profile });
     if (control?.type === ENavControlVariant.BREADCRUMB) {
       return <CBreadcrumb label={control?.label} />;
     }
@@ -597,19 +615,25 @@ export const HControls = function ({
     }
 
     if (control?.type === ENavControlVariant.BUTTON) {
+      const image =
+        control?.image === '$userProfile' ? profile?.image : control?.image;
       return (
         <div ref={anchor}>
           <CButton
             onClick={(e) => {
               handleClick(e, { control });
             }}
-            image={control?.image}
+            image={image}
             icon={control?.icon}
             label={control?.label}
             href={control?.href}
           />
           {open ? (
             <Popover float anchor={anchorEl} onClose={() => setOpen(false)}>
+              <Typography inherit className="flex md:hidden m-a2">
+                @{profile?.displayName || profile?.handle || 'dear'}
+                :@dpip.cc
+              </Typography>
               {items?.map((item) => {
                 if (item?.type === ENavItemVariant.BUTTON) {
                   return (
@@ -641,10 +665,14 @@ export const HControls = function ({
       className={`${className} grid gap-b1 md:gap-b1 w-full auto-rows-fr auto-cols-fr`}
     >
       {controls?.top.map((control) =>
-        generateControl({ control, open, anchor, anchorEl }),
+        generateControl({ control, profile, open, anchor, anchorEl }),
       )}
-      {controls?.center.map((control) => generateControl({ control }))}
-      {controls?.bottom.map((control) => generateControl({ control }))}
+      {controls?.center.map((control) =>
+        generateControl({ control, profile, open, anchor, anchorEl }),
+      )}
+      {controls?.bottom.map((control) =>
+        generateControl({ control, profile, open, anchor, anchorEl }),
+      )}
     </Grid>
   );
 };
@@ -806,7 +834,7 @@ export const HNav = function ({
   id = 'molecule__Nav',
   className = '',
   locale = 'en',
-  profile,
+  profile = DEFAULT_PROFILE,
   breadcrumb = 'whereami',
   menu = DEFAULT_MENU,
   controls = DEFAULT_CONTROLS,
@@ -880,11 +908,13 @@ export const HNav = function ({
                           className="md:hidden grid md:justify-self-start self-end col-span-6 col-start-1 md:!col-span-3 md:!col-start-6"
                           items={menu.items}
                           controls={menu.controls}
+                          profile={hideProfile ? undefined : profile}
                           onRefresh={fetchNewData}
                         />
                         <HControls
                           className="hidden md:grid md:justify-self-start self-end col-span-6 col-start-1 md:!col-span-3 md:!col-start-6"
                           items={menu.items}
+                          profile={hideProfile ? undefined : profile}
                           controls={menu.controlsDesktop}
                           onRefresh={fetchNewData}
                         />
@@ -902,18 +932,24 @@ export const HNav = function ({
               <div className="animate-pulse justify-self-end md:justify-self-center self-start md:self-center col-span-3 col-start-5 md:!col-span-2 md:!col-start-4">
                 <Logo size={ELogoSize.RESPONSIVE} theme={theme} />
               </div>
-              {!hideControls ? (
-                <HControls
-                  className="hidden md:grid md:justify-self-start self-end col-span-6 col-start-1 md:!col-span-3 md:!col-start-6"
-                  controls={controls}
-                  onRefresh={fetchNewData}
-                />
-              ) : undefined}
-              {!hideProfile ? (
-                <Typography className="flex md:hidden m-a2">
-                  @{profile?.displayName || profile?.handle || 'dear'}:@dpip.cc
-                </Typography>
-              ) : undefined}
+              <div className="row-start-2 col-span-6 col-start-1 md:!col-span-3 md:!col-start-6  md:justify-self-start self-end">
+                {!hideControls ? (
+                  <div>
+                    <HControls
+                      className="hidden md:grid"
+                      controls={controls}
+                      profile={hideProfile ? undefined : profile}
+                      onRefresh={fetchNewData}
+                    />
+                    <HControls
+                      className="md:hidden grid"
+                      controls={menu.presub}
+                      profile={hideProfile ? undefined : profile}
+                      onRefresh={fetchNewData}
+                    />
+                  </div>
+                ) : undefined}
+              </div>
             </Grid>
           </div>
         </Grid>
