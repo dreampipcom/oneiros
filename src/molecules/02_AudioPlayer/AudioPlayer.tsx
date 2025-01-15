@@ -102,6 +102,9 @@ export const HAudioPlayer = function ({
         min-w-[800px]
         text-right
       `]: !hideAnimation,
+      [`        
+        animate-rprompter
+      `]: !!flip,
     },
   ];
 
