@@ -19,7 +19,7 @@ import {
   EGradientVariant,
 } from '../../atoms/10_Grid';
 import { Popover } from '../../atoms/15_Popover';
-import { DreamPipColors } from '../../../tailwind.config.ts';
+import { DreamPipColors } from '../../../dist/esm/tailwind.config.ts';
 
 export enum ENavControlVariant {
   BREADCRUMB,
@@ -756,7 +756,7 @@ export const HNav = function ({
   hideControls,
   hideMenu,
   hideProfile,
-  hideBg = true,
+  hideBg = false,
   prefix,
   onThemeChange = () => {},
   fetchNewData,
@@ -851,6 +851,7 @@ export const HNav = function ({
         type: ENavControlVariant.BUTTON,
         icon: EIcon.apps,
         image: '$userProfile',
+        mods: '$popover',
         ariaLabel: 'menu',
       },
     ],
