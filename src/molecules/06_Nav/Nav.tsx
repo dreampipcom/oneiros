@@ -298,8 +298,65 @@ const DEFAULT_L1_NAV_ITEMS = [
   },
 ];
 
+const AUTHENTICATED_L1_NAV_ITEMS = [
+  {
+    name: 'Home',
+    id: 'home',
+    title: 'Home',
+    type: ENavItemVariant.BUTTON,
+    icon: EIcon['home-thatched'],
+    href: '/',
+    target: '_blank',
+    l2: [],
+  },
+  {
+    name: 'Join',
+    id: 'join',
+    title: 'join',
+    type: ENavItemVariant.BUTTON,
+    icon: EIcon.login,
+    href: '/join',
+    target: '_blank',
+    l2: [],
+  },
+  {
+    name: 'Episodes',
+    id: 'episodes',
+    title: 'Episodes',
+    type: ENavItemVariant.BUTTON,
+    icon: EIcon['music-note'],
+    href: '/episodes',
+    target: '_blank',
+    l2: [],
+  },
+  {
+    name: 'Agenda',
+    id: 'agenda',
+    title: 'agenda',
+    type: ENavItemVariant.BUTTON,
+    icon: EIcon.calendar,
+    href: '/agenda',
+    target: '_blank',
+    l2: [],
+  },
+  {
+    name: 'About',
+    id: 'about',
+    title: 'about',
+    type: ENavItemVariant.BUTTON,
+    icon: EIcon['alert-circle'],
+    href: '/who',
+    target: '_blank',
+    l2: [],
+  },
+];
+
 export const DEFAULT_MENU = {
   items: DEFAULT_L1_NAV_ITEMS,
+};
+
+export const AUTHENTICATED_MENU = {
+  items: AUTHENTICATED_L1_NAV_ITEMS,
 };
 
 export interface IControl {
@@ -539,7 +596,7 @@ export const HSpot = function ({ spots, className }: INavSpotGenerator) {
         } else {
           classes += ` justify-center col-start-${column + 1 + 2 * column} col-span-3 md:col-span-1`;
         }
-        classes += ` w-full flex  align-center justify-self-center self-center md:col-start-${column + 3}`;
+        classes += ` w-full flex align-center justify-self-center self-center md:col-start-${column + 3}`;
       }
 
       if (variant === ESpotVariant.TWO_CENTER_STACK) {
