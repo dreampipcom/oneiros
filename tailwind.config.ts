@@ -348,11 +348,11 @@ export default {
           '100%': { transform: 'translateX(-100%)', opacity: '0%' },
         },
         rtl: {
-          '0%': { transform: 'translateX(0)' },
-          '49%': { transform: 'translateX(-100%)' },
-          '50%': { transform: 'translateX(100%)', opacity: '0%' },
-          '51%': { transform: 'translateX(100%)', opacity: '100%' },
-          '100%': { transform: 'translateX(0%)' },
+          '0%': { transform: 'translateX(0%)', opacity: '0%' },
+          '49%': { transform: 'translateX(-50%)', opacity: '100%' },
+          '98%': { transform: 'translateX(-100%)', opacity: '0%' },
+          '99%': { transform: 'translateX(-50%)', opacity: '0%' },
+          '100%': { transform: 'translateX(0%)', opacity: '0%' },
         },
         fadeOut: {
           '100%': { opacity: '100%' },

@@ -98,12 +98,13 @@ export const HAudioPlayer = function ({
         col-start-1
         `]: true,
       [`        
-        animate-lprompter
+        animate-rprompter
         min-w-[800px]
-        text-right
+        text-left
       `]: !hideAnimation,
       [`        
-        animate-rprompter
+        text-right
+        animate-lprompter
       `]: !!flip,
     },
   ];
@@ -114,10 +115,10 @@ export const HAudioPlayer = function ({
     {
       [`class03
         overflow-hidden relative w-full h-full
-        order-3
+        order-[-1]
         `]: true,
       [`        
-        order-[-1]
+        order-4
       `]: !!flip,
     },
   ];
