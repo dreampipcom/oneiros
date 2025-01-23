@@ -35,6 +35,7 @@ const n400 = '#ffffff';
 // const n600 = '#660000';
 
 const slyPink = '#f1cfff';
+const royalPink = '#f8eeff';
 const purpleHaze = '#563769';
 const royalWhite = '#e9eeff';
 const navyWise = '#002972';
@@ -172,7 +173,7 @@ export const DreamPipColors = {
     passion,
     passionLight,
     passionSoft,
-    soft: slyPink,
+    soft: royalPink,
     green: shadesGreen1,
     purpleHaze,
     white,
@@ -187,7 +188,7 @@ export const DreamPipColors = {
     soft: slyPink,
     green: shadesGreen1,
     purpleHaze,
-    white,
+    white: royalPink,
   },
   gradient: {
     soft: {

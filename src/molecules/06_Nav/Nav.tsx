@@ -19,7 +19,7 @@ import {
   EGradientVariant,
 } from '../../atoms/10_Grid';
 import { Popover } from '../../atoms/15_Popover';
-import { DreamPipColors } from '../../../tailwind.config.ts';
+import { DreamPipColors } from '../../../dist/esm/tailwind.config.ts';
 
 export enum ENavControlVariant {
   BREADCRUMB,
@@ -274,7 +274,7 @@ const AUTHENTICATED_L1_NAV_ITEMS = [
     id: 'feel',
     title: 'feel',
     type: ENavItemVariant.BUTTON,
-    icon: EIcon['heart-activity'],
+    icon: EIcon.heart,
     href: '/feel',
     target: '',
     l2: [],
@@ -284,7 +284,7 @@ const AUTHENTICATED_L1_NAV_ITEMS = [
     id: 'do',
     title: 'do',
     type: ENavItemVariant.BUTTON,
-    icon: EIcon.tool,
+    icon: EIcon.coffee,
     href: '/do',
     target: '',
     l2: [],
@@ -294,7 +294,7 @@ const AUTHENTICATED_L1_NAV_ITEMS = [
     id: 'make',
     title: 'make',
     type: ENavItemVariant.BUTTON,
-    icon: EIcon.cake,
+    icon: EIcon.cube,
     href: '/make',
     target: '',
     l2: [],
@@ -314,8 +314,19 @@ const AUTHENTICATED_L1_NAV_ITEMS = [
     id: 'write',
     title: 'write',
     type: ENavItemVariant.BUTTON,
-    icon: EIcon.write,
+    icon: EIcon.journal,
     href: '/write',
+    target: '',
+    l2: [],
+  },
+  {
+    name: 'Settings',
+    id: 'settings',
+    title: 'settings',
+    type: ENavItemVariant.BUTTON,
+    icon: EIcon.wind,
+    mods: '$outline',
+    href: '/settings',
     target: '',
     l2: [],
   },
@@ -351,6 +362,7 @@ export interface IControl {
   className?: string;
   ariaLabel?: string;
   mods?: string;
+  theme?: 'light' | 'dark';
   onRefresh?: () => void;
   onClick?: () => void;
 }
@@ -376,6 +388,7 @@ export interface INavControlsGenerator {
   items?: INavMenuItems[];
   profile?: INavProfile;
   className?: string;
+  theme?: string;
   onRefresh?: () => void;
 }
 export interface INavMenu {
@@ -636,6 +649,7 @@ export const HControls = function ({
   profile,
   items,
   onRefresh,
+  theme,
   className,
 }: INavControlsGenerator) {
   const anchor = useRef(null);
@@ -694,10 +708,17 @@ export const HControls = function ({
                 :@dpip.cc
               </Typography>
               {items?.map((item) => {
+                const outline = item?.mods?.includes('$outline');
+                console.log({ outline });
+
                 if (item?.type === ENavItemVariant.BUTTON) {
                   return (
                     <Button
-                      buttonTheme="secondary"
+                      theme={theme}
+                      variant={
+                        outline ? ButtonVariant.OUTLINE : ButtonVariant.FILLED
+                      }
+                      buttonTheme={EButtonTheme.PRIMARY}
                       className="m-a1"
                       href={item?.href}
                       icon={item?.icon}
@@ -889,12 +910,14 @@ export const HNav = function ({
   const AUTHENTICATED_MENU = {
     items: AUTHENTICATED_L1_NAV_ITEMS,
     controls: MOBILE_MENU_CONTROLS,
+    controlsDesktop: DESKTOP_MENU_CONTROLS,
+    presub: MOBILE_PRESUB_CONTROLS,
   };
 
   /* user not logged, so no DEFAULT */
-  const castProfile = profile;
+  const castProfile = profile || DEFAULT_PROFILE;
 
-  const castMenu = menu || DEFAULT_MENU;
+  const castMenu = castProfile ? AUTHENTICATED_MENU : menu || DEFAULT_MENU;
   const castControls = controls || DEFAULT_CONTROLS;
 
   const [anchorEl, setAnchorEl] = useState(null);
@@ -970,16 +993,18 @@ export const HNav = function ({
                           className="md:hidden grid md:justify-self-start self-end col-span-6 col-start-1 md:!col-span-3 md:!col-start-6"
                           items={castMenu.items}
                           controls={castMenu.controls}
-                          profile={hideProfile ? undefined : profile}
+                          profile={hideProfile ? undefined : castProfile}
                           onRefresh={fetchNewData}
+                          theme={theme}
                         />
                         <HControls
                           className="hidden md:grid md:justify-self-start self-end col-span-6 col-start-1 md:!col-span-3 md:!col-start-6"
                           items={castMenu.items}
-                          profile={hideProfile ? undefined : profile}
+                          profile={hideProfile ? undefined : castProfile}
                           controls={castMenu.controlsDesktop}
                           onRefresh={fetchNewData}
                           onThemeChange={onThemeChange}
+                          theme={theme}
                         />
                       </div>
                     ) : undefined}
@@ -1001,15 +1026,17 @@ export const HNav = function ({
                     <HControls
                       className="hidden md:grid"
                       controls={castControls}
-                      profile={hideProfile ? undefined : profile}
+                      profile={hideProfile ? undefined : castProfile}
                       onRefresh={fetchNewData}
+                      theme={theme}
                     />
                     <HControls
                       className="md:hidden grid"
                       controls={castMenu.presub}
-                      profile={hideProfile ? undefined : profile}
+                      profile={hideProfile ? undefined : castProfile}
                       onRefresh={fetchNewData}
                       onThemeChange={onThemeChange}
+                      theme={theme}
                     />
                   </div>
                 ) : undefined}

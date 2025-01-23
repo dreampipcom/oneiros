@@ -57,7 +57,7 @@ export const HPopover = function ({
         [&>.MuiPaper-elevation]:p-a3
         [&>.MuiPaper-elevation]:md:p-a8
         [&>.MuiPaper-elevation]:bg-primary-light
-        [&>.MuiPaper-elevation]:dark:bg-secondary-light
+        [&>.MuiPaper-elevation]:dark:bg-primary-dark2
         [&>.MuiModal-backdrop]:bg-primary-passionSoft
         [&>.MuiModal-backdrop]:dark:bg-primary-dark2
         [&>.MuiModal-backdrop]:!opacity-40
