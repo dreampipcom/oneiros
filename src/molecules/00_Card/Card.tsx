@@ -74,7 +74,7 @@ export const HCard = function ({
   badgeText = '',
   badgeLink = '',
   images = ['https://placehold.co/600x400'],
-  variant = ECardVariant.FULL_WIDTH_IMAGE,
+  variant = ECardVariant.DEFAULT,
   theme = 'light',
 }: ICard) {
   const gridSx = [

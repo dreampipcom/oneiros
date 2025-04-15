@@ -207,7 +207,7 @@ export interface ICardGrid {
 export const HCardGrid = function ({
   id = 'atom__CardGrid',
   className = '',
-  cards = BLOG_POSTS,
+  cards = DEFAULT_CARDS,
   onLikeCard,
   theme = 'light',
   variant = ECardGridVariant.FULL_WIDTH_IMAGE,
