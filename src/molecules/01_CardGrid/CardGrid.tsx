@@ -224,12 +224,31 @@ export const HCardGrid = function ({
         grid
         sm:grid-cols-12
         sm:!gap-a0
-        md:!gap-a0
+        md:!gap-a1
       `]: variant === ECardGridVariant.FULL_WIDTH_IMAGE,
     },
   ];
 
   const gridStyles = `${clsx(gridSx)} ${className}`;
+
+  const cardSx = [
+    {
+      [`class01
+        col-span-full 
+        sm:col-span-6 
+        lg:col-span-4 
+        col-start-0
+        `]: variant === ECardGridVariant.DEFAULT,
+      [`class02
+        col-span-full 
+        sm:col-span-6 
+        lg:col-span-6 
+        col-start-0
+      `]: variant === ECardGridVariant.FULL_WIDTH_IMAGE,
+    },
+  ];
+
+  const cardStyles = `${clsx(cardSx)}`;
 
   return (
     <Grid
@@ -250,7 +269,7 @@ export const HCardGrid = function ({
           {...card}
           theme={theme}
           variant={variant}
-          className="col-span-full sm:col-span-6 lg:col-span-4 col-start-0"
+          className={cardStyles}
         />
       ))}
     </Grid>
