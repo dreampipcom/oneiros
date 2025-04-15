@@ -59,7 +59,6 @@ export const HImage = function ({
       [`
         w-full
         m-0
-        overflow-hidden
         flex
         align-center
         justify-center
