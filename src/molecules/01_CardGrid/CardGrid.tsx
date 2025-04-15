@@ -258,7 +258,7 @@ export const HCardGrid = function ({
       variant={EGridVariant.TWELVE_COLUMNS}
       bleed={
         variant === ECardGridVariant.FULL_WIDTH_IMAGE
-          ? EBleedVariant.NONE
+          ? EBleedVariant.ZERO
           : EBleedVariant.RESPONSIVE
       }
     >

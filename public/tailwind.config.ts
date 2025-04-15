@@ -93,11 +93,11 @@ const dark2 = purpleHaze;
 const light1 = royalWhite;
 const light2 = slyPink;
 
-const darkTrans1 = dark1 + 'cc';
-const darkTrans2 = dark2 + 'aa';
+const darkTrans1 = dark2 + 'aa';
+const darkTrans2 = dark1 + 'cc';
 
 const lightTrans1 = light1 + 'cc';
-const lightTrans2 = light2 + 'aa';
+const lightTrans2 = light2 + 'cc';
 
 const passion = pinkDive;
 const passionLight = pinkSurf;

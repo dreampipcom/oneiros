@@ -2,6 +2,8 @@
 // @atoms/Card.tsx
 import clsx from 'clsx';
 
+import { ECardGridVariant } from '../01_CardGrid/CardGrid.tsx';
+
 import { Typography, TypographyVariant } from '../../atoms/02_Typography';
 import Grid, {
   EBleedVariant,
@@ -51,7 +53,7 @@ export interface ICard {
   selected?: boolean;
   images?: string[];
   background?: ECardBackground;
-  variant?: ECardVariant;
+  variant?: ECardVariant | ECardGridVariant;
   theme?: 'light' | 'dark';
 }
 
