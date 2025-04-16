@@ -234,7 +234,13 @@ export const HTypography = function ({
   const styles = `${clsx(sx)} ${className}`;
 
   return (
-    <Typography id={id} className={styles} variant={coercedVariant} {...props}>
+    <Typography
+      title={children}
+      id={id}
+      className={styles}
+      variant={coercedVariant}
+      {...props}
+    >
       {children}
     </Typography>
   );

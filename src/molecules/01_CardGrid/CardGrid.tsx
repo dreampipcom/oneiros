@@ -128,8 +128,66 @@ export const DEFAULT_CARDS = [
   },
 ];
 
+export const BLOG_POSTS = [
+  {
+    id: 'molecule__cardgrid__card--01',
+    className: '',
+    title: 'This is a card example #01',
+    link: 'https://dreampip.com',
+  },
+  {
+    id: 'molecule__cardgrid__card--02',
+    className: '',
+    title: 'This is a card example #02',
+    link: 'https://dreampip.com',
+  },
+  {
+    id: 'molecule__cardgrid__card--03',
+    className: '',
+    title: 'This is a card example #03',
+    link: 'https://dreampip.com',
+  },
+  {
+    id: 'molecule__cardgrid__card--04',
+    className: '',
+    title: 'This is a card example #04',
+    link: 'https://dreampip.com',
+  },
+  {
+    id: 'molecule__cardgrid__card--05',
+    className: '',
+    title: 'This is a card example #05',
+    link: 'https://dreampip.com',
+  },
+  {
+    id: 'molecule__cardgrid__card--06',
+    className: '',
+    title: 'This is a card example #06',
+    link: 'https://dreampip.com',
+  },
+  {
+    id: 'molecule__cardgrid__card--07',
+    className: '',
+    title: 'This is a card example #07',
+    link: 'https://dreampip.com',
+  },
+  {
+    id: 'molecule__cardgrid__card--08',
+    className: '',
+    title: 'This is a card example #08',
+    link: 'https://dreampip.com',
+  },
+  {
+    id: 'molecule__cardgrid__card--09',
+    className: '',
+    title: 'This is a card example #08',
+    link: 'https://dreampip.com',
+  },
+];
+
 export enum ECardGridVariant {
   DEFAULT = 'default',
+  FULL_WIDTH_IMAGE = 'full-width-image',
 }
 
 export interface IBackgroundImage {
@@ -142,6 +200,7 @@ export interface ICardGrid {
   className?: string;
   cards?: ICard[];
   onLikeCard?: () => void;
+  variant?: ECardGridVariant;
   theme?: 'light' | 'dark';
 }
 
@@ -149,8 +208,9 @@ export const HCardGrid = function ({
   id = 'atom__CardGrid',
   className = '',
   cards = DEFAULT_CARDS,
-  onLikeCard = () => {},
+  onLikeCard,
   theme = 'light',
+  variant = ECardGridVariant.FULL_WIDTH_IMAGE,
 }: ICardGrid) {
   const gridSx = [
     {
@@ -159,11 +219,36 @@ export const HCardGrid = function ({
         sm:grid-cols-12
         sm:!gap-a0
         md:!gap-a4
-        `]: true,
+        `]: variant === ECardGridVariant.DEFAULT,
+      [`class02
+        grid
+        sm:grid-cols-12
+        sm:!gap-a0
+        md:!gap-a1
+      `]: variant === ECardGridVariant.FULL_WIDTH_IMAGE,
     },
   ];
 
   const gridStyles = `${clsx(gridSx)} ${className}`;
+
+  const cardSx = [
+    {
+      [`class01
+        col-span-full 
+        sm:col-span-6 
+        lg:col-span-4 
+        col-start-0
+        `]: variant === ECardGridVariant.DEFAULT,
+      [`class02
+        col-span-full 
+        sm:col-span-6 
+        lg:col-span-6 
+        col-start-0
+      `]: variant === ECardGridVariant.FULL_WIDTH_IMAGE,
+    },
+  ];
+
+  const cardStyles = `${clsx(cardSx)}`;
 
   return (
     <Grid
@@ -171,7 +256,11 @@ export const HCardGrid = function ({
       id={id}
       className={gridStyles}
       variant={EGridVariant.TWELVE_COLUMNS}
-      bleed={EBleedVariant.RESPONSIVE}
+      bleed={
+        variant === ECardGridVariant.FULL_WIDTH_IMAGE
+          ? EBleedVariant.ZERO
+          : EBleedVariant.RESPONSIVE
+      }
     >
       {cards.map((card) => (
         <Card
@@ -179,7 +268,8 @@ export const HCardGrid = function ({
           onLike={onLikeCard}
           {...card}
           theme={theme}
-          className="col-span-full sm:col-span-6 lg:col-span-4 col-start-0"
+          variant={variant}
+          className={cardStyles}
         />
       ))}
     </Grid>

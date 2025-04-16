@@ -2,6 +2,8 @@
 // @atoms/Card.tsx
 import clsx from 'clsx';
 
+import { ECardGridVariant } from '../01_CardGrid/CardGrid.tsx';
+
 import { Typography, TypographyVariant } from '../../atoms/02_Typography';
 import Grid, {
   EBleedVariant,
@@ -20,6 +22,7 @@ import Review from '../../atoms/14_Review/Review.tsx';
 
 export enum ECardVariant {
   DEFAULT = 'default',
+  FULL_WIDTH_IMAGE = 'full-width-image',
 }
 
 export enum ECardBackground {
@@ -50,13 +53,14 @@ export interface ICard {
   selected?: boolean;
   images?: string[];
   background?: ECardBackground;
+  variant?: ECardVariant | ECardGridVariant;
   theme?: 'light' | 'dark';
 }
 
 export const HCard = function ({
   id = 'atom__Card',
   className = '',
-  onLike = () => {},
+  onLike,
   rating = '',
   link = 'https://dreampip.com',
   title = 'This is a very long title for a card to see how it displays on it.',
@@ -70,6 +74,7 @@ export const HCard = function ({
   badgeText = '',
   badgeLink = '',
   images = ['https://placehold.co/600x400'],
+  variant = ECardVariant.DEFAULT,
   theme = 'light',
 }: ICard) {
   const gridSx = [
@@ -79,7 +84,13 @@ export const HCard = function ({
         bg-card-white
         hover:bg-icon-soft
         p-a2
-        `]: true,
+        `]: variant === ECardVariant.DEFAULT,
+      [`class00
+        relative
+        bg-card-white
+        hover:bg-icon-soft
+        p-a0
+        `]: variant === ECardVariant.FULL_WIDTH_IMAGE,
     },
   ];
 
@@ -106,7 +117,10 @@ export const HCard = function ({
             />
           </Link>
           {rating ? (
-            <Review theme={theme} className="absolute left-a1 sm:top-a1 top-a2">
+            <Review
+              theme={theme}
+              className="absolute sm:left-a1 left-a2 sm:top-a1 top-a2"
+            >
               {rating}
             </Review>
           ) : undefined}
@@ -118,7 +132,7 @@ export const HCard = function ({
                 selected ? EButtonTheme.PASSION_SELECTED : EButtonTheme.PASSION
               }
               icon={selected ? EIcon.heart : EIcon['heart-broken']}
-              className="absolute right-a1 sm:top-a1 top-a2"
+              className="!absolute sm:right-a1 right-a2 sm:top-a1 top-a2"
             />
           ) : undefined}
           {badgeText ? (
@@ -127,6 +141,16 @@ export const HCard = function ({
                 {badgeText}
               </BadgeChip>
             </Link>
+          ) : undefined}
+          {variant === ECardVariant.FULL_WIDTH_IMAGE ? (
+            <Typography
+              variant={TypographyVariant.BODY}
+              as="h3"
+              truncate
+              className="rounded-t-none p-a1 sm:p-a2 bg-primary-light dark:bg-primary-dark w-full col-start-0 col-span-2 absolute bottom-0 left-0"
+            >
+              {title}
+            </Typography>
           ) : undefined}
         </Grid>
       ) : undefined}
@@ -147,7 +171,7 @@ export const HCard = function ({
                     : EButtonTheme.PASSION
                 }
                 icon={selected ? EIcon.heart : EIcon['heart-broken']}
-                className="col-start-0 col-span-2"
+                className="col-start-0 col-span-2 absolute right-a2"
               />
             ) : undefined}
             {rating ? (
@@ -166,54 +190,56 @@ export const HCard = function ({
             ) : undefined}
           </Grid>
         ) : undefined}
-        <Link href={link} title={title} faux className="flex flex-col">
-          {title ? (
-            <Typography
-              variant={TypographyVariant.H4}
-              truncate
-              className="pt-a2 w-full col-span-full col-start-0 md:col-span-full md:col-start-0"
-            >
-              {title}
-            </Typography>
-          ) : undefined}
-          {description ? (
-            <Typography
-              inherit
-              variant={TypographyVariant.SMALL}
-              className="w-full pt-a1 pb-0 text-neutral-light dark:text-body-dark col-span-full col-start-0 md:col-span-full md:col-start-0"
-            >
-              {description}
-            </Typography>
-          ) : undefined}
-          {where ? (
-            <Typography
-              inherit
-              variant={TypographyVariant.SMALL}
-              data-lat={latlng.lat}
-              data-lng={latlng.lng}
-              className="w-full pt-a1 pb-0 text-neutral-light dark:text-body-dark col-span-full col-start-0 md:col-span-full md:col-start-0"
-            >
-              {where}
-            </Typography>
-          ) : undefined}
-          {when ? (
-            <Typography
-              inherit
-              variant={TypographyVariant.SMALL}
-              className="w-full pt-0 text-neutral-light dark:text-body-dark col-span-full col-start-0 md:col-span-full md:col-start-0"
-            >
-              {when}
-            </Typography>
-          ) : undefined}
-          {value ? (
-            <PriceTag
-              variant={EPriceTagVariant.NORMAL}
-              className="w-full pt-a2 pb-a0 col-span-4 col-start-0 md:col-span-4 md:col-start-0"
-            >
-              {value}
-            </PriceTag>
-          ) : undefined}
-        </Link>
+        {variant === ECardVariant.DEFAULT ? (
+          <Link href={link} title={title} faux className="flex flex-col">
+            {title ? (
+              <Typography
+                variant={TypographyVariant.H4}
+                truncate
+                className="pt-a2 w-full col-span-full col-start-0 md:col-span-full md:col-start-0"
+              >
+                {title}
+              </Typography>
+            ) : undefined}
+            {description ? (
+              <Typography
+                inherit
+                variant={TypographyVariant.SMALL}
+                className="w-full pt-a1 pb-0 text-neutral-light dark:text-body-dark col-span-full col-start-0 md:col-span-full md:col-start-0"
+              >
+                {description}
+              </Typography>
+            ) : undefined}
+            {where ? (
+              <Typography
+                inherit
+                variant={TypographyVariant.SMALL}
+                data-lat={latlng.lat}
+                data-lng={latlng.lng}
+                className="w-full pt-a1 pb-0 text-neutral-light dark:text-body-dark col-span-full col-start-0 md:col-span-full md:col-start-0"
+              >
+                {where}
+              </Typography>
+            ) : undefined}
+            {when ? (
+              <Typography
+                inherit
+                variant={TypographyVariant.SMALL}
+                className="w-full pt-0 text-neutral-light dark:text-body-dark col-span-full col-start-0 md:col-span-full md:col-start-0"
+              >
+                {when}
+              </Typography>
+            ) : undefined}
+            {value ? (
+              <PriceTag
+                variant={EPriceTagVariant.NORMAL}
+                className="w-full pt-a2 pb-a0 col-span-4 col-start-0 md:col-span-4 md:col-start-0"
+              >
+                {value}
+              </PriceTag>
+            ) : undefined}
+          </Link>
+        ) : undefined}
       </Grid>
     </Grid>
   );

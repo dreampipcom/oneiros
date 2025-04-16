@@ -141,6 +141,7 @@ const App = () => {
   return (
       <CardGrid 
         cards={DEFAULT_CARDS}
+        variant={ECardGridVariant.DEFAULT}
       />
   );
 };
@@ -151,3 +152,4 @@ export default Example;
 #### Arguments
 
 - **cards** — An array of Cards props, where each index represents a Card in the grid.
+- **variant** — An enumerator with the different variants for the CardGrid.
