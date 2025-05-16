@@ -151,6 +151,18 @@ export const HAudioPlayer = function ({
         setTitle(options?.title || prompt);
       };
     if (element) {
+      const memo = {
+        clearInterval: () => {},
+      };
+      const retryPlay = () => {
+        const interval = setInterval(() => {
+          handleStatus('playing', {
+            title: element.getAttribute('data-title') || prompt,
+          });
+          setTimeout(() => element.play(), 0);
+        }, 1000);
+        memo.clearInterval = () => clearInterval(interval);
+      };
       const handlePlay = () => {
         handleStatus('playing', {
           title: element.getAttribute('data-title') || prompt,
@@ -161,8 +173,9 @@ export const HAudioPlayer = function ({
         setTimeout(() => setStatus('ready'), 0);
       };
       const handleStalled = () => {
-        handleStop();
-        setTimeout(handleClick, 0);
+        handleStatus('stalled', {});
+        retryPlay();
+        setTimeout(retryPlay, 1000);
       };
       element.addEventListener('play', handlePlay);
       element.addEventListener('ended', handleStop);
@@ -170,12 +183,18 @@ export const HAudioPlayer = function ({
 
       window.addEventListener('online', () => {
         element.play();
+        memo.clearInterval();
+      });
+
+      window.addEventListener('offline', () => {
+        retryPlay();
       });
 
       return () => {
         element.removeEventListener('play', handlePlay);
         element.removeEventListener('ended', handleStop);
         element.removeEventListener('stalled', handleStalled);
+        memo.clearInterval();
       };
     }
     return () => {};
