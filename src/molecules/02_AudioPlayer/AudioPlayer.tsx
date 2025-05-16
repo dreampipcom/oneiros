@@ -23,6 +23,7 @@ export const DEFAULT_TRACKS = [
     onPlay: () => {},
     title: 'This is the track playing',
     url: 'https://radio.dreampip.com/hls/dpip000/live.m3u8',
+    nowPlaying: 'https://radio.dreampip.com/api/nowplaying/dpip000',
     isPlaying: false,
   },
 ];
@@ -43,6 +44,7 @@ export interface IAudioTrack {
   title?: string;
   url?: string;
   isPlaying?: boolean;
+  nowPlaying?: string;
 }
 
 export interface IAudioPlayer {
@@ -136,6 +138,32 @@ export const HAudioPlayer = function ({
 
   const promptWrapperStyles = `${clsx(promptWrapperSx)}`;
 
+  const updatePrompt = async () => {
+    console.log(
+      '%c, dp::oneiros::audio_player::fetching::now_playing',
+      'background-color: pink; color: blue;',
+    );
+    const url = selectedTrack.nowPlaying;
+    if (url) {
+      try {
+        const req = await fetch(url);
+        const json = await req.json();
+        const text = json?.now_playing?.song?.title;
+
+        if (text.match(/^[0-9]*$/)) {
+          setTitle(`Rotation Portal ${text}`);
+        } else {
+          setTitle(text);
+        }
+      } catch (e) {
+        console.log(
+          '%c, dp::oneiros::audio_player::fetching::now_playing',
+          'background-color: red; color: white;',
+        );
+      }
+    }
+  };
+
   const handleStatus = (status: string, options: { title?: string }) => {
     console.log(
       `%c, dp::oneiros::audio_player::status_changed(${status})`,
@@ -180,7 +208,8 @@ export const HAudioPlayer = function ({
 
     if (element) {
       const memo = {
-        clearInterval: () => {},
+        clearRetryInterval: () => {},
+        clearPromptInterval: () => {},
       };
 
       const retryPlay = () => {
@@ -192,17 +221,24 @@ export const HAudioPlayer = function ({
             }
           }, 0);
         }, 1000);
-        memo.clearInterval = () => clearInterval(interval);
+        memo.clearRetryInterval = () => clearInterval(interval);
       };
 
-      const handleStalled = () => {
-        handleStatus('stalled', {});
-        setTimeout(handlePlay, 1000);
+      const checkPrompt = () => {
+        const interval = setInterval(() => {
+          updatePrompt();
+        }, 5000);
+        memo.clearPromptInterval = () => clearInterval(interval);
       };
+
+      // const handleStalled = () => {
+      //   handleStatus('stalled', {});
+      //   setTimeout(handlePlay, 1000);
+      // };
 
       const handleOnline = () => {
         handleStatus('online', {});
-        memo.clearInterval();
+        memo.clearRetryInterval();
         setTimeout(handlePlay, 1000);
       };
 
@@ -212,17 +248,20 @@ export const HAudioPlayer = function ({
       };
 
       element.addEventListener('ended', handleStop);
-      element.addEventListener('stalled', handleStalled);
+      // element.addEventListener('stalled', handleStalled);
 
       window.addEventListener('online', handleOnline);
       window.addEventListener('offline', handleOffline);
 
+      checkPrompt();
+
       return () => {
         element.removeEventListener('ended', handleStop);
-        element.removeEventListener('stalled', handleStalled);
+        // element.removeEventListener('stalled', handleStalled);
         window.removeEventListener('online', handleOnline);
         window.removeEventListener('offline', handleOffline);
-        memo.clearInterval();
+        memo.clearRetryInterval();
+        memo.clearPromptInterval();
         handleStatus('destroying', {});
       };
     }
@@ -257,7 +296,8 @@ export const HAudioPlayer = function ({
       <div className={promptWrapperStyles}>
         <div className="absolute left-a0 top-b1">
           <Typography className={promptStyles} truncate>
-            {title} · {title} · {title} · {title} · {title} · {title} · {title}
+            {title} · {title} · {title} · {title} · {title} · {title} · {title}{' '}
+            · {title} · {title}
           </Typography>
         </div>
       </div>

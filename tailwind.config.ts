@@ -37,7 +37,7 @@ const n400 = '#ffffff';
 const slyPink = '#f1cfff';
 const purpleHaze = '#563769';
 const royalWhite = '#e9eeff';
-const navyWise = '#002972';
+const navyWise = '#111033';
 const karunaNara = '#f7bfa5';
 
 const pinkDive = '#C476CB';
@@ -94,10 +94,10 @@ const light1 = royalWhite;
 const light2 = slyPink;
 
 const darkTrans1 = dark2 + 'aa';
-const darkTrans2 = dark1 + 'cc';
+const darkTrans2 = bgDark + 'cc';
 
-const lightTrans1 = light1 + 'cc';
-const lightTrans2 = light2 + 'cc';
+const lightTrans1 = primary + 'cc';
+const lightTrans2 = bgLight + 'cc';
 
 const passion = pinkDive;
 const passionLight = pinkSurf;
