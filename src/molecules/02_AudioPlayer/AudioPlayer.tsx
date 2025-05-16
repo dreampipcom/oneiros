@@ -144,7 +144,7 @@ export const HAudioPlayer = function ({
   };
 
   const handlePlay = () => {
-    audioElement.current.play();
+    audioElement?.current?.play();
     handleStatus('playing', {
       title: audioElement?.current?.getAttribute('data-title') || prompt,
     });
