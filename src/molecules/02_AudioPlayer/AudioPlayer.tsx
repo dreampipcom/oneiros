@@ -144,14 +144,23 @@ export const HAudioPlayer = function ({
       'background-color: pink; color: blue;',
     );
     const url = selectedTrack.nowPlaying;
-    const req = await fetch(url);
-    const json = await req.json();
-    const text = json?.now_playing?.song?.title;
+    if (url) {
+      try {
+        const req = await fetch(url);
+        const json = await req.json();
+        const text = json?.now_playing?.song?.title;
 
-    if (text.match(/^[0-9]*$/)) {
-      setTitle(`Rotation Portal ${text}`);
-    } else {
-      setTitle(text);
+        if (text.match(/^[0-9]*$/)) {
+          setTitle(`Rotation Portal ${text}`);
+        } else {
+          setTitle(text);
+        }
+      } catch (e) {
+        console.log(
+          '%c, dp::oneiros::audio_player::fetching::now_playing',
+          'background-color: red; color: white;',
+        );
+      }
     }
   };
 
