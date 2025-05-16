@@ -144,6 +144,7 @@ export const HAudioPlayer = function ({
   };
 
   const handlePlay = () => {
+    audioElement?.current?.play();
     handleStatus('playing', {
       title: audioElement?.current?.getAttribute('data-title') || prompt,
     });
@@ -163,8 +164,7 @@ export const HAudioPlayer = function ({
       audioElement.current.pause();
       reconstructPlayer();
     } else {
-      audioElement.current.play();
-      handleStatus('playing', {});
+      handlePlay();
     }
   };
 
@@ -190,8 +190,7 @@ export const HAudioPlayer = function ({
 
       const handleStalled = () => {
         handleStatus('stalled', {});
-        retryPlay();
-        setTimeout(retryPlay, 1000);
+        setTimeout(handlePlay, 1000);
       };
 
       const handleOnline = () => {
