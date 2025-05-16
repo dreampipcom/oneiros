@@ -1,7 +1,8 @@
 /* eslint react/jsx-one-expression-per-line:0, jsx-a11y/media-has-caption:0, no-nested-ternary:0, no-unused-vars:0, max-len:0, no-shadow:0, @typescript-eslint/no-explicit-any:0, object-curly-newline:0 */
 // @atoms/AudioPlayer.tsx
 import clsx from 'clsx';
-import { Fragment, useRef, useState, useEffect } from 'react';
+import { useRef, useState, useEffect } from 'react';
+import MuxAudio from '@mux/mux-audio-react';
 
 import { Button, ButtonVariant, EButtonTheme } from '../../atoms/01_Button';
 import { Typography } from '../../atoms/02_Typography';
@@ -21,7 +22,7 @@ export const DEFAULT_TRACKS = [
     className: '',
     onPlay: () => {},
     title: 'This is the track playing',
-    url: 'https://www.dreampip.com/api/nexus/audio/1',
+    url: 'https://radio.dreampip.com/hls/dpip000/live.m3u8',
     isPlaying: false,
   },
 ];
@@ -70,8 +71,10 @@ export const HAudioPlayer = function ({
   theme = 'light',
 }: IAudioPlayer) {
   const audioElement = useRef<HTMLAudioElement>(null);
-  const [status, setStatus] = useState('stopped');
+  const [status, setStatus] = useState('ready');
   const [title, setTitle] = useState(prompt);
+  const selectedTrack = tracks[1];
+
   const gridSx = [
     {
       [`class02
@@ -125,19 +128,16 @@ export const HAudioPlayer = function ({
 
   const promptWrapperStyles = `${clsx(promptWrapperSx)}`;
 
-  const handlePlay = () => {
+  const handleClick = () => {
     if (!audioElement.current) return;
     onPlayTrack();
     const isPlaying = status === 'playing';
 
     if (isPlaying) {
-      audioElement.current.pause();
-      audioElement.current.src = 'about:blank';
-      audioElement.current.load();
       setStatus('stopped');
+      audioElement.current.pause();
+      setTimeout(() => setStatus('ready'), 0);
     } else {
-      audioElement.current.src = tracks[0].url || 'about:blank';
-      audioElement.current.load();
       audioElement.current.play();
       setStatus('playing');
     }
@@ -151,57 +151,62 @@ export const HAudioPlayer = function ({
         setTitle(options?.title || prompt);
       };
     if (element) {
-      const handlePlay = handleStatus('playing', {
-        title: element.getAttribute('data-title') || prompt,
-      });
-      const handleStop = handleStatus('stopped', {});
+      const handlePlay = () => {
+        handleStatus('playing', {
+          title: element.getAttribute('data-title') || prompt,
+        });
+      };
+      const handleStop = () => {
+        handleStatus('stopped', {});
+        setTimeout(() => setStatus('ready'), 0);
+      };
+      const handleStalled = () => {
+        handleStop();
+        setTimeout(handleClick, 0);
+      };
       element.addEventListener('play', handlePlay);
       element.addEventListener('ended', handleStop);
+      element.addEventListener('stalled', handleStalled);
+
+      window.addEventListener('online', () => {
+        element.play();
+      });
 
       return () => {
         element.removeEventListener('play', handlePlay);
         element.removeEventListener('ended', handleStop);
+        element.removeEventListener('stalled', handleStalled);
       };
     }
     return () => {};
-  }, [status, prompt]);
+  }, [status, prompt, handleClick]);
 
   return (
     <div id={id} className={gridStyles}>
       <div className="flex items-center justify-center order-2">
-        <Button
-          className="w-full"
-          theme={theme}
-          icon={status === 'playing' ? EIcon.stop : EIcon.play}
-          variant={ButtonVariant.FILLED}
-          buttonTheme={EButtonTheme.PRIMARY}
-          onClick={handlePlay}
-        />
-        <audio
-          src={tracks[0].url}
-          controls={nativeControls}
-          ref={audioElement}
-          autoPlay={autoPlay}
-          preload="none"
-        >
-          {tracks.map((file) => (
-            <>
-              <source
-                key={`molecules__AudioPlayer__element-source-${file.title}`}
-                src={file.url}
-                type="audio/mpeg"
-              />
-              <track
-                kind="subtitles"
-                key={`molecules__AudioPlayer__element-track-${file.title}`}
-                data-title={file.title}
-                srcLang="en"
-                label="English"
-                src={file.url}
-              />
-            </>
-          ))}
-        </audio>
+        {nativeControls ? undefined : (
+          <Button
+            className="w-full"
+            theme={theme}
+            icon={status === 'playing' ? EIcon.stop : EIcon.play}
+            variant={ButtonVariant.FILLED}
+            buttonTheme={EButtonTheme.PRIMARY}
+            onClick={handleClick}
+          />
+        )}
+        {status !== 'stopped' ? (
+          <MuxAudio
+            startTime={-1}
+            src={selectedTrack.url}
+            controls={nativeControls}
+            ref={audioElement}
+            autoPlay={autoPlay}
+            loop
+            preload="none"
+            streamType="live"
+            preferPlayback="mse"
+          />
+        ) : undefined}
       </div>
       <div className={promptWrapperStyles}>
         <div className="absolute left-a0 top-b1">
