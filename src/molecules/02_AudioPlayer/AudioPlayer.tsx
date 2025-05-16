@@ -130,7 +130,10 @@ export const HAudioPlayer = function ({
   const promptWrapperStyles = `${clsx(promptWrapperSx)}`;
 
   const handleStatus = (status: string, options: { title?: string }) => {
-    console.log(`dp::oneiros::audio_player::status_changed(${status})`);
+    console.log(
+      `%c, dp::oneiros::audio_player::status_changed(${status})`,
+      'background-color: blue',
+    );
     setStatus(status);
     setTitle(options?.title || prompt);
   };
