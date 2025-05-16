@@ -190,8 +190,7 @@ export const HAudioPlayer = function ({
 
       const handleStalled = () => {
         handleStatus('stalled', {});
-        retryPlay();
-        setTimeout(retryPlay, 1000);
+        setTimeout(handlePlay, 1000);
       };
 
       const handleOnline = () => {
