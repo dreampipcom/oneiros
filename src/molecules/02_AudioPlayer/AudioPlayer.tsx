@@ -75,6 +75,13 @@ export const HAudioPlayer = function ({
   const [title, setTitle] = useState(prompt);
   const selectedTrack = tracks[1];
   const shouldAutoPlay = autoPlay || status === 'playing';
+  const shouldMount = status !== 'stopped' && status !== 'stalled';
+  const icon =
+    status === 'playing'
+      ? EIcon.stop
+      : status === 'stalled'
+        ? EIcon['time-sand']
+        : EIcon.play;
 
   const gridSx = [
     {
@@ -229,13 +236,13 @@ export const HAudioPlayer = function ({
           <Button
             className="w-full"
             theme={theme}
-            icon={status === 'playing' ? EIcon.stop : EIcon.play}
+            icon={icon}
             variant={ButtonVariant.FILLED}
             buttonTheme={EButtonTheme.PRIMARY}
             onClick={handleClick}
           />
         )}
-        {status !== 'stopped' ? (
+        {shouldMount ? (
           <MuxAudio
             startTime={-1}
             src={selectedTrack.url}
