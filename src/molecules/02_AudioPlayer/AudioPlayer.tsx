@@ -244,7 +244,6 @@ export const HAudioPlayer = function ({
         )}
         {shouldMount ? (
           <MuxAudio
-            startTime={-1}
             src={selectedTrack.url}
             controls={nativeControls}
             ref={audioElement}
@@ -252,7 +251,6 @@ export const HAudioPlayer = function ({
             loop
             preload="none"
             streamType="live"
-            preferPlayback="mse"
           />
         ) : undefined}
       </div>
