@@ -157,7 +157,7 @@ export const HAudioPlayer = function ({
         });
       };
       const handleStop = () => {
-        handleStatus('stopped');
+        handleStatus('stopped', {});
         setTimeout(() => setStatus('ready'), 0);
       };
       const handleStalled = () => {
