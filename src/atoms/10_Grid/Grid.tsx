@@ -79,9 +79,10 @@ export const HGrid = function ({
         `]: !!gradient,
       [`
           class02
-          bg-gradient-to-r 
+          bg-gradient-to-bl 
           from-gradient-soft-light-from 
           to-gradient-soft-light-to 
+          to-50%
           dark:from-gradient-soft-dark-from
           dark:to-gradient-soft-dark-to
           `]: gradient === EGradientVariant.SOFT,
