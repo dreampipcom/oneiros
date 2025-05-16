@@ -759,7 +759,7 @@ export const HNav = function ({
   menu,
   controls,
   spots = DEFAULT_PROMOS,
-  hideSpots,
+  hideSpots = true,
   hideControls,
   hideMenu,
   hideProfile,
@@ -815,18 +815,18 @@ export const HNav = function ({
 
   const MOBILE_MENU_CONTROLS = {
     top: [
-      {
-        type: ENavControlVariant.BUTTON,
-        icon: EIcon.apps,
-        image: '$userProfile',
-        mods: '$popover',
-        ariaLabel: 'menu',
-      },
-      {
-        type: ENavControlVariant.BUTTON,
-        icon: EIcon.login,
-        href: '/join',
-      },
+      // {
+      //   type: ENavControlVariant.BUTTON,
+      //   icon: EIcon.apps,
+      //   image: '$userProfile',
+      //   mods: '$popover',
+      //   ariaLabel: 'menu',
+      // },
+      // {
+      //   type: ENavControlVariant.BUTTON,
+      //   icon: EIcon.login,
+      //   href: '/join',
+      // },
       {
         type: ENavControlVariant.BUTTON,
         icon: EIcon['music-note'],
