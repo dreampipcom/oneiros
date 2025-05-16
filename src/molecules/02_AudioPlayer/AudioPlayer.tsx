@@ -290,7 +290,6 @@ export const HAudioPlayer = function ({
             loop
             preload="none"
             streamType="live"
-            preferPlayback="mse"
           />
         ) : undefined}
       </div>
