@@ -74,6 +74,7 @@ export const HAudioPlayer = function ({
   const [status, setStatus] = useState('ready');
   const [title, setTitle] = useState(prompt);
   const selectedTrack = tracks[1];
+  const shouldAutoPlay = autoPlay || status === 'playing';
 
   const gridSx = [
     {
@@ -128,77 +129,99 @@ export const HAudioPlayer = function ({
 
   const promptWrapperStyles = `${clsx(promptWrapperSx)}`;
 
+  const handleStatus = (status: string, options: { title?: string }) => {
+    console.log(
+      `%c, dp::oneiros::audio_player::status_changed(${status})`,
+      'background-color: blue',
+    );
+    setStatus(status);
+    setTitle(options?.title || prompt);
+  };
+
+  const reconstructPlayer = () => {
+    handleStatus('stopped', {});
+    setTimeout(() => handleStatus('ready', {}), 0);
+  };
+
+  const handlePlay = () => {
+    handleStatus('playing', {
+      title: audioElement?.current?.getAttribute('data-title') || prompt,
+    });
+  };
+
+  const handleStop = () => {
+    handleStatus('stopped', {});
+    setTimeout(() => setStatus('ready'), 0);
+  };
+
   const handleClick = () => {
     if (!audioElement.current) return;
     onPlayTrack();
     const isPlaying = status === 'playing';
 
     if (isPlaying) {
-      setStatus('stopped');
       audioElement.current.pause();
-      setTimeout(() => setStatus('ready'), 0);
+      reconstructPlayer();
     } else {
       audioElement.current.play();
-      setStatus('playing');
+      handleStatus('playing', {});
     }
   };
 
   useEffect(() => {
     const element = audioElement.current;
-    const handleStatus =
-      (status: string, options: { title?: string }) => () => {
-        setStatus(status);
-        setTitle(options?.title || prompt);
-      };
+
     if (element) {
       const memo = {
         clearInterval: () => {},
       };
+
       const retryPlay = () => {
         const interval = setInterval(() => {
-          handleStatus('playing', {
-            title: element.getAttribute('data-title') || prompt,
-          });
-          setTimeout(() => element.play(), 0);
+          setTimeout(() => {
+            if (status !== 'playing') {
+              reconstructPlayer();
+              element.play();
+            }
+          }, 0);
         }, 1000);
         memo.clearInterval = () => clearInterval(interval);
       };
-      const handlePlay = () => {
-        handleStatus('playing', {
-          title: element.getAttribute('data-title') || prompt,
-        });
-      };
-      const handleStop = () => {
-        handleStatus('stopped', {});
-        setTimeout(() => setStatus('ready'), 0);
-      };
+
       const handleStalled = () => {
         handleStatus('stalled', {});
         retryPlay();
         setTimeout(retryPlay, 1000);
       };
-      element.addEventListener('play', handlePlay);
+
+      const handleOnline = () => {
+        handleStatus('online', {});
+        memo.clearInterval();
+        setTimeout(handlePlay, 1000);
+      };
+
+      const handleOffline = () => {
+        handleStatus('offline', {});
+        setTimeout(retryPlay, 1000);
+      };
+
       element.addEventListener('ended', handleStop);
       element.addEventListener('stalled', handleStalled);
 
-      window.addEventListener('online', () => {
-        element.play();
-        memo.clearInterval();
-      });
-
-      window.addEventListener('offline', () => {
-        retryPlay();
-      });
+      window.addEventListener('online', handleOnline);
+      window.addEventListener('offline', handleOffline);
 
       return () => {
-        element.removeEventListener('play', handlePlay);
         element.removeEventListener('ended', handleStop);
         element.removeEventListener('stalled', handleStalled);
+        window.removeEventListener('online', handleOnline);
+        window.removeEventListener('offline', handleOffline);
         memo.clearInterval();
+        handleStatus('destroying', {});
       };
     }
     return () => {};
-  }, [status, prompt, handleClick]);
+  }, []);
 
   return (
     <div id={id} className={gridStyles}>
@@ -219,7 +242,7 @@ export const HAudioPlayer = function ({
             src={selectedTrack.url}
             controls={nativeControls}
             ref={audioElement}
-            autoPlay={autoPlay}
+            autoPlay={shouldAutoPlay}
             loop
             preload="none"
             streamType="live"
