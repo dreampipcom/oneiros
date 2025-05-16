@@ -162,7 +162,7 @@ export const HAudioPlayer = function ({
       };
       const handleStalled = () => {
         handleStop();
-        handleClick();
+        setTimeout(handleClick, 0);
       };
       element.addEventListener('play', handlePlay);
       element.addEventListener('ended', handleStop);
