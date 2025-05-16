@@ -140,7 +140,7 @@ export const HAudioPlayer = function ({
 
   const reconstructPlayer = () => {
     handleStatus('stopped', {});
-    setTimeout(() => handleStatus('ready'), 0);
+    setTimeout(() => handleStatus('ready', {}), 0);
   };
 
   const handlePlay = () => {
