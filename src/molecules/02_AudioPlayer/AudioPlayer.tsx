@@ -44,6 +44,7 @@ export interface IAudioTrack {
   title?: string;
   url?: string;
   isPlaying?: boolean;
+  nowPlaying?: string;
 }
 
 export interface IAudioPlayer {
@@ -228,7 +229,7 @@ export const HAudioPlayer = function ({
 
       const handleOnline = () => {
         handleStatus('online', {});
-        memo.clearInterval();
+        memo.clearRetryInterval();
         setTimeout(handlePlay, 1000);
       };
 
