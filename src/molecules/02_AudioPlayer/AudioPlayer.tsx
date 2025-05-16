@@ -179,7 +179,7 @@ export const HAudioPlayer = function ({
       };
     }
     return () => {};
-  }, [status, prompt]);
+  }, [status, prompt, handleClick]);
 
   return (
     <div id={id} className={gridStyles}>
