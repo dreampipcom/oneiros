@@ -66,24 +66,17 @@ export const HAudioPlayer = function ({
   tracks = DEFAULT_TRACKS,
   onPlayTrack = () => {},
   nativeControls = false,
-  autoPlay = false,
+  autoPlay = true,
   flip = false,
   hideAnimation = false,
   prompt = 'Rotation portals',
   theme = 'light',
 }: IAudioPlayer) {
   const audioElement = useRef<HTMLAudioElement>(null);
-  const [status, setStatus] = useState('ready');
+  const [isPlaying, setIsPlaying] = useState(false);
   const [title, setTitle] = useState(prompt);
   const selectedTrack = tracks[1];
-  const shouldAutoPlay = autoPlay || status === 'playing';
-  const shouldMount = status !== 'stopped' && status !== 'stalled';
-  const icon =
-    status === 'playing'
-      ? EIcon.stop
-      : status === 'stalled'
-        ? EIcon['time-sand']
-        : EIcon.play;
+  const icon = isPlaying ? EIcon.stop : EIcon.play;
 
   const gridSx = [
     {
@@ -164,40 +157,35 @@ export const HAudioPlayer = function ({
     }
   };
 
-  const handleStatus = (status: string, options: { title?: string }) => {
-    console.log(
-      `%c, dp::oneiros::audio_player::status_changed(${status})`,
-      'background-color: blue',
-    );
-    setStatus(status);
-    setTitle(options?.title || prompt);
-  };
+  // const handleStatus = (status: string, options: { title?: string }) => {
+  //   console.log(
+  //     `%c, dp::oneiros::audio_player::status_changed(${status})`,
+  //     'background-color: blue',
+  //   );
+  //   setStatus(status);
+  //   setTitle(options?.title || prompt);
+  // };
 
-  const reconstructPlayer = () => {
-    handleStatus('stopped', {});
-    setTimeout(() => handleStatus('ready', {}), 0);
-  };
+  // const reconstructPlayer = () => {
+  //   handleStatus('stopped', {});
+  //   setTimeout(() => handleStatus('ready', {}), 0);
+  // };
 
   const handlePlay = () => {
     audioElement?.current?.play();
-    handleStatus('playing', {
-      title: audioElement?.current?.getAttribute('data-title') || prompt,
-    });
+    setIsPlaying(true);
   };
 
   const handleStop = () => {
-    handleStatus('stopped', {});
-    setTimeout(() => setStatus('ready'), 0);
+    audioElement?.current?.pause();
+    setIsPlaying(false);
   };
 
   const handleClick = () => {
     if (!audioElement.current) return;
     onPlayTrack();
-    const isPlaying = status === 'playing';
-
     if (isPlaying) {
-      audioElement.current.pause();
-      reconstructPlayer();
+      handleStop();
     } else {
       handlePlay();
     }
@@ -215,8 +203,8 @@ export const HAudioPlayer = function ({
       const retryPlay = () => {
         const interval = setInterval(() => {
           setTimeout(() => {
-            if (status !== 'playing') {
-              reconstructPlayer();
+            if (!isPlaying) {
+              // reconstructPlayer();
               element.play();
             }
           }, 0);
@@ -237,13 +225,11 @@ export const HAudioPlayer = function ({
       // };
 
       const handleOnline = () => {
-        handleStatus('online', {});
         memo.clearRetryInterval();
         setTimeout(handlePlay, 1000);
       };
 
       const handleOffline = () => {
-        handleStatus('offline', {});
         setTimeout(retryPlay, 1000);
       };
 
@@ -262,7 +248,6 @@ export const HAudioPlayer = function ({
         window.removeEventListener('offline', handleOffline);
         memo.clearRetryInterval();
         memo.clearPromptInterval();
-        handleStatus('destroying', {});
       };
     }
     return () => {};
@@ -281,23 +266,22 @@ export const HAudioPlayer = function ({
             onClick={handleClick}
           />
         )}
-        {shouldMount ? (
-          <MuxAudio
-            src={selectedTrack.url}
-            controls={nativeControls}
-            ref={audioElement}
-            autoPlay={shouldAutoPlay}
-            loop
-            preload="none"
-            streamType="live"
-          />
-        ) : undefined}
+        <MuxAudio
+          src={selectedTrack.url}
+          controls={nativeControls}
+          ref={audioElement}
+          autoPlay={autoPlay}
+          loop
+          preferPlayback="mse"
+        />
       </div>
       <div className={promptWrapperStyles}>
-        <div className="absolute left-a0 top-b1">
+        <div
+          key={`player__prompt--${title}`}
+          className="absolute left-a0 top-b1"
+        >
           <Typography className={promptStyles} truncate>
-            {title} · {title} · {title} · {title} · {title} · {title} · {title}{' '}
-            · {title} · {title}
+            {title} · {title} · {title} · {title} · {title} · {title} · {title}
           </Typography>
         </div>
       </div>

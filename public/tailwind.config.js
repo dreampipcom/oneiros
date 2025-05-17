@@ -33,6 +33,7 @@ var slyPink = '#f1cfff';
 var purpleHaze = '#563769';
 var royalWhite = '#e9eeff';
 var navyWise = '#111033';
+var purpleDeep = '#3e365c';
 var karunaNara = '#f7bfa5';
 var pinkDive = '#C476CB';
 var pinkSurf = '#F4AFFF';
@@ -67,15 +68,15 @@ var st7 = royalWhite;
 var st8 = royalWhite;
 var transparent = '#00000000';
 var bgLight = slyPink;
-var bgDark = navyWise;
+var bgDark = purpleDeep;
 var secondary = slyPink;
 var primary = functionOne;
 var tertiary = purpleHaze;
 var dark1 = navyWise;
-var dark2 = purpleHaze;
+var dark2 = purpleDeep;
 var light1 = royalWhite;
 var light2 = slyPink;
-var darkTrans1 = dark2 + 'aa';
+var darkTrans1 = dark1 + 'cc';
 var darkTrans2 = bgDark + 'cc';
 var lightTrans1 = primary + 'cc';
 var lightTrans2 = bgLight + 'cc';
@@ -198,7 +199,7 @@ exports.DreamPipColors = {
     },
     inverse: {
         light: slyPink,
-        dark: dark1,
+        dark: bgDark,
     },
     neutral: {
         light: n200,
