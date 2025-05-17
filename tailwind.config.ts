@@ -38,7 +38,7 @@ const slyPink = '#f1cfff';
 const purpleHaze = '#563769';
 const royalWhite = '#e9eeff';
 const navyWise = '#111033';
-const purpleDeep = '#3e365c'
+const purpleDeep = '#3e365c';
 const karunaNara = '#f7bfa5';
 
 const pinkDive = '#C476CB';
@@ -94,7 +94,7 @@ const dark2 = purpleDeep;
 const light1 = royalWhite;
 const light2 = slyPink;
 
-const darkTrans1 = dark2 + 'aa';
+const darkTrans1 = dark1 + 'cc';
 const darkTrans2 = bgDark + 'cc';
 
 const lightTrans1 = primary + 'cc';
@@ -221,7 +221,7 @@ export const DreamPipColors = {
   },
   inverse: {
     light: slyPink,
-    dark: dark1,
+    dark: bgDark,
   },
   neutral: {
     light: n200,
