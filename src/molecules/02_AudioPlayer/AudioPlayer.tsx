@@ -166,25 +166,30 @@ export const HAudioPlayer = function ({
   };
 
   const handlePlaying = () => {
+    if (!audioElement.current) return;
     setIsPlaying(true);
     setStatus('playing');
   };
 
   const handleStopping = () => {
+    if (!audioElement.current) return;
     setIsPlaying(false);
     setStatus('stopped');
   };
 
   const handleStalled = () => {
+    if (!audioElement.current) return;
     setIsPlaying(false);
     setStatus('stalled');
   };
 
   const handlePlay = () => {
+    if (!audioElement.current) return;
     audioElement?.current?.play();
   };
 
   const handleStop = () => {
+    if (!audioElement.current) return;
     audioElement?.current?.pause();
   };
 
