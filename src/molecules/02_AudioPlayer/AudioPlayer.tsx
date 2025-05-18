@@ -1,4 +1,4 @@
-/* eslint react/jsx-one-expression-per-line:0, jsx-a11y/media-has-caption:0, no-nested-ternary:0, no-unused-vars:0, max-len:0, no-shadow:0, @typescript-eslint/no-explicit-any:0, object-curly-newline:0 */
+/* eslint react/jsx-one-expression-per-line:0, jsx-a11y/media-has-caption:0, no-unused-vars:0, max-len:0, no-shadow:0, @typescript-eslint/no-explicit-any:0, consistent-return:0 */
 // @atoms/AudioPlayer.tsx
 import clsx from 'clsx';
 import { useRef, useState, useEffect } from 'react';
@@ -66,15 +66,16 @@ export const HAudioPlayer = function ({
   tracks = DEFAULT_TRACKS,
   onPlayTrack = () => {},
   nativeControls = false,
-  autoPlay = true,
+  autoPlay = false,
   flip = false,
   hideAnimation = false,
   prompt = 'Rotation portals',
   theme = 'light',
 }: IAudioPlayer) {
   const audioElement = useRef<HTMLAudioElement>(null);
-  const [isPlaying, setIsPlaying] = useState(false);
+  const [status, setStatus] = useState('loading');
   const [title, setTitle] = useState(prompt);
+  const [isPlaying, setIsPlaying] = useState(false);
   const selectedTrack = tracks[1];
   const icon = isPlaying ? EIcon.stop : EIcon.play;
 
@@ -133,7 +134,7 @@ export const HAudioPlayer = function ({
 
   const updatePrompt = async () => {
     console.log(
-      '%c, dp::oneiros::audio_player::fetching::now_playing',
+      '%c dp::oneiros::audio_player::prompt::now_playing(fetching)',
       'background-color: pink; color: blue;',
     );
     const url = selectedTrack.nowPlaying;
@@ -150,35 +151,41 @@ export const HAudioPlayer = function ({
         }
       } catch (e) {
         console.log(
-          '%c, dp::oneiros::audio_player::fetching::now_playing',
+          '%c dp::oneiros::audio_player::prompt::now_playing(error)',
           'background-color: red; color: white;',
         );
       }
     }
   };
 
-  // const handleStatus = (status: string, options: { title?: string }) => {
-  //   console.log(
-  //     `%c, dp::oneiros::audio_player::status_changed(${status})`,
-  //     'background-color: blue',
-  //   );
-  //   setStatus(status);
-  //   setTitle(options?.title || prompt);
-  // };
+  const logStatus = () => {
+    console.log(
+      `%c dp::oneiros::audio_player::status_changed(${status})`,
+      'background-color: blue',
+    );
+  };
 
-  // const reconstructPlayer = () => {
-  //   handleStatus('stopped', {});
-  //   setTimeout(() => handleStatus('ready', {}), 0);
-  // };
+  const handlePlaying = () => {
+    setIsPlaying(true);
+    setStatus('playing');
+  };
+
+  const handleStopping = () => {
+    setIsPlaying(false);
+    setStatus('stopped');
+  };
+
+  const handleStalled = () => {
+    setIsPlaying(false);
+    setStatus('stalled');
+  };
 
   const handlePlay = () => {
     audioElement?.current?.play();
-    setIsPlaying(true);
   };
 
   const handleStop = () => {
     audioElement?.current?.pause();
-    setIsPlaying(false);
   };
 
   const handleClick = () => {
@@ -191,25 +198,12 @@ export const HAudioPlayer = function ({
     }
   };
 
+  useEffect(logStatus, [status]);
+
   useEffect(() => {
-    const element = audioElement.current;
-
-    if (element) {
+    if (audioElement.current) {
       const memo = {
-        clearRetryInterval: () => {},
         clearPromptInterval: () => {},
-      };
-
-      const retryPlay = () => {
-        const interval = setInterval(() => {
-          setTimeout(() => {
-            if (!isPlaying) {
-              // reconstructPlayer();
-              element.play();
-            }
-          }, 0);
-        }, 1000);
-        memo.clearRetryInterval = () => clearInterval(interval);
       };
 
       const checkPrompt = () => {
@@ -219,22 +213,22 @@ export const HAudioPlayer = function ({
         memo.clearPromptInterval = () => clearInterval(interval);
       };
 
-      // const handleStalled = () => {
-      //   handleStatus('stalled', {});
-      //   setTimeout(handlePlay, 1000);
-      // };
-
       const handleOnline = () => {
-        memo.clearRetryInterval();
-        setTimeout(handlePlay, 1000);
+        setStatus('online');
+        setTimeout(handlePlay, 5000);
       };
 
       const handleOffline = () => {
-        setTimeout(retryPlay, 1000);
+        setStatus('offline');
+        handleStopping();
       };
 
-      element.addEventListener('ended', handleStop);
-      // element.addEventListener('stalled', handleStalled);
+      audioElement.current.addEventListener('play', handlePlaying);
+      audioElement.current.addEventListener('playing', handlePlaying);
+      audioElement.current.addEventListener('pause', handleStopping);
+
+      audioElement.current.addEventListener('ended', handleStopping);
+      audioElement.current.addEventListener('stalled', handleStalled);
 
       window.addEventListener('online', handleOnline);
       window.addEventListener('offline', handleOffline);
@@ -242,11 +236,12 @@ export const HAudioPlayer = function ({
       checkPrompt();
 
       return () => {
-        element.removeEventListener('ended', handleStop);
-        // element.removeEventListener('stalled', handleStalled);
+        audioElement.current.removeEventListener('play', handlePlaying);
+        audioElement.current.removeEventListener('playing', handlePlaying);
+        audioElement.current.removeEventListener('ended', handleStopping);
+        audioElement.current.removeEventListener('stalled', handleStalled);
         window.removeEventListener('online', handleOnline);
         window.removeEventListener('offline', handleOffline);
-        memo.clearRetryInterval();
         memo.clearPromptInterval();
       };
     }
@@ -281,7 +276,7 @@ export const HAudioPlayer = function ({
           className="absolute left-a0 top-b1"
         >
           <Typography className={promptStyles} truncate>
-            {title} · {title} · {title} · {title} · {title} · {title} · {title}
+            {title} ·{title} ·{title} ·{title} ·{title} ·{title} ·{title}
           </Typography>
         </div>
       </div>

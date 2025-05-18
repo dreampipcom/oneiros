@@ -85,16 +85,19 @@ const transparent = '#00000000';
 const bgLight = slyPink;
 const bgDark = purpleDeep;
 
-const secondary = slyPink;
 const primary = functionOne;
+const primaryDark = royalWhite;
+const secondary = slyPink;
+const secondaryDark = slyPink;
 const tertiary = purpleHaze;
+const tertiaryDark = karunaNara;
 
 const dark1 = navyWise;
 const dark2 = purpleDeep;
 const light1 = royalWhite;
 const light2 = slyPink;
 
-const darkTrans1 = dark1 + 'cc';
+const darkTrans1 = light1 + 'cc';
 const darkTrans2 = bgDark + 'cc';
 
 const lightTrans1 = primary + 'cc';

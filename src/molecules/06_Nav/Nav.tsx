@@ -5,6 +5,7 @@
 import clsx from 'clsx';
 import React, { useRef, useState, useEffect, useMemo } from 'react';
 import { clone, times } from 'lodash';
+import { useMediaQueryMatch } from '../../hooks/useMediaQuery';
 import { AudioPlayer } from '../02_AudioPlayer';
 import { Button, ButtonVariant, EButtonTheme } from '../../atoms/01_Button';
 import { Typography } from '../../atoms/02_Typography';
@@ -19,7 +20,7 @@ import {
   EGradientVariant,
 } from '../../atoms/10_Grid';
 import { Popover } from '../../atoms/15_Popover';
-import { DreamPipColors } from '../../../tailwind.config.ts';
+import { DreamPipColors } from '../../../dist/esm/tailwind.config';
 
 export enum ENavControlVariant {
   BREADCRUMB,
@@ -769,6 +770,8 @@ export const HNav = function ({
   fetchNewData,
   theme = 'light',
 }: INav) {
+  const isMobile = useMediaQueryMatch('sm');
+
   const DEFAULT_CONTROLS = {
     top: [
       {
@@ -794,14 +797,16 @@ export const HNav = function ({
       //   href: '/join',
       // },
     ],
-    bottom: [
-      {
-        type: ENavControlVariant.AUDIO_PLAYER,
-        mods: '$flip',
-        label: 'Rotations portal live',
-        src: 'https://www.dremapip.com/api/nexus/audio',
-      },
-    ],
+    bottom: isMobile
+      ? []
+      : [
+          {
+            type: ENavControlVariant.AUDIO_PLAYER,
+            mods: '$flip',
+            label: 'Rotations portal live',
+            src: 'https://www.dremapip.com/api/nexus/audio',
+          },
+        ],
   };
 
   const DEFAULT_PROFILE = {
@@ -833,14 +838,16 @@ export const HNav = function ({
         href: '/episodes',
       },
     ],
-    center: [
-      {
-        type: ENavControlVariant.AUDIO_PLAYER,
-        label: 'Rotations portal live',
-        src: 'https://www.dremapip.com/api/nexus/audio',
-        mods: '$flip',
-      },
-    ],
+    center: isMobile
+      ? [
+          {
+            type: ENavControlVariant.AUDIO_PLAYER,
+            label: 'Rotations portal live',
+            src: 'https://www.dremapip.com/api/nexus/audio',
+            mods: '$flip',
+          },
+        ]
+      : [],
     bottom: [],
   };
 
