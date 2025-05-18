@@ -86,9 +86,9 @@ const bgLight = slyPink;
 const bgDark = purpleDeep;
 
 const primary = functionOne;
-const primaryDark = royalWhite;
+const primaryDark = slyPink;
 const secondary = slyPink;
-const secondaryDark = slyPink;
+const secondaryDark = functionOne;
 const tertiary = purpleHaze;
 const tertiaryDark = karunaNara;
 
@@ -97,7 +97,7 @@ const dark2 = purpleDeep;
 const light1 = royalWhite;
 const light2 = slyPink;
 
-const darkTrans1 = light1 + 'cc';
+const darkTrans1 = primaryDark + '44';
 const darkTrans2 = bgDark + 'cc';
 
 const lightTrans1 = primary + 'cc';
