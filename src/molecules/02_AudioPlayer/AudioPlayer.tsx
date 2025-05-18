@@ -241,10 +241,10 @@ export const HAudioPlayer = function ({
       checkPrompt();
 
       return () => {
-        audioElement.current.removeEventListener('play', handlePlaying);
-        audioElement.current.removeEventListener('playing', handlePlaying);
-        audioElement.current.removeEventListener('ended', handleStopping);
-        audioElement.current.removeEventListener('stalled', handleStalled);
+        audioElement?.current?.removeEventListener('play', handlePlaying);
+        audioElement?.current?.removeEventListener('playing', handlePlaying);
+        audioElement?.current?.removeEventListener('ended', handleStopping);
+        audioElement?.current?.removeEventListener('stalled', handleStalled);
         window.removeEventListener('online', handleOnline);
         window.removeEventListener('offline', handleOffline);
         memo.clearPromptInterval();
