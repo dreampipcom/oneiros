@@ -179,7 +179,6 @@ export const HAudioPlayer = function ({
 
   const handleStalled = () => {
     if (!audioElement.current) return;
-    setIsPlaying(false);
     setStatus('stalled');
   };
 
@@ -281,7 +280,7 @@ export const HAudioPlayer = function ({
           className="absolute left-a0 top-b1"
         >
           <Typography className={promptStyles} truncate>
-            {title} ·{title} ·{title} ·{title} ·{title} ·{title} ·{title}
+            {title} · {title} · {title} · {title} · {title} · {title} · {title}
           </Typography>
         </div>
       </div>
